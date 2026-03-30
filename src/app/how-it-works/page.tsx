@@ -39,26 +39,26 @@ export default function HowItWorksPage() {
             Cognitron Academy
           </p>
           <h2 className="text-3xl font-bold text-navy mb-12">
-            Enrol Your Child in 3 Steps
+            Enrol your child in 3 steps
           </h2>
           <div className="space-y-10">
             {[
               {
                 icon: Phone,
                 step: "1",
-                title: "Book a Free Discovery Call",
+                title: "Book a free discovery call",
                 desc: "Tell us about your child: their age, interests, current skill level, and goals. We'll recommend the best track and format (online, home coaching, or hybrid).",
               },
               {
                 icon: ClipboardList,
                 step: "2",
-                title: "Receive a Personalized Plan",
+                title: "Receive a personalized plan",
                 desc: "We create a tailored learning plan with a curriculum, schedule, and assigned coach. You review and approve before we start.",
               },
               {
                 icon: Rocket,
                 step: "3",
-                title: "Start Building from Week One",
+                title: "Start building from week one",
                 desc: "No theory overload. Your child begins working on real projects from the very first session. You receive progress updates after every class.",
               },
             ].map((item) => (
@@ -85,26 +85,26 @@ export default function HowItWorksPage() {
             Cognitron Protect
           </p>
           <h2 className="text-3xl font-bold text-navy mb-12">
-            Secure Your Family in 3 Steps
+            Secure your family in 3 steps
           </h2>
           <div className="space-y-10">
             {[
               {
                 icon: ShieldCheck,
                 step: "1",
-                title: "Security Assessment",
+                title: "Security assessment",
                 desc: "We audit your family's complete digital footprint: devices, accounts, online habits, home network, and potential vulnerabilities.",
               },
               {
                 icon: Settings,
                 step: "2",
-                title: "Setup & Hardening",
+                title: "Setup & hardening",
                 desc: "We configure security across all devices, implement parental controls, secure your network, and address every vulnerability found. Typically completed in one visit.",
               },
               {
                 icon: RefreshCcw,
                 step: "3",
-                title: "Ongoing Protection",
+                title: "Ongoing protection",
                 desc: "Monthly monitoring, proactive updates, and dedicated support. As new threats emerge, your protection evolves with them.",
               },
             ].map((item) => (
@@ -128,7 +128,7 @@ export default function HowItWorksPage() {
       <section className="py-20 md:py-24 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold">
-            Ready to Get Started?
+            Ready to get started?
           </h2>
           <p className="mt-4 text-white/60 text-lg">
             Book a free 15-minute consultation. No pressure, just a
@@ -138,7 +138,7 @@ export default function HowItWorksPage() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Consultation <ArrowRight className="w-4 h-4" />
+            Book a free consultation <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

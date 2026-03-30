@@ -27,7 +27,7 @@ const tracks = [
   {
     href: "/academy/ai",
     icon: Brain,
-    title: "AI & Machine Learning for Kids",
+    title: "AI & Machine Learning for kids",
     ages: "Ages 10–17",
     description:
       "Our students use visual tools and real AI platforms to train classifiers, explore how language models generate text, and build working AI-powered applications. They learn how AI works, why it works, and what it means for the world. Taught by practitioners who bring genuine depth to every session.",
@@ -120,7 +120,7 @@ export default function AcademyPage() {
                     href={track.href}
                     className="inline-flex items-center gap-2 mt-6 text-gold-dark font-semibold text-sm hover:gap-3 transition-all"
                   >
-                    Learn More <ArrowRight className="w-4 h-4" />
+                    Learn more <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
 
@@ -144,7 +144,7 @@ export default function AcademyPage() {
               The Foundation
             </p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Built on Computational Thinking
+              Built on computational thinking
             </h2>
             <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
               Every track at Cognitron Academy is grounded in computational
@@ -163,7 +163,7 @@ export default function AcademyPage() {
               },
               {
                 icon: Search,
-                title: "Pattern Recognition",
+                title: "Pattern recognition",
                 desc: "Identifying similarities and recurring structures. The skill that lets a coder spot reusable logic, a chess player read a position, or an AI student understand how models generalise.",
               },
               {
@@ -173,7 +173,7 @@ export default function AcademyPage() {
               },
               {
                 icon: ListChecks,
-                title: "Algorithmic Design",
+                title: "Algorithmic design",
                 desc: "Creating clear, ordered steps to reach a solution. The discipline behind clean code, sound strategy, and systematic thinking in every domain.",
               },
             ].map((pillar) => (
@@ -200,8 +200,8 @@ export default function AcademyPage() {
               The After-School Advantage
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-navy">
-              Your Child Already Learns Tech at School.{" "}
-              <span className="text-gold">We Take Them Further.</span>
+              Your child already learns tech at school.{" "}
+              <span className="text-gold">We take them further.</span>
             </h2>
             <p className="mt-4 text-slate text-lg leading-relaxed">
               Most schools now teach basic ICT or introductory coding. That&apos;s a
@@ -214,22 +214,22 @@ export default function AcademyPage() {
             {[
               {
                 icon: TrendingUp,
-                title: "Goes Deeper",
+                title: "Goes deeper",
                 desc: "School teaches Scratch or basic HTML. We teach Python, JavaScript, real AI tools, and competitive chess. Your child moves beyond the basics into real-world skills.",
               },
               {
                 icon: Zap,
-                title: "Moves at Their Pace",
+                title: "Moves at their pace",
                 desc: "In a class of 30, everyone moves at the same speed. At Cognitron, your child's coach adapts every session to their level, pushing them exactly as fast as they can handle.",
               },
               {
                 icon: Clock,
-                title: "Fits Around School",
+                title: "Fits around school",
                 desc: "After-school and weekend sessions designed to complement their school schedule, not compete with it. Online or at your home.",
               },
               {
                 icon: GraduationCap,
-                title: "Builds on What They Know",
+                title: "Builds on what they know",
                 desc: "We assess where your child is and build from there. No repeating what school already covered. If they've done Scratch, we start with Python. If they know HTML, we jump to JavaScript.",
               },
             ].map((item) => (
@@ -252,7 +252,7 @@ export default function AcademyPage() {
       <section className="py-20 md:py-28 bg-off-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-navy mb-4">
-            The Cognitron Difference
+            The Cognitron difference
           </h2>
           <p className="text-slate text-lg mb-12 max-w-2xl mx-auto">
             A dedicated coach who knows your child by name, adapts in
@@ -264,7 +264,7 @@ export default function AcademyPage() {
               <div className="w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center mx-auto mb-4">
                 <Brain className="w-6 h-6 text-navy" />
               </div>
-              <h3 className="text-xl font-bold text-navy">Live &amp; Interactive</h3>
+              <h3 className="text-xl font-bold text-navy">Live &amp; interactive</h3>
               <p className="mt-2 text-slate text-sm leading-relaxed">
                 Maximum 4 students per session. Your child isn&apos;t a face in a
                 crowd. They get direct instruction, live code review, and
@@ -276,7 +276,7 @@ export default function AcademyPage() {
                 <Trophy className="w-6 h-6 text-gold-dark" />
               </div>
               <h3 className="text-xl font-bold text-navy">
-                Concierge Home Coaching
+                Concierge home coaching
               </h3>
               <p className="mt-2 text-slate text-sm leading-relaxed">
                 Our coaches come to your home with everything needed: laptops
@@ -289,7 +289,7 @@ export default function AcademyPage() {
                 <Code className="w-6 h-6 text-navy" />
               </div>
               <h3 className="text-xl font-bold text-navy">
-                Real Tools, Real Output
+                Real tools, real output
               </h3>
               <p className="mt-2 text-slate text-sm leading-relaxed">
                 No toy environments. Students use VS Code, GitHub, Python,
@@ -305,7 +305,7 @@ export default function AcademyPage() {
       <section className="py-20 md:py-24 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold">
-            Give Your Child the Tech Edge
+            Give your child the tech edge
           </h2>
           <p className="mt-4 text-white/60 text-lg">
             Book a free consultation and we&apos;ll help you choose the perfect
@@ -315,7 +315,7 @@ export default function AcademyPage() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Consultation <ArrowRight className="w-4 h-4" />
+            Book a free consultation <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

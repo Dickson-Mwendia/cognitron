@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const curriculum = [
   {
-    module: "How Machines Learn",
+    module: "How machines learn",
     weeks: "Weeks 1–4",
     topics: [
       "What AI actually is (and isn't): cutting through the hype",
@@ -30,7 +30,7 @@ const curriculum = [
     ],
   },
   {
-    module: "AI Product & Ethics",
+    module: "AI product & ethics",
     weeks: "Weeks 9–12",
     topics: [
       "Large Language Models: how GPT, Claude, and Gemini work at a high level (tokens, prediction, and why they sometimes hallucinate)",
@@ -73,7 +73,7 @@ export default function AIPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-3">
-            What Your Child Will Build
+            What your child will build
           </h2>
           <p className="text-slate mb-8 max-w-2xl">
             Functional applications powered by real machine learning.
@@ -83,22 +83,22 @@ export default function AIPage() {
             {[
               {
                 icon: Eye,
-                title: "Image Recognition Model",
+                title: "Image recognition model",
                 desc: "A custom classifier trained on their own dataset, distinguishing dog breeds, plant species, or handwritten characters.",
               },
               {
                 icon: MessageSquare,
-                title: "AI-Powered Chatbot",
+                title: "AI-powered chatbot",
                 desc: "A conversational bot built by connecting to language model APIs, with custom instructions, personality, and useful functionality.",
               },
               {
                 icon: BarChart3,
-                title: "Sentiment Analysis Tool",
+                title: "Sentiment analysis tool",
                 desc: "A Python application that reads text (reviews, tweets, articles) and determines whether the sentiment is positive, negative, or neutral.",
               },
               {
                 icon: Scale,
-                title: "AI Ethics Case Study",
+                title: "AI ethics case study",
                 desc: "A researched presentation analysing real-world AI bias, from hiring algorithms to facial recognition, with proposed solutions.",
               },
             ].map((project) => (
@@ -121,7 +121,7 @@ export default function AIPage() {
       <section className="py-16 bg-off-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-navy mb-8">
-            What Sets Our Programme Apart
+            What sets our programme apart
           </h2>
           <div className="space-y-6">
             {[
@@ -164,7 +164,7 @@ export default function AIPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-3">
-            Sample Curriculum: 12-Week Programme
+            Sample curriculum: 12-week programme
           </h2>
           <p className="text-slate mb-12 max-w-2xl">
             Adapted to each student&apos;s age and experience. Students with
@@ -203,7 +203,7 @@ export default function AIPage() {
       <section className="py-20 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl font-bold">
-            The Future Belongs to the AI-Literate
+            The future belongs to the AI-literate
           </h2>
           <p className="mt-4 text-white/60">
             Book a free trial and watch your child train their first machine
@@ -213,7 +213,7 @@ export default function AIPage() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Trial <ArrowRight className="w-4 h-4" />
+            Book a free trial <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

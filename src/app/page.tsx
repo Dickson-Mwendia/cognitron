@@ -28,9 +28,10 @@ export default function Home() {
               <span className="text-gold">Learn to Build.</span>
             </h1>
             <p className="mt-6 text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl">
-              Your child learns to code real apps, train AI models, and compete
-              in chess, guided by expert coaches who come to your home or teach
-              live online. Plus cybersecurity protection for the whole family.
+              Your child learns to code real apps, apply AI responsibly, and
+              compete in chess, guided by expert coaches who come to your home
+              or teach live online. Plus cybersecurity protection for the
+              whole family.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
@@ -43,7 +44,7 @@ export default function Home() {
                 href="/protect"
                 className="inline-flex items-center justify-center gap-2 border border-white/30 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-white/10 transition-colors"
               >
-                Protect My Family <ShieldCheck className="w-4 h-4" />
+                Protect my family <ShieldCheck className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -55,7 +56,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-navy">
-              They Build. You&apos;re Protected.
+              They build. You&apos;re protected.
             </h2>
             <p className="mt-4 text-slate text-lg">
               World-class education for your kids. Enterprise-grade security
@@ -73,9 +74,9 @@ export default function Home() {
                 Cognitron Academy
               </h3>
               <p className="mt-3 text-slate leading-relaxed">
-                Ages 6 to 17. Your child writes real code, trains AI models,
-                and plays competitive chess with expert coaches who know them
-                by name. Online or at your home.
+                Ages 6 to 17. Your child writes real code, applies AI
+                responsibly, and plays competitive chess with expert coaches
+                who know them by name. Online or at your home.
               </p>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center gap-3 text-sm text-navy">
@@ -84,7 +85,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center gap-3 text-sm text-navy">
                   <Brain className="w-5 h-5 text-gold" />
-                  AI & Machine Learning for Kids
+                  AI & Machine Learning for kids
                 </li>
                 <li className="flex items-center gap-3 text-sm text-navy">
                   <Trophy className="w-5 h-5 text-gold" />
@@ -138,7 +139,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-navy">
-              Getting Started Is Simple
+              Getting started is simple
             </h2>
             <p className="mt-4 text-slate text-lg">
               Three steps to your child&apos;s first real project.
@@ -149,21 +150,21 @@ export default function Home() {
             {[
               {
                 step: "01",
-                title: "Tell Us About Your Child",
+                title: "Tell us about your child",
                 description:
                   "Their age, interests, and what excites them. We'll recommend the right track and match them with the perfect coach.",
                 icon: Users,
               },
               {
                 step: "02",
-                title: "Get a Personalized Curriculum",
+                title: "Get a personalized curriculum",
                 description:
                   "A learning plan built around your child's level and pace. Online, at your home, or a mix of both.",
                 icon: Monitor,
               },
               {
                 step: "03",
-                title: "Watch Them Build",
+                title: "Watch them build",
                 description:
                   "From week one, your child is creating real projects. Apps, AI models, chess strategies. Things they can show you.",
                 icon: Star,
@@ -186,7 +187,7 @@ export default function Home() {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors w-full sm:w-auto"
             >
-              Book Your Free Consultation <ArrowRight className="w-4 h-4" />
+              Book your free consultation <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -197,29 +198,29 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-navy">
-              Why Families Choose Cognitron
+              Why families choose Cognitron
             </h2>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Built for How Kids Learn",
+                title: "Built for how kids learn",
                 description:
                   "Project-based, hands-on, and never passive. Your child builds something real every session, not just watches a screen.",
               },
               {
-                title: "Coaches Who Know Your Child",
+                title: "Coaches who know your child",
                 description:
                   "Small groups of four or fewer. Your child gets a dedicated coach who adapts to their pace, interests, and learning style.",
               },
               {
-                title: "Real Things They Can Show You",
+                title: "Real things they can show you",
                 description:
                   "Apps, websites, AI models, tournament wins. Every track ends with tangible work your child is proud of.",
               },
               {
-                title: "We Come to You",
+                title: "We come to you",
                 description:
                   "Live online or at your home in Nairobi. Premium concierge coaching on your family's schedule.",
               },
@@ -259,7 +260,7 @@ export default function Home() {
       <section className="py-20 md:py-28 bg-off-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-navy text-center mb-12">
-            Frequently Asked Questions
+            Frequently asked questions
           </h2>
 
           <div className="space-y-6">
@@ -307,7 +308,7 @@ export default function Home() {
       <section className="py-20 md:py-24 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold">
-            Ready to Invest in Your Child&apos;s Future?
+            Ready to invest in your child&apos;s future?
           </h2>
           <p className="mt-4 text-white/60 text-lg">
             Book a free 15-minute consultation. No pressure, no obligations,
@@ -317,7 +318,7 @@ export default function Home() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Consultation <ArrowRight className="w-4 h-4" />
+            Book a free consultation <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

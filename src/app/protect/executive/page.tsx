@@ -37,7 +37,7 @@ export default function ExecutiveProtectPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-4">
-            The Risk Is Real
+            The risk is real
           </h2>
           <p className="text-slate max-w-2xl leading-relaxed mb-10">
             Business owners, C-suite executives, and public figures are
@@ -73,32 +73,32 @@ export default function ExecutiveProtectPage() {
       <section className="py-20 bg-off-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-10">
-            What&apos;s Included
+            What&apos;s included
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Personal Device Hardening",
+                title: "Personal device hardening",
                 desc: "Full security configuration for your personal phones, laptops, and tablets. Encryption, access controls, and secure backups.",
               },
               {
-                title: "Dark Web Monitoring",
+                title: "Dark web monitoring",
                 desc: "Continuous monitoring for your personal information (emails, passwords, financial data) on dark web marketplaces.",
               },
               {
-                title: "Secure Communications",
+                title: "Secure communications",
                 desc: "Setup of encrypted messaging, secure email, and private browsing for sensitive communications.",
               },
               {
-                title: "Social Media Audit",
+                title: "Social media audit",
                 desc: "Review and lockdown of all social media accounts. Remove exposed personal data, tighten privacy settings.",
               },
               {
-                title: "Incident Response",
+                title: "Incident response",
                 desc: "If a breach or threat is detected, our team responds immediately to contain and remediate.",
               },
               {
-                title: "Quarterly Security Review",
+                title: "Quarterly security review",
                 desc: "Ongoing assessment of your threat landscape with updated recommendations and adjustments.",
               },
             ].map((item) => (
@@ -121,7 +121,7 @@ export default function ExecutiveProtectPage() {
       <section className="py-20 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl font-bold">
-            Protect Your Personal Digital Life
+            Protect your personal digital life
           </h2>
           <p className="mt-4 text-white/60">
             Schedule a confidential assessment. We&apos;ll evaluate your exposure
@@ -131,7 +131,7 @@ export default function ExecutiveProtectPage() {
             href="/contact"
             className="inline-flex items-center justify-center gap-2 mt-8 w-full sm:w-auto bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Schedule a Confidential Assessment <ArrowRight className="w-4 h-4" />
+            Schedule a confidential assessment <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

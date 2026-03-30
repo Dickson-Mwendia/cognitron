@@ -6,8 +6,8 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 const academyLinks = [
   { href: "/academy/coding", label: "Coding & App Development" },
-  { href: "/academy/ai", label: "AI for Kids" },
-  { href: "/academy/chess", label: "Chess & Strategy" },
+  { href: "/academy/ai", label: "AI for kids" },
+  { href: "/academy/chess", label: "Chess & strategy" },
 ];
 
 const protectLinks = [
@@ -91,7 +91,7 @@ export function Navbar() {
               href="/how-it-works"
               className="text-sm font-medium hover:text-gold transition-colors"
             >
-              How It Works
+              How it works
             </Link>
             <Link
               href="/pricing"
@@ -109,7 +109,7 @@ export function Navbar() {
               href="/contact"
               className="bg-gold text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold-light transition-colors"
             >
-              Book a Consultation
+              Book a consultation
             </Link>
           </div>
 
@@ -163,7 +163,7 @@ export function Navbar() {
               className="block py-2 text-sm hover:text-gold"
               onClick={() => setMobileOpen(false)}
             >
-              How It Works
+              How it works
             </Link>
             <Link
               href="/pricing"
@@ -185,7 +185,7 @@ export function Navbar() {
             className="block mt-3 text-center bg-gold text-navy px-5 py-2.5 rounded-full text-sm font-semibold"
             onClick={() => setMobileOpen(false)}
           >
-            Book a Consultation
+            Book a consultation
           </Link>
         </div>
       )}

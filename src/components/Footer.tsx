@@ -37,7 +37,7 @@ export function Footer() {
                   href="/academy/ai"
                   className="text-sm text-white/70 hover:text-gold transition-colors"
                 >
-                  AI for Kids
+                  AI for kids
                 </Link>
               </li>
               <li>
@@ -45,7 +45,7 @@ export function Footer() {
                   href="/academy/chess"
                   className="text-sm text-white/70 hover:text-gold transition-colors"
                 >
-                  Chess & Strategy
+                  Chess & strategy
                 </Link>
               </li>
             </ul>
@@ -99,7 +99,7 @@ export function Footer() {
                   href="/how-it-works"
                   className="text-sm text-white/70 hover:text-gold transition-colors"
                 >
-                  How It Works
+                  How it works
                 </Link>
               </li>
             </ul>
@@ -128,7 +128,7 @@ export function Footer() {
               href="/contact"
               className="inline-block mt-6 bg-gold text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold-light transition-colors"
             >
-              Book a Consultation
+              Book a consultation
             </Link>
           </div>
         </div>

@@ -65,7 +65,7 @@ export default function ProtectPage() {
                 href="/protect/family"
                 className="inline-flex items-center gap-2 mt-8 text-gold-dark font-semibold text-sm hover:gap-3 transition-all"
               >
-                Learn More <ArrowRight className="w-4 h-4" />
+                Learn more <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
@@ -104,7 +104,7 @@ export default function ProtectPage() {
                 href="/protect/executive"
                 className="inline-flex items-center gap-2 mt-8 text-gold-dark font-semibold text-sm hover:gap-3 transition-all"
               >
-                Learn More <ArrowRight className="w-4 h-4" />
+                Learn more <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function ProtectPage() {
       <section className="py-20 md:py-28 bg-off-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-navy">
-            Why Digital Protection Matters
+            Why digital protection matters
           </h2>
           <p className="mt-6 text-slate text-lg leading-relaxed max-w-2xl mx-auto">
             Your children spend hours online every day. Your personal data is a
@@ -141,7 +141,7 @@ export default function ProtectPage() {
       <section className="py-20 md:py-24 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold">
-            Secure Your Family Today
+            Secure your family today
           </h2>
           <p className="mt-4 text-white/60 text-lg">
             Book a confidential security assessment. We&apos;ll evaluate your
@@ -151,7 +151,7 @@ export default function ProtectPage() {
             href="/contact"
             className="inline-flex items-center justify-center gap-2 mt-8 w-full sm:w-auto bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Security Assessment <ArrowRight className="w-4 h-4" />
+            Book a security assessment <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

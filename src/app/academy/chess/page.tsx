@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const curriculum = [
   {
-    module: "Foundations & Vision",
+    module: "Foundations & vision",
     weeks: "Weeks 1–4",
     topics: [
       "Piece movement, board geometry, and coordination drills",
@@ -20,7 +20,7 @@ const curriculum = [
     ],
   },
   {
-    module: "Tactical & Positional Play",
+    module: "Tactical & positional play",
     weeks: "Weeks 5–8",
     topics: [
       "Intermediate tactics: discovered attacks, deflection, decoys",
@@ -30,7 +30,7 @@ const curriculum = [
     ],
   },
   {
-    module: "Competition & Mastery",
+    module: "Competition & mastery",
     weeks: "Weeks 9–12",
     topics: [
       "Endgame technique: king and pawn, rook endgames, opposition",
@@ -73,7 +73,7 @@ export default function ChessPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-3">
-            Why Chess Matters More Than You Think
+            Why Chess matters more than you think
           </h2>
           <p className="text-slate mb-8 max-w-2xl">
             Research-backed cognitive benefits that extend far beyond the
@@ -83,22 +83,22 @@ export default function ChessPage() {
             {[
               {
                 icon: Target,
-                title: "Decision Making Under Pressure",
+                title: "Decision making under pressure",
                 desc: "Every move is a decision with consequences. Your child practises structured thinking: weighing options, anticipating responses, committing to a plan. Hundreds of times per session.",
               },
               {
                 icon: Clock,
-                title: "Deep Focus & Patience",
+                title: "Deep focus & patience",
                 desc: "In a world of 15-second attention spans, chess demands sustained concentration. A single game can last an hour. That capacity for deep work transfers to academics and beyond.",
               },
               {
                 icon: Eye,
-                title: "Pattern Recognition",
+                title: "Pattern recognition",
                 desc: "Grandmasters recognise ~100,000 patterns. Even beginners start building a mental library of tactical motifs, the same cognitive skill behind reading code, mathematical reasoning, and scientific deduction.",
               },
               {
                 icon: ShieldCheck,
-                title: "Emotional Resilience",
+                title: "Emotional resilience",
                 desc: "Chess teaches children to lose with dignity, analyse their own mistakes honestly, and come back with a better plan. No other activity builds this combination of humility and determination as naturally.",
               },
             ].map((item) => (
@@ -121,7 +121,7 @@ export default function ChessPage() {
       <section className="py-16 bg-off-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-navy mb-8">
-            What Sets Our Programme Apart
+            What sets our programme apart
           </h2>
           <div className="space-y-6">
             {[
@@ -164,7 +164,7 @@ export default function ChessPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-3">
-            Sample Curriculum: 12-Week Programme
+            Sample curriculum: 12-week programme
           </h2>
           <p className="text-slate mb-12 max-w-2xl">
             Adapted to each student&apos;s rating and experience. Complete
@@ -203,7 +203,7 @@ export default function ChessPage() {
       <section className="py-20 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl font-bold">
-            Every Grandmaster Started with a Single Game
+            Every grandmaster started with a single game
           </h2>
           <p className="mt-4 text-white/60">
             Book a free trial session. Your child will play their first
@@ -214,7 +214,7 @@ export default function ChessPage() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Trial <ArrowRight className="w-4 h-4" />
+            Book a free trial <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

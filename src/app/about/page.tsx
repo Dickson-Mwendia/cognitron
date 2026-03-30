@@ -28,7 +28,7 @@ export default function AboutPage() {
       {/* Story */}
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-navy mb-6">Our Story</h2>
+          <h2 className="text-3xl font-bold text-navy mb-6">Our story</h2>
           <div className="prose prose-lg text-slate max-w-none space-y-5 leading-relaxed">
             <p>
               We saw a gap: the brightest children in our city were consuming
@@ -57,7 +57,7 @@ export default function AboutPage() {
       <section className="py-20 md:py-28 bg-off-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-12 text-center">
-            What We Stand For
+            What we stand for
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -66,11 +66,11 @@ export default function AboutPage() {
                 desc: "We hold ourselves to the highest standards in our teaching, our security practices, and our service.",
               },
               {
-                title: "Real Outcomes",
+                title: "Real outcomes",
                 desc: "We measure success by what students build and what families are protected from, not hours logged.",
               },
               {
-                title: "Family First",
+                title: "Family first",
                 desc: "Every decision we make starts with one question: is this best for the family we serve?",
               },
               {
@@ -103,7 +103,7 @@ export default function AboutPage() {
             href="/contact"
             className="inline-flex items-center justify-center gap-2 mt-10 w-full sm:w-auto bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Join the Cognitron Family <ArrowRight className="w-4 h-4" />
+            Join the Cognitron family <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

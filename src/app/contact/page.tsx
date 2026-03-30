@@ -29,7 +29,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div>
               <h2 className="text-2xl font-bold text-navy mb-6">
-                Book a Free Consultation
+                Book a free consultation
               </h2>
               <form className="space-y-5">
                 <div>
@@ -37,7 +37,7 @@ export default function ContactPage() {
                     htmlFor="name"
                     className="block text-sm font-medium text-navy mb-1.5"
                   >
-                    Full Name
+                    Full name
                   </label>
                   <input
                     type="text"
@@ -69,7 +69,7 @@ export default function ContactPage() {
                     htmlFor="phone"
                     className="block text-sm font-medium text-navy mb-1.5"
                   >
-                    Phone Number
+                    Phone number
                   </label>
                   <input
                     type="tel"
@@ -84,7 +84,7 @@ export default function ContactPage() {
                     htmlFor="interest"
                     className="block text-sm font-medium text-navy mb-1.5"
                   >
-                    I&apos;m Interested In
+                    I&apos;m interested in
                   </label>
                   <select
                     id="interest"
@@ -92,9 +92,9 @@ export default function ContactPage() {
                     className="w-full px-4 py-3 rounded-lg border border-navy/10 bg-off-white text-navy text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
                   >
                     <option value="">Select an option</option>
-                    <option value="coding">Coding & App Development</option>
-                    <option value="ai">AI for Kids</option>
-                    <option value="chess">Chess & Strategy</option>
+                    <option value="coding">Coding & app development</option>
+                    <option value="ai">AI for kids</option>
+                    <option value="chess">Chess & strategy</option>
                     <option value="family-protect">
                       Family Digital Safety
                     </option>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                     <option value="platinum">
                       Platinum (Academy + Protect)
                     </option>
-                    <option value="other">Other / Not Sure</option>
+                    <option value="other">Other / not sure</option>
                   </select>
                 </div>
                 <div>
@@ -112,7 +112,7 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="block text-sm font-medium text-navy mb-1.5"
                   >
-                    Message (Optional)
+                    Message (optional)
                   </label>
                   <textarea
                     id="message"
@@ -126,7 +126,7 @@ export default function ContactPage() {
                   type="submit"
                   className="w-full bg-gold text-navy py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
                 >
-                  Book My Free Consultation
+                  Book my free consultation
                 </button>
                 <p className="text-xs text-slate text-center">
                   We&apos;ll respond within 24 hours. No spam, ever.
@@ -137,7 +137,7 @@ export default function ContactPage() {
             {/* Contact Info */}
             <div>
               <h2 className="text-2xl font-bold text-navy mb-6">
-                Get in Touch Directly
+                Get in touch directly
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -188,7 +188,7 @@ export default function ContactPage() {
 
               {/* Office Hours */}
               <div className="mt-10 bg-off-white rounded-xl p-6 border border-navy/5">
-                <h3 className="font-bold text-navy mb-3">Office Hours</h3>
+                <h3 className="font-bold text-navy mb-3">Office hours</h3>
                 <div className="space-y-1.5 text-sm text-slate">
                   <div className="flex justify-between">
                     <span>Monday – Friday</span>

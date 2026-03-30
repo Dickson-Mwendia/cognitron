@@ -35,32 +35,32 @@ export default function FamilyProtectPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-10">
-            What&apos;s Included
+            What&apos;s included
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "Device Security Setup",
+                title: "Device security setup",
                 desc: "We secure every device in your household: phones, tablets, laptops. Antivirus, encryption, and safe browsing configured.",
               },
               {
-                title: "Parental Controls",
+                title: "Parental controls",
                 desc: "Age-appropriate content filters, screen time limits, and app restrictions, configured and managed for you.",
               },
               {
-                title: "Online Safety Training",
+                title: "Online safety training",
                 desc: "Interactive sessions with your children about online safety, privacy, recognizing scams, and responsible digital citizenship.",
               },
               {
-                title: "Home Network Audit",
+                title: "Home network audit",
                 desc: "We assess your Wi-Fi security, smart devices, and router configuration. Vulnerabilities are identified and fixed.",
               },
               {
-                title: "Monthly Support",
+                title: "Monthly support",
                 desc: "Ongoing monitoring, updates to security settings, and a monthly check-in to address new concerns.",
               },
               {
-                title: "Incident Response",
+                title: "Incident response",
                 desc: "If something goes wrong (a breach, suspicious activity, or online threat) we respond immediately.",
               },
             ].map((item) => (
@@ -83,23 +83,23 @@ export default function FamilyProtectPage() {
       <section className="py-20 bg-off-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-10 text-center">
-            How It Works
+            How it works
           </h2>
           <div className="space-y-8">
             {[
               {
                 step: "1",
-                title: "Security Assessment",
+                title: "Security assessment",
                 desc: "We audit your family's digital footprint: devices, accounts, online habits, and home network.",
               },
               {
                 step: "2",
-                title: "Setup & Hardening",
+                title: "Setup & hardening",
                 desc: "We configure security on all devices, set up parental controls, and secure your network. Typically completed in one visit or session.",
               },
               {
                 step: "3",
-                title: "Ongoing Protection",
+                title: "Ongoing protection",
                 desc: "Monthly monitoring, security updates, and support. As threats evolve, your protection evolves.",
               },
             ].map((item) => (
@@ -122,7 +122,7 @@ export default function FamilyProtectPage() {
       {/* CTA */}
       <section className="py-20 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
-          <h2 className="text-3xl font-bold">Protect Your Family Now</h2>
+          <h2 className="text-3xl font-bold">Protect your family now</h2>
           <p className="mt-4 text-white/60">
             Book a free family security assessment. We&apos;ll evaluate your risk
             and recommend a protection plan.
@@ -131,7 +131,7 @@ export default function FamilyProtectPage() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Assessment <ArrowRight className="w-4 h-4" />
+            Book a free assessment <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

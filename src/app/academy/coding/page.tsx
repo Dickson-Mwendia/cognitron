@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const curriculum = [
   {
-    module: "Computational Foundations",
+    module: "Computational foundations",
     weeks: "Weeks 1–4",
     topics: [
       "Python fundamentals: variables, data types, conditionals, loops",
@@ -20,7 +20,7 @@ const curriculum = [
     ],
   },
   {
-    module: "Web Development",
+    module: "Web development",
     weeks: "Weeks 5–8",
     topics: [
       "HTML5 structure, CSS layouts (Flexbox, Grid), and responsive design",
@@ -30,7 +30,7 @@ const curriculum = [
     ],
   },
   {
-    module: "App Development & Capstone",
+    module: "App development & capstone",
     weeks: "Weeks 9–12",
     topics: [
       "Building more complex web apps: multiple pages, forms, and data persistence",
@@ -71,7 +71,7 @@ export default function CodingPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-3">
-            What Your Child Will Build
+            What your child will build
           </h2>
           <p className="text-slate mb-8 max-w-2xl">
             Functional software they can show to anyone with a link. Projects
@@ -81,22 +81,22 @@ export default function CodingPage() {
             {[
               {
                 icon: Terminal,
-                title: "Command-Line Applications",
+                title: "Command-line applications",
                 desc: "Python programs that solve real problems: calculators, quiz engines, data sorters, automation scripts.",
               },
               {
                 icon: Globe,
-                title: "Live Websites",
+                title: "Live websites",
                 desc: "A personal portfolio deployed to the internet with HTML, CSS & JavaScript. Responsive, interactive, theirs.",
               },
               {
                 icon: Smartphone,
-                title: "Interactive Web Applications",
+                title: "Interactive web applications",
                 desc: "A multi-page web app with user interaction, dynamic content, and real functionality they designed from scratch.",
               },
               {
                 icon: GitBranch,
-                title: "A GitHub Portfolio",
+                title: "A GitHub portfolio",
                 desc: "All projects version-controlled on GitHub, building a professional portfolio that grows with them.",
               },
             ].map((project) => (
@@ -119,7 +119,7 @@ export default function CodingPage() {
       <section className="py-16 bg-off-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-navy mb-8">
-            What Sets Our Programme Apart
+            What sets our programme apart
           </h2>
           <div className="space-y-6">
             {[
@@ -162,7 +162,7 @@ export default function CodingPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-navy mb-3">
-            Sample Curriculum: 12-Week Programme
+            Sample curriculum: 12-week programme
           </h2>
           <p className="text-slate mb-12 max-w-2xl">
             Personalised for each student. Accelerated paths available for
@@ -201,7 +201,7 @@ export default function CodingPage() {
       <section className="py-20 bg-navy text-white text-center">
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="text-3xl font-bold">
-            Give Your Child a Head Start That Matters
+            Give your child a head start that matters
           </h2>
           <p className="mt-4 text-white/60">
             Book a free trial session. Your child will write and run their
@@ -211,7 +211,7 @@ export default function CodingPage() {
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a Free Trial <ArrowRight className="w-4 h-4" />
+            Book a free trial <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
