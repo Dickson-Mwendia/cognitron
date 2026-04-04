@@ -3,9 +3,9 @@ import { ArrowRight, Check, Users, Home as HomeIcon, Monitor, ShieldCheck } from
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pricing — Cognitron",
+  title: "Pricing | Cognitron | Kids Coding, AI & Chess Nairobi",
   description:
-    "Transparent pricing for Cognitron Academy and Protect. Every plan is built around your family.",
+    "Transparent pricing for Cognitron Academy. From KES 8,500 per session. Groups of 4. Home coaching or online. Book a free trial lesson.",
 };
 
 export default function PricingPage() {
@@ -15,13 +15,13 @@ export default function PricingPage() {
       <section className="bg-navy text-white py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-            Invest in Your Child.{" "}
-            <span className="text-gold">Know What It Costs.</span>
+            Invest in your child.{" "}
+            <span className="text-gold">Know what it costs.</span>
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
             Every Cognitron plan is built around your family: your child&apos;s
             age, interests, and goals. We&apos;ll recommend the right fit
-            during a free consultation. Here&apos;s what to expect.
+            during a free trial lesson. Here&apos;s what to expect.
           </p>
         </div>
       </section>
@@ -45,7 +45,7 @@ export default function PricingPage() {
           {/* The Anchor */}
           <div className="bg-off-white border border-navy/10 rounded-2xl p-8 md:p-12 text-center max-w-2xl mx-auto">
             <p className="text-slate text-sm uppercase tracking-wider font-semibold mb-2">
-              Starting From
+              Starting from
             </p>
             <p className="text-5xl md:text-6xl font-bold text-navy">
               $65
@@ -144,7 +144,7 @@ export default function PricingPage() {
             </div>
             <p className="text-center text-sm text-slate mt-8">
               Home coaching, additional sessions, and multi-track enrolment
-              are all discussed during your consultation. Every plan is tailored.
+              are all discussed during your trial lesson. Every plan is tailored.
             </p>
           </div>
 
@@ -154,7 +154,7 @@ export default function PricingPage() {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
             >
-              Book a free consultation <ArrowRight className="w-4 h-4" />
+              Book a free trial lesson <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

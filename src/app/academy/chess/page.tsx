@@ -1,12 +1,64 @@
 import Link from "next/link";
 import { Trophy, ArrowRight, Target, Clock, Eye, ShieldCheck } from "lucide-react";
+import { LearningPath } from "@/components/LearningPath";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Chess & Strategic Thinking — Cognitron Academy",
+  title: "Chess Lessons for Kids Nairobi | Cognitron Academy | Tournament Prep",
   description:
-    "Personal chess coaching from rated players. Classical training, engine analysis, tournament prep, and thinking frameworks. Ages 6–17.",
+    "Personal chess coaching from rated players. Classical training, Stockfish analysis, tournament preparation. Ages 6–17. At your home in Nairobi or online.",
 };
+
+const chessLevels = [
+  {
+    name: "Explorer",
+    badge: "🌱",
+    term: "Term 1",
+    skills: [
+      "Piece movement & board geometry",
+      "Basic checkmate patterns",
+      "Opening principles",
+      "Daily puzzle habit (Lichess)",
+    ],
+    project: "Play and analyse a 10-game series against their coach with full review",
+  },
+  {
+    name: "Builder",
+    badge: "🔨",
+    term: "Term 2",
+    skills: [
+      "Tactical motifs (forks, pins, skewers)",
+      "Pawn structure understanding",
+      "Middlegame planning",
+      "Stockfish game analysis",
+    ],
+    project: "Enter and complete their first rated tournament (online or over-the-board)",
+  },
+  {
+    name: "Creator",
+    badge: "⚡",
+    term: "Term 3",
+    skills: [
+      "Endgame technique & opposition",
+      "Personal opening repertoire",
+      "Clock management & psychology",
+      "Self-directed study habits",
+    ],
+    project: "Build a personal opening repertoire document and present their preparation",
+  },
+  {
+    name: "Architect",
+    badge: "🏆",
+    term: "Term 4+",
+    skills: [
+      "Advanced positional play",
+      "Regular tournament participation",
+      "Help coach younger students",
+      "Work toward a rated chess profile",
+    ],
+    project: "Compete regularly in rated events and maintain a personal game analysis journal",
+  },
+];
 
 const curriculum = [
   {
@@ -55,7 +107,7 @@ export default function ChessPage() {
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-            A Classical Chess Education
+            A classical Chess education
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
             Our students learn from rated coaches who sit across the board,
@@ -159,6 +211,9 @@ export default function ChessPage() {
           </div>
         </div>
       </section>
+
+      {/* Learning Path */}
+      <LearningPath track="Chess" levels={chessLevels} />
 
       {/* Curriculum */}
       <section className="py-20 bg-white">

@@ -3,55 +3,55 @@ import { Code, Brain, Trophy, ArrowRight, Lightbulb, Puzzle, Search, ListChecks,
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Academy — Cognitron",
+  title: "Academy | Cognitron | Kids Coding, AI & Chess in Nairobi",
   description:
-    "World-class coding, AI, and chess education for children aged 6–17. Online and home coaching in Nairobi.",
+    "Three tracks: Coding & Apps, AI & Machine Learning, Chess & Strategy. Ages 6–17. Expert coaches at your home or online. Groups of 4. Nairobi.",
 };
 
 const tracks = [
   {
     href: "/academy/coding",
     icon: Code,
-    title: "Coding & App Development",
+    title: "Coding & app development",
     ages: "Ages 8–17",
     description:
-      "Our students write real code (Python, JavaScript, HTML/CSS) from their very first session. They build functional websites, interactive games, and web applications, guided by coaches who write production code professionally. Every session ends with something your child built, tested, and can be proud of.",
+      "Younger students start with Scratch - building games and animations through visual, drag-and-drop coding. Older students progress to Python and web development. Every child works at their own pace and finishes each term with something they built themselves.",
     outcomes: [
-      "Write Python scripts that automate tasks and solve real problems",
-      "Build and deploy a personal website with HTML, CSS & JavaScript",
-      "Design and develop an interactive web application from scratch",
-      "Use professional tools: VS Code, Git, GitHub, and the command line",
-      "Present a polished capstone project to family and peers",
+      "Build interactive games, animations, and creative projects",
+      "Create a personal website with HTML & CSS",
+      "Write Python programs that solve real problems",
+      "Learn to think like a programmer - logic, debugging, and design",
+      "Present finished projects to family and peers each term",
     ],
   },
   {
     href: "/academy/ai",
     icon: Brain,
-    title: "AI & Machine Learning for kids",
+    title: "AI & machine learning for kids",
     ages: "Ages 10–17",
     description:
-      "Our students use visual tools and real AI platforms to train classifiers, explore how language models generate text, and build working AI-powered applications. They learn how AI works, why it works, and what it means for the world. Taught by practitioners who bring genuine depth to every session.",
+      "Your child already uses AI every day (YouTube, Siri, photo filters). We help them understand how it works, use AI tools creatively, and think critically about a technology that will shape their future. Starts with hands-on experiments - no prior coding needed.",
     outcomes: [
-      "Train a custom image classifier using visual ML tools and real datasets",
-      "Build a working AI chatbot using language model APIs",
-      "Understand how large language models like GPT work at a high level",
-      "Explore supervised learning and data quality through hands-on experiments",
-      "Analyse bias in AI systems and debate ethical implications",
+      "Train an image recogniser using visual tools (no coding needed)",
+      "Build a custom AI chatbot with its own personality and purpose",
+      "Understand how AI tools like ChatGPT actually work",
+      "Debate real AI ethics questions: bias, privacy, and fairness",
+      "Design and present an AI-powered project to family",
     ],
   },
   {
     href: "/academy/chess",
     icon: Trophy,
-    title: "Chess & Strategic Thinking",
+    title: "Chess & strategic thinking",
     ages: "Ages 6–17",
     description:
-      "Our chess programme uses the royal game as a vehicle for teaching decision-making under pressure, pattern recognition, and long-term strategic planning. Our coaches are rated players who combine classical training methods with modern engine analysis, developing students who compete at tournament level and think critically in every area of life.",
+      "Chess builds focus, patience, and structured thinking - skills that transfer to every subject in school. Our coaches are rated players who teach one-on-one or in small groups, adapting to your child's level and gradually building toward competitive play.",
     outcomes: [
-      "Master opening principles, tactical patterns, and endgame technique",
-      "Analyse positions using structured thinking frameworks",
-      "Compete confidently in rated tournaments, both online and over-the-board",
-      "Develop concentration, patience, and the discipline to calculate under pressure",
-      "Use engine analysis tools to self-assess and continuously improve",
+      "Learn opening principles, tactical patterns, and endgame basics",
+      "Develop concentration and the ability to think several moves ahead",
+      "Analyse their own games and learn from mistakes",
+      "Build confidence to enter their first rated tournament",
+      "Use analysis tools (Lichess, Stockfish) to study and improve",
     ],
   },
 ];
@@ -66,8 +66,8 @@ export default function AcademyPage() {
             Cognitron Academy
           </p>
           <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-            Real Skills. Real Projects.{" "}
-            <span className="text-gold">Built by Your Child.</span>
+            Real skills. Real projects.{" "}
+            <span className="text-gold">Built by your child.</span>
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
             Ages 6 to 17. Three tracks taught by working technologists who
@@ -192,6 +192,71 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* Progression System */}
+      <section className="py-20 md:py-28 bg-off-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy">
+              A clear path from curious to capable
+            </h2>
+            <p className="mt-4 text-slate text-lg">
+              Every student across all tracks progresses through four named
+              levels. You&apos;ll always know exactly where your child is - and
+              what&apos;s next.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[
+              {
+                level: "Explorer",
+                description: "Discovers fundamentals and finds their spark",
+                color: "bg-white border-navy/10",
+                badge: "🌱",
+              },
+              {
+                level: "Builder",
+                description: "Creates first real projects with guidance",
+                color: "bg-white border-gold/20",
+                badge: "🔨",
+              },
+              {
+                level: "Creator",
+                description: "Works independently on complex challenges",
+                color: "bg-gold/5 border-gold/30",
+                badge: "⚡",
+              },
+              {
+                level: "Architect",
+                description:
+                  "Leads projects and mentors younger students",
+                color: "bg-navy border-navy text-white",
+                badge: "🏆",
+              },
+            ].map((item, i) => (
+              <div
+                key={item.level}
+                className={`rounded-xl border p-5 text-center ${item.color}`}
+              >
+                <div className="text-2xl mb-2">{item.badge}</div>
+                <p className="font-bold text-sm">{item.level}</p>
+                <p
+                  className={`mt-1 text-xs leading-relaxed ${
+                    i === 3 ? "text-white/70" : "text-slate"
+                  }`}
+                >
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center mt-6 text-slate text-sm">
+            Every level milestone earns a certificate and portfolio review.
+            Documented transcripts available for school and university
+            applications.
+          </p>
+        </div>
+      </section>
+
       {/* After-School Advantage */}
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -280,8 +345,8 @@ export default function AcademyPage() {
               </h3>
               <p className="mt-2 text-slate text-sm leading-relaxed">
                 Our coaches come to your home with everything needed: laptops
-                configured, lesson plans prepared, progress tracked. The same
-                model used by elite private coaching in London and New York.
+                configured, lesson plans prepared, progress tracked. Personal
+                coaching, built around your child&apos;s pace and interests.
               </p>
             </div>
             <div className="bg-white rounded-2xl p-8 border border-navy/5">
@@ -308,14 +373,14 @@ export default function AcademyPage() {
             Give your child the tech edge
           </h2>
           <p className="mt-4 text-white/60 text-lg">
-            Book a free consultation and we&apos;ll help you choose the perfect
+            Book a free trial lesson and we&apos;ll help you choose the perfect
             track for your child.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a free consultation <ArrowRight className="w-4 h-4" />
+            Book a free trial lesson <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

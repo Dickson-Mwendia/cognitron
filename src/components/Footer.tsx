@@ -12,9 +12,9 @@ export function Footer() {
               <span className="text-gold">C</span>ognitron
             </Link>
             <p className="mt-3 text-sm text-white/60 leading-relaxed">
-              Building Sharper Minds.
+              Building sharper minds.
               <br />
-              Safer Futures.
+              Safer futures.
             </p>
           </div>
 
@@ -108,7 +108,7 @@ export function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gold mb-4">
-              Get in Touch
+              Get in touch
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-white/70">
@@ -117,7 +117,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-white/70">
                 <Phone className="w-4 h-4 text-gold" />
-                +254 700 000 000
+                +254 710 643 847
               </li>
               <li className="flex items-start gap-2 text-sm text-white/70">
                 <MapPin className="w-4 h-4 text-gold mt-0.5" />
@@ -128,7 +128,7 @@ export function Footer() {
               href="/contact"
               className="inline-block mt-6 bg-gold text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold-light transition-colors"
             >
-              Book a consultation
+              Book a free trial lesson
             </Link>
           </div>
         </div>

@@ -3,9 +3,9 @@ import { Lock, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Executive Cyber Protection — Cognitron Protect",
+  title: "Executive Cyber Protection Nairobi | Cognitron Protect",
   description:
-    "Personal cybersecurity for business owners, executives, and public figures. Dark web monitoring, device hardening, and incident response.",
+    "Personal cybersecurity for Nairobi business owners, executives, and high-profile individuals. Dark web monitoring, device hardening, incident response.",
 };
 
 export default function ExecutiveProtectPage() {
@@ -25,10 +25,9 @@ export default function ExecutiveProtectPage() {
             Executive Cyber Protection
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
-            High-profile individuals are high-value targets. We provide the
-            same level of personal cybersecurity used by Fortune 500
-            executives, tailored for business leaders and diplomats based
-            in Nairobi.
+            High-profile individuals are high-value targets. We provide
+            personal cybersecurity tailored for business leaders and
+            diplomats based in Nairobi.
           </p>
         </div>
       </section>

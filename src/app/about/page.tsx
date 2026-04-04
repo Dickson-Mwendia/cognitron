@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About — Cognitron",
+  title: "About Cognitron | Nairobi's Tech Academy for Kids & Teens",
   description:
-    "Our mission is to empower ambitious families through world-class tech education and digital protection.",
+    "Founded by Dickson Mwendia in Nairobi. Tech skills for kids, taught by someone who knows your child. Coding, AI, Chess - at your home.",
 };
 
 export default function AboutPage() {
@@ -14,41 +14,71 @@ export default function AboutPage() {
       <section className="bg-navy text-white py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-            Our Mission: <span className="text-gold">Empower Families</span>{" "}
-            Through Technology
+            Built in Nairobi.{" "}
+            <span className="text-gold">For Nairobi families.</span>
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
-            Cognitron was founded on a simple belief: every child deserves access
-            to world-class tech education, and every family deserves to feel safe
-            in the digital world.
+            Cognitron exists because every ambitious child in this city deserves
+            real tech skills, taught by someone who knows your child.
           </p>
         </div>
       </section>
 
-      {/* Story */}
+      {/* Founder Story */}
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-navy mb-6">Our story</h2>
-          <div className="prose prose-lg text-slate max-w-none space-y-5 leading-relaxed">
-            <p>
-              We saw a gap: the brightest children in our city were consuming
-              technology every day, but few had the opportunity to truly
-              understand and create it. Meanwhile, their parents, many of whom
-              are business leaders, diplomats, and professionals, were
-              increasingly vulnerable to digital threats they couldn&apos;t see.
-            </p>
-            <p>
-              Cognitron exists to bridge both gaps. Our Academy gives children
-              the skills to build the future, not just watch it unfold. Our
-              Protect services give families the confidence that their digital
-              lives are secure.
-            </p>
-            <p>
-              We combine Silicon Valley-standard curricula with a deep
-              understanding of our local context. Our coaches are working
-              technologists who come to you, online or at your home, and our
-              approach is always project-based, personal, and premium.
-            </p>
+          <div className="flex flex-col md:flex-row gap-10 items-start">
+            <div className="w-32 h-32 rounded-full bg-navy flex items-center justify-center shrink-0">
+              <span className="text-4xl font-bold text-gold">DM</span>
+            </div>
+            <div>
+              <p className="text-gold text-sm font-semibold uppercase tracking-widest mb-2">
+                From the Founder
+              </p>
+              <h2 className="text-3xl font-bold text-navy mb-6">
+                Dickson Mwendia
+              </h2>
+              <div className="prose prose-lg text-slate max-w-none space-y-5 leading-relaxed">
+                <p>
+                  I started Cognitron because I saw a gap that frustrated me
+                  personally. The brightest children in Nairobi were consuming technology every
+                  single day. They were fluent in apps, games, and social media.
+                  But almost none of them had the opportunity to truly
+                  understand how any of it worked, let alone build something
+                  of their own.
+                </p>
+                <p>
+                  Their schools offered basic ICT. YouTube had tutorials. But
+                  none of that gave a child what they actually need: a coach
+                  who sits beside them, watches how they think, adapts in real
+                  time, and pushes them to build something they never thought
+                  possible. That&apos;s what the best tech education in the
+                  world looks like - and I believed Nairobi families deserved
+                  exactly that.
+                </p>
+                <p>
+                  So I built it. Cognitron combines coding, AI, and chess with
+                  a coaching model designed for how kids actually learn:
+                  small groups of four, real projects from week one, and
+                  coaches who come to your home because I know what Nairobi
+                  traffic does to a family&apos;s schedule.
+                </p>
+                <p>
+                  Every child who walks through our programme leaves with
+                  something tangible: an app they built, a model they trained,
+                  a game they won. But more than that - they leave knowing they
+                  can build things. That confidence changes everything.
+                </p>
+              </div>
+              <a
+                href="https://wa.me/254710643847?text=Hi%20Dickson%2C%20I%27d%20like%20to%20learn%20about%20Cognitron"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 text-gold-dark font-semibold text-sm hover:gap-3 transition-all"
+              >
+                <MessageCircle className="w-4 h-4" /> Message Dickson directly
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -62,20 +92,20 @@ export default function AboutPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Excellence",
-                desc: "We hold ourselves to the highest standards in our teaching, our security practices, and our service.",
+                title: "Real outcomes over hours logged",
+                desc: "We measure success by what students build - apps deployed, models trained, tournaments played - not by time spent in a seat.",
               },
               {
-                title: "Real outcomes",
-                desc: "We measure success by what students build and what families are protected from, not hours logged.",
+                title: "Every child by name",
+                desc: "Max 4 students per session. Your child isn't a number. Their coach adapts to their pace, interests, and learning style.",
               },
               {
-                title: "Family first",
-                desc: "Every decision we make starts with one question: is this best for the family we serve?",
+                title: "Built for Nairobi families",
+                desc: "Home coaching. WhatsApp-first communication. Schedules that work around school terms, traffic, and family life.",
               },
               {
-                title: "Integrity",
-                desc: "We're honest about what we can deliver, transparent in our pricing, and trustworthy with your data.",
+                title: "Honest about everything",
+                desc: "Transparent pricing, realistic expectations, and honest progress reports. If Cognitron isn't the right fit, we'll tell you.",
               },
             ].map((value) => (
               <div key={value.title} className="text-center">
@@ -97,13 +127,14 @@ export default function AboutPage() {
           </p>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight">
             To raise a generation of young builders, thinkers, and leaders who
-            shape Africa&apos;s digital future.
+            shape Africa&apos;s digital future - starting right here in Nairobi.
           </h2>
           <Link
             href="/contact"
             className="inline-flex items-center justify-center gap-2 mt-10 w-full sm:w-auto bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Join the Cognitron family <ArrowRight className="w-4 h-4" />
+            Book your child&apos;s free first lesson{" "}
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

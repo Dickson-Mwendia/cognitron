@@ -3,6 +3,7 @@ import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -17,9 +18,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Cognitron — Building Sharper Minds. Safer Futures.",
+  title: "Cognitron | Coding, AI & Chess Coaching for Kids in Nairobi",
   description:
-    "Premium tech education and digital protection for families who demand the best. Coding, AI, Chess, and Cybersecurity services in Nairobi.",
+    "Coding, AI, and Chess coaching for kids aged 6–17 in Nairobi. Expert coaches come to your home or teach live online. Groups of 4 or fewer. Book a free trial lesson.",
 };
 
 export default function RootLayout({
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

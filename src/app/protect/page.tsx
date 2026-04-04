@@ -3,9 +3,9 @@ import { ShieldCheck, Home, Lock, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Protect — Cognitron",
+  title: "Protect | Cognitron | Family Cybersecurity Nairobi",
   description:
-    "Comprehensive digital safety for families and personal cybersecurity for executives. Protect your digital life.",
+    "Family digital safety and executive cyber protection in Nairobi. Device security, parental controls, dark web monitoring. Book a security assessment.",
 };
 
 export default function ProtectPage() {
@@ -18,8 +18,8 @@ export default function ProtectPage() {
             Cognitron Protect
           </p>
           <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-            Your Family&apos;s Digital Life,{" "}
-            <span className="text-gold">Secured</span>
+            Your family&apos;s digital life,{" "}
+            <span className="text-gold">secured</span>
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
             From your children&apos;s online safety to your personal

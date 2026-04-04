@@ -11,9 +11,9 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "How It Works — Cognitron",
+  title: "How It Works | Cognitron | Free Trial Lesson in Nairobi",
   description:
-    "Getting started with Cognitron Academy or Cognitron Protect in three simple steps.",
+    "Book a free trial lesson, get a personalised learning plan, and watch your child build real projects from week one. Nairobi home coaching or online.",
 };
 
 export default function HowItWorksPage() {
@@ -22,7 +22,7 @@ export default function HowItWorksPage() {
       <section className="bg-navy text-white py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-            Getting Started Is <span className="text-gold">Simple</span>
+            Getting started is <span className="text-gold">simple</span>
           </h1>
           <p className="mt-6 text-lg text-white/70 max-w-2xl leading-relaxed">
             Whether you&apos;re enrolling your child in our Academy or
@@ -46,8 +46,8 @@ export default function HowItWorksPage() {
               {
                 icon: Phone,
                 step: "1",
-                title: "Book a free discovery call",
-                desc: "Tell us about your child: their age, interests, current skill level, and goals. We'll recommend the best track and format (online, home coaching, or hybrid).",
+                title: "Book a free trial lesson",
+                desc: "Tell us about your child: their age, interests, current skill level, and goals. We'll recommend the best track - then your child tries a real session, free.",
               },
               {
                 icon: ClipboardList,
@@ -131,14 +131,14 @@ export default function HowItWorksPage() {
             Ready to get started?
           </h2>
           <p className="mt-4 text-white/60 text-lg">
-            Book a free 15-minute consultation. No pressure, just a
-            conversation about what&apos;s possible for your family.
+            Book a free trial lesson. Your child tries a real session - coding,
+            AI, or chess - with zero commitment.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 mt-8 bg-gold text-navy px-8 py-3.5 rounded-full font-semibold hover:bg-gold-light transition-colors"
           >
-            Book a free consultation <ArrowRight className="w-4 h-4" />
+            Book a free trial lesson <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

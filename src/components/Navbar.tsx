@@ -109,7 +109,7 @@ export function Navbar() {
               href="/contact"
               className="bg-gold text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold-light transition-colors"
             >
-              Book a consultation
+              Book a free trial lesson
             </Link>
           </div>
 
@@ -185,7 +185,7 @@ export function Navbar() {
             className="block mt-3 text-center bg-gold text-navy px-5 py-2.5 rounded-full text-sm font-semibold"
             onClick={() => setMobileOpen(false)}
           >
-            Book a consultation
+            Book a free trial lesson
           </Link>
         </div>
       )}
