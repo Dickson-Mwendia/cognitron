@@ -39,6 +39,18 @@
 - CSP allows `unsafe-eval` — should be removed for production.
 - **Overall assessment:** Architecture is sound for current stage. No rewrite needed — targeted fixes only.
 
+### 2026-04-04: GTM Execution Plan — Launch Playbook
+- Created comprehensive 26-week go-to-market plan across 3 phases: Founding Families (10), School Partnerships (30), Brand Authority (50+).
+- **Key strategic decisions:** Founding Family pricing at KES 6,500/session (24% discount, locked 12 months). Free trial as primary conversion mechanism. WhatsApp-first communication strategy.
+- **Neighborhood prioritization:** Karen > Lavington > Runda > Kileleshwa > Westlands. Grouped by geography to minimize Nairobi traffic impact on scheduling.
+- **School partnership model:** Free coding clubs in exchange for parent access — zero cost to school, massive lead gen for Cognitron.
+- **Holiday camp concept:** August bootcamp, KES 25,000/week, groups of 8-10 kids. Revenue diversification + scales beyond 1-on-1.
+- **Budget:** Total 26-week spend ~KES 423,000 (~$3,250). Conservative ROI even at 60% of projected enrollment.
+- **#1 risk identified:** Dickson burnout. Capped sessions at 5/day, mandatory Sunday rest, hire trigger at 20 sessions/week (not 25).
+- **Critical success metric:** Trial-to-enrollment conversion rate. Above 50% = model works, below 30% = revise offer/experience.
+- Incorporated DEC-007 (content calendar), DEC-008 (photo shoot), DEC-009 (trust gaps), DEC-010 (coach profile), DEC-011 (parent interviews), DEC-012/013/014 (curricula).
+- Deliverable: `.squad/decisions/inbox/danny-gtm-execution-plan.md`
+
 ### 2026-04-04: Admin Dashboard Spec
 - Designed comprehensive admin dashboard ("founder's cockpit") for platform-wide visibility.
 - **60+ KPIs** across 6 domains: Revenue, Students, Engagement, Coaches, Growth/Retention, Operations. Each with calculation formula and update frequency.
@@ -49,3 +61,16 @@
 - **12 new tables** for admin features (audit_log, invoices, payments, alerts, churn_scores, referrals, etc.).
 - **5-phase build plan:** MVP → Financial Intelligence → Churn Analytics → Curriculum CMS → Advanced Operations.
 - Deliverable: `.squad/decisions/inbox/danny-admin-dashboard-spec.md`
+
+### 2026-04-04 (evening): GTM Execution Plan — 26-week launch playbook delivered
+- Created comprehensive go-to-market plan spanning 26 weeks, 4 phases: Phase 0 (foundation/infrastructure), Phase 1 (soft launch, 10 founding families), Phase 2 (school partnerships, 30 families), Phase 3 (brand authority, 50+ families).
+- **Founding families pricing:** KES 6,500/session, 24% discount, locked 12 months.
+- **Geographic rollout:** Karen → Lavington → Runda → Kileleshwa → Westlands (groups by proximity to minimize scheduling friction).
+- **Lead gen:** Free coding clubs in schools (zero school cost, massive funnel for parent sign-ups).
+- **Holiday revenue:** August bootcamp camps KES 25,000/week per group of 8-10, scales beyond 1-on-1 model.
+- **Total budget:** ~KES 423,000 across 26 weeks (~$3,250 USD).
+- **Coach workload cap:** Max 5 sessions/day, mandatory Sunday rest, hire trigger at 20 sessions/week (addressed Dickson burnout risk).
+- **Critical metric:** Trial-to-enrollment conversion — >50% = model works, <30% = offer revision needed.
+- Incorporated DEC-007 (Basher content calendar), DEC-008 (shoot brief), DEC-009/010/011 (parent trust, coach profiles, interview guide), plus all 3 curricula (DEC-012/013/014).
+- **Deliverable:** `.squad/decisions/inbox/danny-gtm-execution-plan.md` (~700 lines, 44.6 KB). Pending Dickson approval — NOT YET MERGED to decisions.md.
+- **Logs:** Orchestration log + session log recorded.
