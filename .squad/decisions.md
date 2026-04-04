@@ -330,6 +330,29 @@
 
 ---
 
+### DEC-023: Launch marketing plan — 7-section campaign + 6-month budget (2025-07-17)
+
+**Author:** Basher (Growth Marketer)  
+**Status:** ✅ Delivered
+
+**Decision:** Execute comprehensive marketing launch plan for Phase 1 (founding families, 0 → 10). Plan spans 7 core sections:
+
+1. **Founding Families Campaign** — 10 ready-to-send WhatsApp messages (Day 1 warm intro through Week 4 last call), Instagram post captions, hashtag strategy
+2. **Google Business Profile** — Full setup checklist (claim, fill details, Q&A, services, photos, optimization)
+3. **Instagram Launch Strategy** — Bio copy options, highlights structure (8 highlight categories), first 10 post concepts, 4-pillar content framework (Outcomes 40%, Trust 30%, Education 20%, Community 10%)
+4. **WhatsApp Marketing Infrastructure** — Broadcast list segmentation (prospects/enrolled/partners), message cadence (Tue+Fri for cold, Mon+Thu for warm), templates for inquiry response → follow-up → referral → re-engagement
+5. **SEO Quick Wins** — 10 blog post outlines ranked by search potential (coding classes, chess benefits, AI for kids, etc.), Kenya-specific long-tail keywords, on-page SEO checklist for homepage/pricing/about/contact
+6. **Referral Program ("Cognitron Founding Circle")** — Tiered rewards (1 free session per referral, 3 referrals = free week, 5 referrals = free month + VIP event), mechanics (unique links + coaching verification), messaging templates, low-tech tracking (Google Sheet Phase 1 → ReferralCandy Phase 3)
+7. **Budget & ROI** — 6-month spend plan (KES 150K launch + KES 100K months 2–3 + KES 150K months 4–6 = KES 800K total). Key metrics: CAC goal KES 15K→10K, LTV KES 811K, LTV:CAC ratio 81:1 (excellent), trial→enrollment conversion 60%+, referral rate 40%+
+
+**Key artifacts:** 10 WhatsApp templates, 8 Instagram post captions, 10 SEO blog outlines, 4-pillar content strategy, 6-month execution calendar, referral program structure, metrics dashboard
+
+**Next steps (for Dickson):** Day 1–Google Business Profile (2h), Day 2–3 Instagram account + first 3 posts (3h), Day 3 WhatsApp segments (1h), Day 4 first WhatsApp campaign (2h), Day 5 book photo shoot (2h).
+
+**Source file:** `basher-launch-marketing.md`
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
