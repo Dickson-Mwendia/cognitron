@@ -10,6 +10,10 @@
   --gold-dark: #b08a2e;
   --slate: #64748b;
   --slate-light: #94a3b8;
+  --coral: #e8614d;
+  --coral-light: #f0897a;
+  --teal: #2a9d8f;
+  --teal-light: #4db8ab;
   --off-white: #f8f7f4;
   --white: #ffffff;
 
@@ -28,6 +32,10 @@
   --color-gold-dark: var(--gold-dark);
   --color-slate: var(--slate);
   --color-slate-light: var(--slate-light);
+  --color-coral: var(--coral);
+  --color-coral-light: var(--coral-light);
+  --color-teal: var(--teal);
+  --color-teal-light: var(--teal-light);
   --color-off-white: var(--off-white);
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
