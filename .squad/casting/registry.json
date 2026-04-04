@@ -1,0 +1,83 @@
+{
+  "agents": {
+    "danny": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Danny",
+      "universe": "Ocean's Eleven",
+      "status": "active"
+    },
+    "rusty": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Rusty",
+      "universe": "Ocean's Eleven",
+      "status": "active"
+    },
+    "linus": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Linus",
+      "universe": "Ocean's Eleven",
+      "status": "active"
+    },
+    "frank": {
+      "created_at": "2026-04-04T11:48:40.318Z",
+      "persistent_name": "Frank",
+      "universe": "Ocean's Eleven",
+      "status": "active",
+      "note": "Frank Catton — QA Engineer. Added to handle testing/quality formerly on Linus."
+    },
+    "virgil": {
+      "created_at": "2026-04-04T11:48:40.318Z",
+      "persistent_name": "Virgil",
+      "universe": "Ocean's Eleven",
+      "status": "active",
+      "note": "Virgil Malloy — Coding Education Expert. Split from Saul."
+    },
+    "turk": {
+      "created_at": "2026-04-04T11:48:40.318Z",
+      "persistent_name": "Turk",
+      "universe": "Ocean's Eleven",
+      "status": "active",
+      "note": "Turk Malloy — AI Education Expert. Split from Saul."
+    },
+    "livingston": {
+      "created_at": "2026-04-04T11:48:40.318Z",
+      "persistent_name": "Livingston",
+      "universe": "Ocean's Eleven",
+      "status": "active",
+      "note": "Livingston Dell — Chess Academy Lead. Split from Saul."
+    },
+    "tess": {
+      "created_at": "2026-04-04T11:48:40.318Z",
+      "persistent_name": "Tess",
+      "universe": "Ocean's Eleven",
+      "status": "active",
+      "note": "Tess Ocean — Parent & Student Advocate. New role for end-user persona."
+    },
+    "basher": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Basher",
+      "universe": "Ocean's Eleven",
+      "status": "active"
+    },
+    "scribe": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Scribe",
+      "universe": "Ocean's Eleven",
+      "status": "active"
+    },
+    "ralph": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Ralph",
+      "universe": "Ocean's Eleven",
+      "status": "active"
+    },
+    "saul": {
+      "created_at": "2026-04-04T11:17:24.079Z",
+      "persistent_name": "Saul",
+      "universe": "Ocean's Eleven",
+      "status": "retired",
+      "retired_at": "2026-04-04T11:48:40.318Z",
+      "note": "Domain too broad. Split into virgil (coding), turk (AI), livingston (chess)."
+    }
+  }
+}
