@@ -49,6 +49,17 @@
 - Dev-mode fallback preserved: if `NEXT_PUBLIC_SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_ANON_KEY` are missing, submissions log to console as before. No breakage for local dev without Supabase.
 - All existing validation (Zod schema with HTML stripping), rate limiting (5/min per IP), and user-facing messages preserved exactly.
 
+### 2026-04-04: Admin Approval Gate — Users Must Be Approved Before Dashboard Access
+- **Database migration** (`20250716000000_approval_gate.sql`): Adds `approved`, `approved_at`, `approved_by` columns to `profiles`. Backfills all existing users as approved. Auto-approve trigger for admin role on INSERT.
+- **Type updates**: Added 3 new fields to `profiles` Row/Insert/Update in `database.ts`. Added `approved: boolean` to `DashboardUser` in `types/index.ts`.
+- **Auth library** (`auth.ts`): `getCurrentUser()` now returns `approved` field. `requireAuth()` redirects unapproved users to `/pending-approval`. `requireRole()` has belt-and-suspenders approval check.
+- **Middleware** (`middleware.ts`): Consolidated approval + role queries into a single `profiles` SELECT (was 2 queries, now 1). `/pending-approval` added to protected paths. Unapproved → `/pending-approval` redirect. Approved on pending page → `/dashboard` redirect. No infinite loops.
+- **Pending approval page** (`src/app/pending-approval/page.tsx`): Standalone server component outside both route groups — uses root layout only (no Navbar/Footer/DashboardLayout). Shows clock icon, user's first name, WhatsApp contact, and sign-out button.
+- **Admin approvals page** (`src/app/(dashboard)/admin/approvals/page.tsx`): Client component with search, approve/reject buttons, flash messages, empty state. Server action stubs in `actions.ts`. Added `Approvals` nav item with `UserCheck` icon to DashboardLayout admin nav.
+- **Mock data**: All 4 mock users get `approved: true`. Added `mockPendingUsers` array (4 sample users) for admin approvals page.
+- **Signup flow**: Both dev-mode and Supabase paths in `signup-form.tsx` now redirect to `/pending-approval` instead of `/dashboard`.
+- Dev mode (no Supabase) unaffected: mock users are pre-approved, middleware skips entirely.
+
 ### 2026-04-04: Performance Quick Wins — Batch 2
 - **Analytics lazy-loading:** Changed `Analytics.tsx` from `strategy="afterInteractive"` to `strategy="lazyOnload"` for both GA4 and Meta Pixel scripts. Analytics scripts no longer block page rendering at all — they load only after the page is fully idle.
 - **Placeholder ID guard:** Added `isRealId()` check that skips injecting analytics scripts entirely when IDs contain `XXXXXXXXXX`. No network requests, no DOM pollution in dev. The component returns `null` when both IDs are placeholders.
@@ -105,6 +116,14 @@
 - Deleted empty `(auth)/` route group.
 - One import fix required: `ContactForm.tsx` referenced `@/app/contact/actions` — updated to `@/app/(marketing)/contact/actions`. Route groups are filesystem-visible in import paths even though they don't affect URLs.
 - Build passes clean. All 40 routes render at their original URL paths — route groups are transparent to users.
+
+### 2026-04-04: Coaches Section on About Page
+- Added "Our Coaches" section to About page between Founder Story and Values.
+- Coaches data defined as a typed array above the component return. Currently one coach (Dickson Mwendia, Microsoft). Array is extensible — just add objects.
+- Used `flex justify-center` instead of grid so a single card centers naturally without looking sparse in a 3-column grid.
+- Coach card matches founder avatar style (navy circle, gold initials). Includes LinkedIn link via inline SVG (lucide-react has no LinkedIn icon).
+- Includes "Why practising engineers?" navy callout box below the cards.
+- Changed Values section background from `bg-off-white` to `bg-white` to maintain alternating background pattern: navy → white → off-white → white → navy.
 
 ### 2026-04-04: P0-2 — 11 "Coming Soon" Stub Pages for Missing Nav Items
 - Created shared `ComingSoon` component at `src/components/dashboard/ComingSoon.tsx` — reusable placeholder with icon, title, description, "Coming soon" badge, and back-link button. Uses Lucide icons and matches dashboard design language (navy/gold palette).

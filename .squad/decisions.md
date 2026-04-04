@@ -301,6 +301,35 @@
 
 ---
 
+### DEC-021: Admin approval gate for new signups (2026-04-04)
+
+**Author:** Rusty (Full-stack Developer)
+**Requested by:** Dickson
+**Status:** ✅ Implemented
+
+**Decision:** New signups must be manually approved by an admin before accessing the dashboard. `approved` boolean column on `profiles` (default `false`), existing users backfilled as `true`, admin role auto-approved via Postgres trigger. Middleware consolidated to single query checking `approved` + `role`. Unapproved users redirected to `/pending-approval`. Auth guards (`requireAuth`, `requireRole`) enforce the gate. Admin UI at `/admin/approvals` with search, approve/reject buttons, flash messages. Signup redirect changed from `/dashboard` to `/pending-approval`.
+
+**Trade-offs:** Server action stubs (log-only) — real Supabase calls deferred until admin auth E2E tested. Sign-out on pending page needs API route or client-side logic. Approval check is 1 DB query per protected page load; cache in cookie/session if latency grows.
+
+**Files changed:** 11 files across migration, types, auth lib, middleware, mock data, pending page, admin approvals page + actions, DashboardLayout, signup form.
+
+**Source file:** `rusty-approval-gate.md`
+
+---
+
+### DEC-022: Group conversations/tasks/assignments — future feature (2026-04-04)
+
+**Author:** Dickson (via Copilot)
+**Status:** 🗓️ Deferred
+
+**Decision:** At some point, enable group conversations, tasks, and assignments for coaches and students. Not for now — captured for team memory.
+
+**When ready, requires:** group chat model, task/assignment schema, coach-to-group and student-to-group relationships, real-time messaging (likely Supabase Realtime), and coach UI for assigning work to groups.
+
+**Source file:** `copilot-directive-2026-04-04T19-group-features.md`
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
