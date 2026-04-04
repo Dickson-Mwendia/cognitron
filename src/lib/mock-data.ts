@@ -657,3 +657,132 @@ export const mockPlatformSettings = [
   { key: 'max_students_per_coach', value: '15', description: 'Maximum students per coach' },
   { key: 'session_booking_lead_hours', value: '24', description: 'Minimum hours before session booking' },
 ]
+
+// ---------------------------------------------------------------------------
+// Progress Report
+// ---------------------------------------------------------------------------
+
+export interface ProgressReportData {
+  studentId: string
+  studentName: string
+  ageTier: string
+  enrolledTracks: string[]
+  enrollmentDate: string
+  coachName: string
+  period: string
+  periodStart: string
+  periodEnd: string
+  overallAssessment: string
+  trackProgress: Array<{
+    trackName: string
+    currentLevel: string
+    skills: Array<{ name: string; demonstrated: boolean }>
+    strengths: string
+    improvements: string
+    projects: string[]
+  }>
+  attendance: {
+    sessionsAttended: number
+    sessionsTotal: number
+    engagementRating: number
+  }
+  achievementsEarned: Array<{ id: string; name: string; icon: string; earnedAt: string }>
+  goalsForNextPeriod: string
+  coachNotes: string
+  recommendations: string
+}
+
+export const mockProgressReport: ProgressReportData = {
+  studentId: 's1',
+  studentName: 'Amara Okonkwo',
+  ageTier: '9-12',
+  enrolledTracks: ['Coding', 'AI & ML', 'Chess'],
+  enrollmentDate: '2025-03-01',
+  coachName: 'David Mutua',
+  period: 'Term 1: Jan–Mar 2026',
+  periodStart: '2026-01-06',
+  periodEnd: '2026-03-28',
+  overallAssessment:
+    'Amara has had an outstanding term. She consistently demonstrates curiosity and persistence across all three tracks. Her problem-solving skills have matured significantly — she now independently decomposes complex tasks and systematically debugs her work. She is a positive influence on peers during group activities.',
+  trackProgress: [
+    {
+      trackName: 'Coding',
+      currentLevel: 'Level 5 — Bridge to Text Coding',
+      skills: [
+        { name: 'Sequential logic', demonstrated: true },
+        { name: 'Loop constructs (for/while)', demonstrated: true },
+        { name: 'Variable assignment & types', demonstrated: true },
+        { name: 'Function definition', demonstrated: true },
+        { name: 'Debugging strategies', demonstrated: true },
+        { name: 'List operations', demonstrated: false },
+        { name: 'File I/O basics', demonstrated: false },
+      ],
+      strengths:
+        'Amara shows strong intuition for control flow. She independently wrote a reusable function with parameters and return values during her last session. Her code is well-structured for her age group.',
+      improvements:
+        'She occasionally struggles with data type conversions and could benefit from more practice with list/array manipulation before progressing to data structures.',
+      projects: [
+        'Mad Libs Generator (Python)',
+        'Number Guessing Game',
+        'Personal Homepage (HTML/CSS)',
+      ],
+    },
+    {
+      trackName: 'AI & ML',
+      currentLevel: 'Level 3 — ML Playground',
+      skills: [
+        { name: 'Supervised vs unsupervised learning', demonstrated: true },
+        { name: 'Training data concepts', demonstrated: true },
+        { name: 'Bias awareness', demonstrated: true },
+        { name: 'Image classification', demonstrated: false },
+        { name: 'Model evaluation basics', demonstrated: false },
+      ],
+      strengths:
+        'Amara grasped the concept of supervised vs unsupervised learning quickly and asked insightful questions about bias in training data. She connects AI concepts to real-world scenarios naturally.',
+      improvements:
+        'The mathematical foundations for model evaluation (accuracy, precision) need reinforcement. Recommend integrating more visual and hands-on examples.',
+      projects: [
+        'Teachable Machine — Pet Classifier',
+        'AI Ethics Poster (class presentation)',
+      ],
+    },
+    {
+      trackName: 'Chess',
+      currentLevel: 'Level 4 — Tactical Mastery',
+      skills: [
+        { name: 'Opening principles', demonstrated: true },
+        { name: 'Basic tactics (pins, forks)', demonstrated: true },
+        { name: 'Piece development', demonstrated: true },
+        { name: 'Endgame strategy (K+R vs K)', demonstrated: true },
+        { name: 'Tournament preparation', demonstrated: false },
+        { name: 'Time management (clock play)', demonstrated: false },
+      ],
+      strengths:
+        'Amara has developed a solid opening repertoire with the Italian Game. Her tactical awareness has improved markedly — she now spots pins and forks within 2-3 moves.',
+      improvements:
+        'Endgame technique needs more work, particularly King and Pawn endings. She sometimes rushes her moves when under time pressure.',
+      projects: [
+        'Completed 50+ tactical puzzles on Lichess',
+        'Participated in internal mini-tournament (3rd place)',
+      ],
+    },
+  ],
+  attendance: {
+    sessionsAttended: 34,
+    sessionsTotal: 36,
+    engagementRating: 5,
+  },
+  achievementsEarned: [
+    { id: 'a1', name: 'First Code', icon: '🚀', earnedAt: '2025-03-15' },
+    { id: 'a2', name: 'Bug Squasher', icon: '🐛', earnedAt: '2025-04-20' },
+    { id: 'a3', name: 'Chess Knight', icon: '♞', earnedAt: '2025-05-01' },
+    { id: 'a4', name: 'AI Explorer', icon: '🤖', earnedAt: '2025-04-10' },
+    { id: 'a5', name: 'Week Warrior', icon: '🔥', earnedAt: '2025-06-01' },
+  ],
+  goalsForNextPeriod:
+    'Complete Python Level 5 and begin Level 6 (Data Structures). Achieve a stable chess rating of 800+ on Lichess. Complete the Image Classification module in AI. Participate in at least one external coding competition.',
+  coachNotes:
+    'Amara is one of the most engaged students in the programme. She often stays after sessions to ask additional questions. I recommend moving her to the advanced group for chess next term. Her parents are supportive and responsive to session feedback. Consider her for the "Student Ambassador" role if the programme launches one.',
+  recommendations:
+    'Continue all three tracks next term. Increase session frequency for chess from 1x to 2x per week to capitalise on her rapid improvement. Introduce pair programming sessions with an older peer to stretch her coding abilities. Schedule a parent meeting mid-term to discuss long-term pathway (she shows potential for competitive programming).',
+}

@@ -11,3 +11,6 @@ export { DashboardLayout } from './DashboardLayout';
 export { RoleGuard } from './RoleGuard';
 export { CoachNoteEditor } from './CoachNoteEditor';
 export { ProgressComparison } from './ProgressComparison';
+export { StudentDashboardView } from './StudentDashboardView';
+export { ViewingAsBanner } from './ViewingAsBanner';
+export { ProgressReportEditor } from './ProgressReportEditor';

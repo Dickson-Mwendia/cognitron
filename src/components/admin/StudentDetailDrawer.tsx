@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { X } from 'lucide-react'
 import type { AdminStudentRow } from '@/types'
 
@@ -22,6 +23,8 @@ interface StudentDetailDrawerProps {
 }
 
 export function StudentDetailDrawer({ student, onClose }: StudentDetailDrawerProps) {
+  const router = useRouter()
+
   if (!student) return null
 
   const style = statusStyles[student.status] ?? statusStyles.active
@@ -108,6 +111,7 @@ export function StudentDetailDrawer({ student, onClose }: StudentDetailDrawerPro
           <div className="flex gap-3 pt-2">
             <button
               type="button"
+              onClick={() => router.push(`/admin/students/${student.id}`)}
               className="flex-1 rounded-lg bg-[#0c1b33] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#162d50]"
             >
               View Full Dashboard

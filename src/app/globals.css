@@ -79,3 +79,49 @@ html {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Print-friendly layout for progress reports */
+@media print {
+  body {
+    background: white !important;
+    color: #0c1b33 !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Hide dashboard chrome */
+  nav,
+  aside,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Full-width content */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Clean cards */
+  section {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border-color: #e5e7eb !important;
+  }
+
+  /* Remove focus rings and interactive styles */
+  textarea,
+  input {
+    border: none !important;
+    padding: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    resize: none !important;
+  }
+
+  /* Clean page margins */
+  @page {
+    margin: 1.5cm;
+  }
+}

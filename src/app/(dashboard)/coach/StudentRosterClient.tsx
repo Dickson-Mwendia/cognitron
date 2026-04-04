@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface RosterStudent {
   id: string
@@ -86,9 +87,10 @@ export default function StudentRosterClient({
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((student) => (
-            <div
+            <Link
               key={student.id}
-              className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+              href={`/coach/students/${student.id}`}
+              className="block rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
             >
               {/* Header */}
               <div className="mb-3 flex items-center gap-3">
@@ -143,7 +145,7 @@ export default function StudentRosterClient({
                   </p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
