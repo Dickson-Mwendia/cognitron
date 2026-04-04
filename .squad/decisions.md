@@ -221,6 +221,86 @@
 
 ---
 
+### DEC-015: Production domain is cognitron.tech (2026-04-04)
+
+**Author:** Dickson Mwendia (via Copilot)
+**Status:** ✅ Implemented
+
+**Decision:** The production domain for Cognitron is `cognitron.tech`. All email addresses use `@cognitron.tech`. All meta/SEO references use `https://cognitron.tech`.
+
+**Source file:** `coordinator-domain.md`
+
+---
+
+### DEC-016: Dashboard UX review — score 5.7→7.6 (2026-04-04)
+
+**Author:** Linus (Product Designer)
+**Status:** ✅ Implemented
+
+**Decision:** Comprehensive UX review of all dashboard pages, auth pages, and components. Direct fixes across 14 files addressing layout, contrast, micro-interactions, accessibility, and empty states.
+
+**Key fix:** Added `bg-off-white md:rounded-tl-2xl` to DashboardLayout content area — dark chrome frames light content (industry-standard pattern). Complete DashboardLayout overhaul: active nav states, fixed parent/coach routes, sign-out button, Logo component, a11y attributes.
+
+**Page scores (before→after):** Student Dashboard 5→8, Track Detail 7→8, Achievements 6→7.5, Parent Dashboard 6→7.5, Coach Dashboard 6→7, Login/Signup 6→7.5, DashboardLayout 4→8. Overall 5.7→7.6.
+
+**Source file:** `linus-dashboard-ux-review.md`
+
+---
+
+### DEC-017: Dashboard UX prioritized plan — P0/P1/P2 tiers (2026-04-04)
+
+**Author:** Rusty (Full-stack Developer)
+**Status:** ✅ Implemented (P0+P1); P2 deferred
+
+**Decision:** Prioritized implementation plan to close the gap from 7.6 to 8.5+ UX score. 4 P0 items (structural/must-do), 8 P1 items (high-impact engagement), 12 P2 items (post-launch polish).
+
+**P0 delivered:** Route group separation, 12 stub pages, parent empty state, auth gradient.
+**P1 delivered:** Confetti animation, badge modal, badge filtering, parent progress chart, coach notes editing, payment badge, remember me, profile page.
+**P2 deferred:** Age-tier theming (needs Linus), SVG progress path (needs Linus), Google login (needs Danny), responsive testing (needs Frank), and 8 others.
+
+**Source file:** `rusty-dashboard-ux-plan.md`
+
+---
+
+### DEC-018: Route group separation — (marketing) vs (dashboard) (2026-04-04)
+
+**Author:** Rusty (Full-stack Developer)
+**Status:** ✅ Implemented
+
+**Decision:** Split `src/app/` into `(marketing)/` and `(dashboard)/` route groups with independent layouts. Root `layout.tsx` reduced to minimal shell (fonts + metadata only). Eliminates the `fixed inset-0 z-50` hack on DashboardLayout. 12 marketing page directories moved. No URL changes.
+
+**Impact:** Dashboard pages no longer render hidden marketing components. z-index no longer overloaded. All 40 routes intact.
+
+**Source file:** `rusty-route-groups.md`
+
+---
+
+### DEC-019: Parental consent gate for under-16 (2026-04-04)
+
+**Author:** Rusty (Full-stack Developer)
+**Status:** ✅ Implemented
+
+**Decision:** Students under 16 blocked from self-registration per Kenya DPA 2019 §33. Must be enrolled by parent account via `/parent/add-child`. Date of birth required for student signups. Client-side age check replaces form with blocked-state UI. Parent enrollment flow creates auth user via Supabase Admin API with rate limiting, Zod validation, and cleanup on partial failure.
+
+**Trade-off:** Client-side only age check — a determined user could bypass via API. Mitigation: parent enrollment is the legitimate path; direct API signups without parent link can be flagged via admin review.
+
+**Source file:** `rusty-parental-consent.md`
+
+---
+
+### DEC-020: Security headers + env validation (2026-04-04)
+
+**Author:** Rusty (Full-stack Developer)
+**Status:** ✅ Implemented
+
+**Decision:** Added 7 security headers in `next.config.ts` (HSTS, X-Frame-Options, X-Content-Type-Options, CSP, Referrer-Policy, Permissions-Policy, X-DNS-Prefetch-Control). Env validation via `@t3-oss/env-nextjs` + Zod — Supabase vars required in production, validation skipped in dev.
+
+**Trade-off:** CSP includes `unsafe-inline` and `unsafe-eval` for script-src (Next.js dev requirement). Can be tightened with nonce-based CSP later.
+
+**Source file:** `rusty-security-headers.md`
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus

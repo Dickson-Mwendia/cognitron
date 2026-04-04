@@ -1,7 +1,7 @@
 {
   "id": "56929b90-dbe1-449b-bf28-1c332f9bcd50",
   "createdAt": "2026-04-04T08:30:05.366Z",
-  "lastActiveAt": "2026-04-04T14:03:14.480Z",
+  "lastActiveAt": "2026-04-04T16:35:25.197Z",
   "messages": [
     {
       "role": "system",
@@ -242,6 +242,36 @@
       "agentName": "coordinator",
       "content": "All 4 still running — Rusty + his 3 sub-agents:\n\n| Agent | Task | Time |\n|-------|------|------|\n| 🔧 Rusty (main) | Orchestrating | ~10.5 min |\n| ├─ Components | Dashboard UI components | ~4 min |\n| ├─ Auth pages | Login, signup, middleware | ~3.5 min |\n| └─ Dashboard pages | All route pages | ~2.5 min |\n\nBig build — full auth + schema + 4 dashboards + components. Hang tight.",
       "timestamp": "2026-04-04T14:03:14.480Z"
+    },
+    {
+      "role": "agent",
+      "agentName": "coordinator",
+      "content": "No active tasks tracked in this session. The task board is empty.\n\nTo get started, you can:\n- **Ask for work** — e.g. \"build the homepage\", \"design the pricing page\"\n- **Route to a team member** — e.g. \"Danny, plan our go-to-market\"\n- **Create a plan** — prefix with `[[PLAN]]` for structured planning\n\nThe full Squad team is available and ready. 🎬",
+      "timestamp": "2026-04-04T16:06:59.928Z"
+    },
+    {
+      "role": "agent",
+      "agentName": "coordinator",
+      "content": "Good — I found the launch readiness checklist from prior sessions. Let me do a quick audit of what's changed, then fan out the team.Now I have the full picture. Let me compile the launch readiness status and track everything.Here's the **Launch Readiness Checklist** — updated with what's actually in the codebase now:\n\n---\n\n## 📊 Cognitron Launch Readiness: ~6/10 (up from 3/10)\n\n### ✅ P0 Ship Blockers — 5 of 6 DONE\n| # | Item | Status |\n|---|------|--------|\n| 1 | Wire contact form | ✅ Done (Zod + rate limiting + Supabase) |\n| 2 | GA4 + Meta Pixel | ✅ Code done (needs real IDs in env) |\n| 3 | OG/social meta tags | ⚠️ Code done, **but `/public/og-image.jpg` is missing** |\n| 4 | KES-first pricing | ✅ Done (KES 8,500 primary) |\n| 5 | Mobile navbar | ✅ Done (click-based, scrollable) |\n| 6 | Sitemap + robots.txt | ✅ Done |\n\n### 🔴 Still Blocking Launch (3 items)\n| # | Item | Owner |\n|---|------|-------|\n| 1 | **Create og-image.jpg** (1200×630) | Linus |\n| 2 | **Set production env vars** (Supabase, GA4, Pixel) | You + Rusty |\n| 3 | **Verify clean `npm run build`** | Rusty/Frank |\n\n### 🟡 P1 — Launch Week (8 items, all pending)\n- Photo/video shoot (Basher + Linus)\n- Coach profiles + safeguarding (Tess)\n- Curriculum structures × 3 tracks (Virgil / Turk / Livingston)\n- Parent pricing validation (Tess)\n- Instagram + Google Business (Basher)\n\n### 🟢 Built Since Last Check\n- Admin dashboard (7 pages, 9 components)\n- Student dashboard (auth, role-based, 10 components)\n- 5 Supabase DB migrations\n- Auth (login/signup), Blog, Privacy, Terms\n- Logo + brand identity\n\n### Bottom Line\nRusty crushed the P0 dev work. The **3 remaining blockers** are: a missing image, env config, and a build test. Want me to put agents on those now?",
+      "timestamp": "2026-04-04T16:09:45.038Z"
+    },
+    {
+      "role": "agent",
+      "agentName": "coordinator",
+      "content": "### 📋 Active Task Board — 15 open items\n\n**🔴 P0 — Launch Blockers (4)**\n| Task | Status |\n|------|--------|\n| Create og-image.jpg (1200×630) | ⏳ pending |\n| Configure production env vars | ⏳ pending |\n| Verify clean production build | ⏳ pending |\n| OG/social meta tags | 🚫 blocked (needs og-image) |\n\n**🟡 P1 — Launch Week (8)**\n| Task | Status |\n|------|--------|\n| Photo/video shoot | ⏳ |\n| Coach profiles + safeguarding | ⏳ |\n| Coding curriculum (Virgil) | ⏳ |\n| AI curriculum (Turk) | ⏳ |\n| Chess curriculum (Livingston) | ⏳ |\n| Parent pricing interviews (Tess) | ⏳ |\n| Instagram + content calendar | ⏳ |\n| Google Business Profile | ⏳ |\n\n**🟢 P2 — Growth (3)**\nFounding families · School partnerships · Holiday camp\n\n**✅ 10 items done** (all P0 dev work + dashboards + auth + brand)\n\nPick a task or say \"go\" and I'll start knocking out the P0 blockers.",
+      "timestamp": "2026-04-04T16:13:59.356Z"
+    },
+    {
+      "role": "agent",
+      "agentName": "coordinator",
+      "content": "The launch readiness checklist isn't saved as a file in the repo — it was reconstructed just now by:\n\n1. **Session history** — a prior session (session `8478d160...`) where the team did a full site audit and created the original 24-item checklist\n2. **Live codebase audit** — I checked each P0 item against the actual code to update statuses\n3. **SQL task board** — the current state is tracked in this session's `todos` table\n\nThe original audit reports *are* saved in the repo at:\n```\n.squad/decisions/inbox/\n├── coordinator-domain.md\n├── linus-dashboard-ux-review.md\n├── rusty-parental-consent.md\n└── rusty-security-headers.md\n```\n\nThe earlier Danny/Linus/Tess/Basher/Frank audit reports from the first session weren't committed to the repo.\n\nWant me to save the launch readiness checklist as a file — e.g. `.squad/decisions/launch-readiness.md` — so it persists?",
+      "timestamp": "2026-04-04T16:15:18.068Z"
+    },
+    {
+      "role": "agent",
+      "agentName": "coordinator",
+      "content": "### 📋 Task Board — 15 open / 10 done\n\n**🔴 P0 Blockers (4)**\n- `og-image` — Create og-image.jpg (1200×630) ⏳\n- `env-vars` — Configure production env vars ⏳\n- `build-check` — Verify clean production build ⏳\n- `og-meta` — OG meta tags 🚫 blocked by og-image\n\n**🟡 P1 Launch Week (8)** — photo shoot, coach profiles, 3× curricula, parent interviews, Instagram, Google Business\n\n**🟢 P2 Growth (3)** — founding families, school partnerships, holiday camp\n\nNo changes since last check. What would you like to tackle?",
+      "timestamp": "2026-04-04T16:35:25.197Z"
     }
   ]
 }
