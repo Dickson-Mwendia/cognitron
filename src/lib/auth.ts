@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import type { DashboardUser, UserRole, Profile } from '@/types'
-import { mockStudent, mockParent, mockCoach } from '@/lib/mock-data'
+import { mockStudent, mockParent, mockCoach, mockAdmin } from '@/lib/mock-data'
 import { redirect } from 'next/navigation'
 
 /**
@@ -52,6 +52,8 @@ export function getMockUser(role: UserRole = 'student'): DashboardUser {
       return mockParent
     case 'coach':
       return mockCoach
+    case 'admin':
+      return mockAdmin
     default:
       return mockStudent
   }

@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { SignupForm } from './signup-form'
 import { Logo } from '@/components/Logo'
 
@@ -18,7 +19,9 @@ export default function SignupPage() {
           <p className="text-slate-light mt-3 text-sm">Premium learning, reimagined</p>
         </div>
 
-        <SignupForm />
+        <Suspense fallback={<div className="text-center text-slate-light text-sm py-8">Loading…</div>}>
+          <SignupForm />
+        </Suspense>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 'use client';
 
 interface RoleGuardProps {
-  allowedRoles: Array<'student' | 'parent' | 'coach'>;
+  allowedRoles: Array<'student' | 'parent' | 'coach' | 'admin'>;
   userRole: string;
   children: React.ReactNode;
   fallback?: React.ReactNode;
@@ -30,7 +30,7 @@ export function RoleGuard({
   children,
   fallback,
 }: RoleGuardProps) {
-  if (allowedRoles.includes(userRole as 'student' | 'parent' | 'coach')) {
+  if (allowedRoles.includes(userRole as 'student' | 'parent' | 'coach' | 'admin')) {
     return <>{children}</>;
   }
 

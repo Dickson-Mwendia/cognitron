@@ -5,7 +5,7 @@ export type Database = {
         Row: {
           id: string
           user_id: string
-          role: 'student' | 'parent' | 'coach'
+          role: 'student' | 'parent' | 'coach' | 'admin'
           first_name: string
           last_name: string
           avatar_url: string | null
@@ -16,7 +16,7 @@ export type Database = {
         Insert: {
           id?: string
           user_id: string
-          role: 'student' | 'parent' | 'coach'
+          role: 'student' | 'parent' | 'coach' | 'admin'
           first_name: string
           last_name: string
           avatar_url?: string | null
@@ -27,7 +27,7 @@ export type Database = {
         Update: {
           id?: string
           user_id?: string
-          role?: 'student' | 'parent' | 'coach'
+          role?: 'student' | 'parent' | 'coach' | 'admin'
           first_name?: string
           last_name?: string
           avatar_url?: string | null
@@ -348,6 +348,389 @@ export type Database = {
           student_id?: string
         }
       }
+      contact_submissions: {
+        Row: {
+          id: string
+          name: string
+          phone: string
+          email: string | null
+          child_age: string | null
+          interest: string | null
+          format: string | null
+          message: string | null
+          status: 'new' | 'contacted' | 'enrolled' | 'closed'
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          phone: string
+          email?: string | null
+          child_age?: string | null
+          interest?: string | null
+          format?: string | null
+          message?: string | null
+          status?: 'new' | 'contacted' | 'enrolled' | 'closed'
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          phone?: string
+          email?: string | null
+          child_age?: string | null
+          interest?: string | null
+          format?: string | null
+          message?: string | null
+          status?: 'new' | 'contacted' | 'enrolled' | 'closed'
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      audit_log: {
+        Row: {
+          id: string
+          actor_id: string | null
+          action: string
+          entity_type: string
+          entity_id: string | null
+          metadata: Record<string, unknown>
+          ip_address: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          actor_id?: string | null
+          action: string
+          entity_type: string
+          entity_id?: string | null
+          metadata?: Record<string, unknown>
+          ip_address?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          actor_id?: string | null
+          action?: string
+          entity_type?: string
+          entity_id?: string | null
+          metadata?: Record<string, unknown>
+          ip_address?: string | null
+          created_at?: string
+        }
+      }
+      pricing_plans: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          price_kes: number
+          price_usd: number | null
+          billing_period: 'monthly' | 'termly' | 'annual'
+          track: 'coding' | 'ai' | 'chess' | 'bundle' | null
+          is_active: boolean
+          features: string[]
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          price_kes: number
+          price_usd?: number | null
+          billing_period: 'monthly' | 'termly' | 'annual'
+          track?: 'coding' | 'ai' | 'chess' | 'bundle' | null
+          is_active?: boolean
+          features?: string[]
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          price_kes?: number
+          price_usd?: number | null
+          billing_period?: 'monthly' | 'termly' | 'annual'
+          track?: 'coding' | 'ai' | 'chess' | 'bundle' | null
+          is_active?: boolean
+          features?: string[]
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      invoices: {
+        Row: {
+          id: string
+          parent_id: string | null
+          plan_id: string | null
+          amount_kes: number
+          status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
+          due_date: string
+          paid_at: string | null
+          invoice_number: string
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          parent_id?: string | null
+          plan_id?: string | null
+          amount_kes: number
+          status: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
+          due_date: string
+          paid_at?: string | null
+          invoice_number: string
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          parent_id?: string | null
+          plan_id?: string | null
+          amount_kes?: number
+          status?: 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
+          due_date?: string
+          paid_at?: string | null
+          invoice_number?: string
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      payments: {
+        Row: {
+          id: string
+          invoice_id: string | null
+          parent_id: string | null
+          amount_kes: number
+          payment_method: 'mpesa' | 'card' | 'bank_transfer' | 'cash'
+          reference: string | null
+          status: 'pending' | 'completed' | 'failed' | 'refunded'
+          processed_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          invoice_id?: string | null
+          parent_id?: string | null
+          amount_kes: number
+          payment_method: 'mpesa' | 'card' | 'bank_transfer' | 'cash'
+          reference?: string | null
+          status: 'pending' | 'completed' | 'failed' | 'refunded'
+          processed_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          invoice_id?: string | null
+          parent_id?: string | null
+          amount_kes?: number
+          payment_method?: 'mpesa' | 'card' | 'bank_transfer' | 'cash'
+          reference?: string | null
+          status?: 'pending' | 'completed' | 'failed' | 'refunded'
+          processed_at?: string | null
+          created_at?: string
+        }
+      }
+      churn_scores: {
+        Row: {
+          id: string
+          student_id: string
+          score: number
+          risk_level: 'low' | 'medium' | 'high' | 'critical'
+          factors: string[]
+          computed_at: string
+        }
+        Insert: {
+          id?: string
+          student_id: string
+          score: number
+          risk_level: 'low' | 'medium' | 'high' | 'critical'
+          factors?: string[]
+          computed_at?: string
+        }
+        Update: {
+          id?: string
+          student_id?: string
+          score?: number
+          risk_level?: 'low' | 'medium' | 'high' | 'critical'
+          factors?: string[]
+          computed_at?: string
+        }
+      }
+      referrals: {
+        Row: {
+          id: string
+          referrer_id: string | null
+          referred_email: string
+          referred_id: string | null
+          status: 'pending' | 'signed_up' | 'converted' | 'rewarded'
+          reward_kes: number | null
+          created_at: string
+          converted_at: string | null
+        }
+        Insert: {
+          id?: string
+          referrer_id?: string | null
+          referred_email: string
+          referred_id?: string | null
+          status: 'pending' | 'signed_up' | 'converted' | 'rewarded'
+          reward_kes?: number | null
+          created_at?: string
+          converted_at?: string | null
+        }
+        Update: {
+          id?: string
+          referrer_id?: string | null
+          referred_email?: string
+          referred_id?: string | null
+          status?: 'pending' | 'signed_up' | 'converted' | 'rewarded'
+          reward_kes?: number | null
+          created_at?: string
+          converted_at?: string | null
+        }
+      }
+      notification_templates: {
+        Row: {
+          id: string
+          name: string
+          subject: string
+          body: string
+          channel: 'email' | 'sms' | 'whatsapp' | 'in_app'
+          variables: string[]
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          subject: string
+          body: string
+          channel: 'email' | 'sms' | 'whatsapp' | 'in_app'
+          variables?: string[]
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          subject?: string
+          body?: string
+          channel?: 'email' | 'sms' | 'whatsapp' | 'in_app'
+          variables?: string[]
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      platform_announcements: {
+        Row: {
+          id: string
+          title: string
+          body: string
+          audience: 'all' | 'students' | 'parents' | 'coaches'
+          is_active: boolean
+          starts_at: string | null
+          ends_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          body: string
+          audience: 'all' | 'students' | 'parents' | 'coaches'
+          is_active?: boolean
+          starts_at?: string | null
+          ends_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          body?: string
+          audience?: 'all' | 'students' | 'parents' | 'coaches'
+          is_active?: boolean
+          starts_at?: string | null
+          ends_at?: string | null
+          created_at?: string
+        }
+      }
+      platform_settings: {
+        Row: {
+          key: string
+          value: Record<string, unknown>
+          description: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          key: string
+          value: Record<string, unknown>
+          description?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          key?: string
+          value?: Record<string, unknown>
+          description?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+      }
+      alerts: {
+        Row: {
+          id: string
+          type: 'churn_risk' | 'payment_failed' | 'low_engagement' | 'no_show' | 'system'
+          severity: 'info' | 'warning' | 'critical'
+          title: string
+          description: string | null
+          entity_type: string | null
+          entity_id: string | null
+          is_read: boolean
+          is_resolved: boolean
+          created_at: string
+          resolved_at: string | null
+        }
+        Insert: {
+          id?: string
+          type: 'churn_risk' | 'payment_failed' | 'low_engagement' | 'no_show' | 'system'
+          severity: 'info' | 'warning' | 'critical'
+          title: string
+          description?: string | null
+          entity_type?: string | null
+          entity_id?: string | null
+          is_read?: boolean
+          is_resolved?: boolean
+          created_at?: string
+          resolved_at?: string | null
+        }
+        Update: {
+          id?: string
+          type?: 'churn_risk' | 'payment_failed' | 'low_engagement' | 'no_show' | 'system'
+          severity?: 'info' | 'warning' | 'critical'
+          title?: string
+          description?: string | null
+          entity_type?: string | null
+          entity_id?: string | null
+          is_read?: boolean
+          is_resolved?: boolean
+          created_at?: string
+          resolved_at?: string | null
+        }
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
@@ -401,7 +784,7 @@ export type SessionScheduleUpdate = Database['public']['Tables']['sessions_sched
 export type SessionStudentUpdate = Database['public']['Tables']['session_students']['Update']
 
 // Enum union types
-export type UserRole = 'student' | 'parent' | 'coach'
+export type UserRole = 'student' | 'parent' | 'coach' | 'admin'
 export type AgeTier = '5-8' | '9-12' | '13-17'
 export type TrackName = 'coding' | 'ai' | 'chess'
 export type ContentType = 'live' | 'practice' | 'project' | 'assessment'
@@ -409,3 +792,33 @@ export type LessonStatus = 'not_started' | 'in_progress' | 'completed'
 export type SessionLocationType = 'home' | 'online'
 export type SessionStatus = 'scheduled' | 'completed' | 'cancelled' | 'rescheduled'
 export type AchievementCategory = 'mastery' | 'streak' | 'practice' | 'speed' | 'mentor' | 'competition' | 'special'
+
+// Admin table types
+export type AuditLog = Database['public']['Tables']['audit_log']['Row']
+export type AuditLogInsert = Database['public']['Tables']['audit_log']['Insert']
+export type PricingPlan = Database['public']['Tables']['pricing_plans']['Row']
+export type PricingPlanInsert = Database['public']['Tables']['pricing_plans']['Insert']
+export type PricingPlanUpdate = Database['public']['Tables']['pricing_plans']['Update']
+export type Invoice = Database['public']['Tables']['invoices']['Row']
+export type InvoiceInsert = Database['public']['Tables']['invoices']['Insert']
+export type InvoiceUpdate = Database['public']['Tables']['invoices']['Update']
+export type Payment = Database['public']['Tables']['payments']['Row']
+export type PaymentInsert = Database['public']['Tables']['payments']['Insert']
+export type ChurnScore = Database['public']['Tables']['churn_scores']['Row']
+export type Referral = Database['public']['Tables']['referrals']['Row']
+export type NotificationTemplate = Database['public']['Tables']['notification_templates']['Row']
+export type NotificationTemplateInsert = Database['public']['Tables']['notification_templates']['Insert']
+export type NotificationTemplateUpdate = Database['public']['Tables']['notification_templates']['Update']
+export type PlatformAnnouncement = Database['public']['Tables']['platform_announcements']['Row']
+export type PlatformAnnouncementInsert = Database['public']['Tables']['platform_announcements']['Insert']
+export type PlatformSetting = Database['public']['Tables']['platform_settings']['Row']
+export type Alert = Database['public']['Tables']['alerts']['Row']
+export type AlertInsert = Database['public']['Tables']['alerts']['Insert']
+export type AlertType = 'churn_risk' | 'payment_failed' | 'low_engagement' | 'no_show' | 'system'
+export type AlertSeverity = 'info' | 'warning' | 'critical'
+export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue' | 'cancelled'
+export type PaymentMethod = 'mpesa' | 'card' | 'bank_transfer' | 'cash'
+export type PaymentStatus = 'pending' | 'completed' | 'failed' | 'refunded'
+export type ChurnRiskLevel = 'low' | 'medium' | 'high' | 'critical'
+export type BillingPeriod = 'monthly' | 'termly' | 'annual'
+export type NotificationChannel = 'email' | 'sms' | 'whatsapp' | 'in_app'
