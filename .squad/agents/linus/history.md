@@ -40,3 +40,28 @@
 - **Accessibility:** Added `role="progressbar"` + ARIA attributes on ProgressRing & XPBar, `:focus-visible` global gold outline, `aria-current="page"` on active nav items.
 - **Polish:** Dark card wrappers for gamification components, empty states for every section, hover/scale micro-interactions, `active:scale-[0.97]` tactile feedback.
 - Full review: `.squad/decisions/inbox/linus-dashboard-ux-review.md`
+
+### 2025-07-18: UX Review — "View as Student" Banner & Progress Reports
+- Designed **View-as-Student banner**: coral (`bg-coral`) sticky banner at `z-[60]`, above existing DashboardLayout chrome. Non-dismissible — exit only via explicit "Exit View" button. Includes elapsed timer, admin action dropdown, student name.
+- **Rejected breadcrumbs** for view-as navigation; persistent banner is the correct pattern for meta-state impersonation (Shopify/WordPress precedent).
+- **URL pattern decision:** Dedicated route segment `/admin/students/[id]/view-as/*` over query params — prevents context loss on internal navigation.
+- **Admin overlay controls** live inside the coral banner (not in content area) to clearly separate admin tools from student UI. Dropdown uses white card styling for contrast.
+- Designed **Progress Report editor**: single-column, max-w-3xl, centered document-editor layout. White "paper" card inside off-white content area for WYSIWYG feel.
+- **Click-to-edit per section** — consistent with existing `CoachNoteEditor` pattern (teal Save pill, gray Cancel pill, "Saving…" indicator). Rejected always-editable (too noisy) and global edit toggle (mode confusion).
+- **Section order optimized for Nairobi parents:** Summary first ("Is my child doing well?"), then track progress, strengths, growth areas, attendance, coach recommendation, next goals.
+- **WhatsApp as first-class delivery** — not afterthought. `wa.me` deep link with pre-populated message. Email and PDF download also supported.
+- **Coach Notes privacy:** CRITICAL — internal notes MUST NOT appear on parent-facing reports. Coral dashed border + lock icon + "Internal Only" label. Excluded from preview, PDF, and print.
+- **Print-friendly design:** Two-tone + accent color strategy to handle unreliable printers. Removed tinted backgrounds, darkened gold for contrast, A4 page size with 1.5cm/2cm margins.
+- **Mobile-first report editing** with sticky bottom toolbar, auto-save (1.5s debounce), expanded textarea on section edit.
+- 11 new components and 6 new routes identified.
+- Full review: `.squad/decisions/inbox/linus-student-view-ux.md`
+
+### 2026-04-04: Implementation Complete — "View as Student" Routes
+- **Rusty delivered** all 4 routes and 3 shared components per design spec.
+- Implementation aligns with:
+  - Coral banner (`ViewingAsBanner`) for impersonation state
+  - `StudentDashboardView` for shared student UI across admin/coach
+  - `ProgressReportEditor` with click-to-edit sections
+  - "Internal Only" coach notes handling
+  - URL structure: `/admin/students/[id]`, `/coach/students/[id]`, `/*/report` for reports
+- Build passes. Next: Integration testing by Frank + any final design refinements.

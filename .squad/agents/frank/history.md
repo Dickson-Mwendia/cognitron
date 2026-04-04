@@ -13,3 +13,10 @@
 - Nairobi-specific: offline behavior, data-saving mode, WhatsApp deep links, M-Pesa flows.
 - Recommended stack: Playwright + Vitest + axe-core + Lighthouse CI.
 - Deliverable: `.squad/decisions/inbox/frank-dashboard-test-plan.md`
+
+### 2026-04-04: Ready for Testing — "View as Student" Routes
+- **Rusty completed** 4 new routes + 3 shared components for "View as Student" and Progress Report features.
+- New routes: `/admin/students/[id]`, `/admin/students/[id]/report`, `/coach/students/[id]`, `/coach/students/[id]/report`
+- New components: `StudentDashboardView`, `ViewingAsBanner`, `ProgressReportEditor`
+- Existing UI wired: "View Full Dashboard" button in StudentDetailDrawer, student name links in CoachStudentRosterClient
+- Build passes clean. Ready for test coverage per existing dashboard test plan.
