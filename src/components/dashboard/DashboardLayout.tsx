@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import {
   Home,
   BookOpen,
@@ -25,6 +26,7 @@ import {
   BarChart3,
   Settings,
   BookMarked,
+  UserCheck,
   type LucideIcon,
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
@@ -60,6 +62,7 @@ const navByRole: Record<string, NavItem[]> = {
   ],
   admin: [
     { label: 'Overview', href: '/admin', icon: Home },
+    { label: 'Approvals', href: '/admin/approvals', icon: UserCheck },
     { label: 'Students', href: '/admin/students', icon: Users },
     { label: 'Coaches', href: '/admin/coaches', icon: GraduationCap },
     { label: 'Revenue', href: '/admin/revenue', icon: BarChart3 },
@@ -113,13 +116,21 @@ export function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  async function handleSignOut() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  }
 
   const navItems = navByRole[role] ?? navByRole.student;
   const mobileNavItems = getMobileNav(role);
   const greeting = getGreeting();
 
   return (
-    <div className="fixed inset-0 z-50 flex overflow-hidden bg-navy-dark">
+    <div className="flex h-screen overflow-hidden bg-navy-dark">
       {/* Desktop Sidebar */}
       <aside
         className={`hidden md:flex flex-col bg-navy border-r border-white/5 transition-all duration-300 ${
@@ -202,6 +213,7 @@ export function DashboardLayout({
           )}
           <button
             type="button"
+            onClick={handleSignOut}
             className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-light hover:bg-white/5 hover:text-coral transition-colors w-full ${
               sidebarOpen ? '' : 'justify-center'
             }`}

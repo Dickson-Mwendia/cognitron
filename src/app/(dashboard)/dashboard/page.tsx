@@ -11,6 +11,7 @@ import { XPBar } from '@/components/dashboard/XPBar'
 import { StreakCounter } from '@/components/dashboard/StreakCounter'
 import { AchievementBadge } from '@/components/dashboard/AchievementBadge'
 import { TrackCard } from '@/components/dashboard/TrackCard'
+import { XPCelebration } from '@/components/dashboard/XPCelebration'
 import Link from 'next/link'
 
 export const metadata = { title: 'Dashboard' }
@@ -23,6 +24,8 @@ export default async function StudentDashboard() {
 
   return (
     <div className="space-y-8">
+      <XPCelebration currentXP={data.totalXp} />
+
       {/* Section A: Your Next Move — hero CTA */}
       {nextSession ? (
         <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0c1b33] to-[#162d50] p-6 md:p-8 shadow-lg">

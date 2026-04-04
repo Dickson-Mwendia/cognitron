@@ -6,9 +6,9 @@ export function Footer() {
   return (
     <footer className="bg-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-6">
           {/* Brand */}
-          <div className="md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-block">
               <Logo variant="full" size="md" on="dark" />
             </Link>
@@ -75,7 +75,11 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-gold mb-4 mt-8">
+          </div>
+
+          {/* Company + Legal */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gold mb-4">
               Company
             </h3>
             <ul className="space-y-2.5">
@@ -89,6 +93,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/how-it-works"
+                  className="text-sm text-white/70 hover:text-gold transition-colors"
+                >
+                  How it works
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/pricing"
                   className="text-sm text-white/70 hover:text-gold transition-colors"
                 >
@@ -97,10 +109,31 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/how-it-works"
+                  href="/blog"
                   className="text-sm text-white/70 hover:text-gold transition-colors"
                 >
-                  How it works
+                  Blog
+                </Link>
+              </li>
+            </ul>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gold mb-4 mt-8">
+              Legal
+            </h3>
+            <ul className="space-y-2.5">
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-white/70 hover:text-gold transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-white/70 hover:text-gold transition-colors"
+                >
+                  Terms of Service
                 </Link>
               </li>
             </ul>
@@ -113,15 +146,15 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-white/70">
-                <Mail className="w-4 h-4 text-gold" />
+                <Mail className="w-4 h-4 text-gold shrink-0" />
                 hello@cognitron.tech
               </li>
               <li className="flex items-center gap-2 text-sm text-white/70">
-                <Phone className="w-4 h-4 text-gold" />
+                <Phone className="w-4 h-4 text-gold shrink-0" />
                 +254 710 643 847
               </li>
               <li className="flex items-start gap-2 text-sm text-white/70">
-                <MapPin className="w-4 h-4 text-gold mt-0.5" />
+                <MapPin className="w-4 h-4 text-gold mt-0.5 shrink-0" />
                 Nairobi, Kenya
               </li>
             </ul>

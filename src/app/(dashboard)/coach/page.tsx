@@ -2,8 +2,10 @@ import { requireRole } from '@/lib/auth'
 import {
   mockStudentRoster,
   mockUpcomingSessions,
+  mockCoachEditableNotes,
 } from '@/lib/mock-data'
 import { SessionCard } from '@/components/dashboard/SessionCard'
+import { CoachNoteEditor } from '@/components/dashboard/CoachNoteEditor'
 import StudentRosterClient from './StudentRosterClient'
 
 export const metadata = { title: 'Coach Dashboard' }
@@ -66,6 +68,8 @@ export default async function CoachDashboard() {
           ))}
         </div>
       </section>
+      {/* ── Session Notes (inline editing) ── */}
+      <CoachNoteEditor notes={mockCoachEditableNotes} />
     </div>
   )
 }

@@ -6,5 +6,8 @@ export { SessionCard } from './SessionCard';
 export { TrackCard } from './TrackCard';
 export { LevelMap } from './LevelMap';
 export { StudentCard } from './StudentCard';
+export { ComingSoon } from './ComingSoon';
 export { DashboardLayout } from './DashboardLayout';
 export { RoleGuard } from './RoleGuard';
+export { CoachNoteEditor } from './CoachNoteEditor';
+export { ProgressComparison } from './ProgressComparison';

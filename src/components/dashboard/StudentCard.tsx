@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface StudentCardProps {
   firstName: string;
   lastName: string;
@@ -55,9 +57,11 @@ export function StudentCard({
       <div className="flex items-start gap-3">
         {/* Avatar */}
         {avatarUrl ? (
-          <img
+          <Image
             src={avatarUrl}
             alt={`${firstName} ${lastName}`}
+            width={44}
+            height={44}
             className="w-11 h-11 rounded-full object-cover ring-2 ring-gold/30"
           />
         ) : (

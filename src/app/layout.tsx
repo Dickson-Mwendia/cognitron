@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { Analytics } from "@/components/Analytics";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -18,7 +14,6 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-// TODO: Confirm domain is https://cognitron.tech before launch
 export const metadata: Metadata = {
   metadataBase: new URL("https://cognitron.tech"),
   icons: {
@@ -79,12 +74,8 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Analytics />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {children}
       </body>
     </html>
   );

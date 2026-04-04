@@ -25,6 +25,7 @@ export const mockStudent: DashboardUser = {
   lastName: 'Okonkwo',
   avatarUrl: null,
   ageTier: '9-12',
+  approved: true,
 }
 
 export const mockParent: DashboardUser = {
@@ -35,6 +36,7 @@ export const mockParent: DashboardUser = {
   lastName: 'Okonkwo',
   avatarUrl: null,
   ageTier: null,
+  approved: true,
 }
 
 export const mockCoach: DashboardUser = {
@@ -45,6 +47,7 @@ export const mockCoach: DashboardUser = {
   lastName: 'Mutua',
   avatarUrl: null,
   ageTier: null,
+  approved: true,
 }
 
 export const mockAdmin: DashboardUser = {
@@ -55,7 +58,47 @@ export const mockAdmin: DashboardUser = {
   lastName: 'Ochieng',
   avatarUrl: null,
   ageTier: null,
+  approved: true,
 }
+
+// ---------------------------------------------------------------------------
+// Pending approval users (for admin approvals page)
+// ---------------------------------------------------------------------------
+
+export const mockPendingUsers = [
+  {
+    id: 'pending-1',
+    firstName: 'Grace',
+    lastName: 'Wanjiru',
+    email: 'grace.wanjiru@gmail.com',
+    role: 'parent' as const,
+    signedUpAt: '2026-04-03',
+  },
+  {
+    id: 'pending-2',
+    firstName: 'Kevin',
+    lastName: 'Otieno',
+    email: 'kevin.otieno@outlook.com',
+    role: 'parent' as const,
+    signedUpAt: '2026-04-02',
+  },
+  {
+    id: 'pending-3',
+    firstName: 'Akinyi',
+    lastName: 'Odera',
+    email: 'akinyi.odera@yahoo.com',
+    role: 'student' as const,
+    signedUpAt: '2026-04-01',
+  },
+  {
+    id: 'pending-4',
+    firstName: 'Brian',
+    lastName: 'Njoroge',
+    email: 'brian.njoroge@gmail.com',
+    role: 'parent' as const,
+    signedUpAt: '2026-03-30',
+  },
+]
 
 // ---------------------------------------------------------------------------
 // Track progress
@@ -268,6 +311,37 @@ export const mockCoachNotes = [
     text: 'Jabari is progressing well in chess. His opening game has improved significantly. Working on endgame strategy next.',
     childName: 'Jabari',
     track: 'chess' as const,
+  },
+]
+
+// ---------------------------------------------------------------------------
+// Coach view — editable session notes
+// ---------------------------------------------------------------------------
+
+export const mockCoachEditableNotes = [
+  {
+    id: 'cn1',
+    studentName: 'Amara Okonkwo',
+    content: 'Excellent progress on Python functions today. She independently wrote a reusable function with parameters and return values. Next session: introduce list comprehensions.',
+    updatedAt: '2 hours ago',
+  },
+  {
+    id: 'cn2',
+    studentName: 'Jabari Okonkwo',
+    content: 'Working on chess opening repertoire. Jabari is strong with the Italian Game but needs more practice with the Sicilian Defense. Assigned 3 puzzles for homework.',
+    updatedAt: '1 day ago',
+  },
+  {
+    id: 'cn3',
+    studentName: 'Wanjiku Kamau',
+    content: 'Started the ML Playground module. Wanjiku grasped supervised vs unsupervised learning quickly. She asked great questions about bias in training data — very engaged.',
+    updatedAt: '3 days ago',
+  },
+  {
+    id: 'cn4',
+    studentName: 'Nia Mwangi',
+    content: 'Nia was a bit distracted today. We reviewed ScratchJr basics and she completed 2 motion block exercises. Consider shorter sessions (45 min) to maintain focus.',
+    updatedAt: '5 days ago',
   },
 ]
 

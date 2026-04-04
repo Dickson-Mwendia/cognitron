@@ -11,6 +11,9 @@ export type Database = {
           avatar_url: string | null
           date_of_birth: string | null
           age_tier: '5-8' | '9-12' | '13-17' | null
+          approved: boolean
+          approved_at: string | null
+          approved_by: string | null
           created_at: string
         }
         Insert: {
@@ -22,6 +25,9 @@ export type Database = {
           avatar_url?: string | null
           date_of_birth?: string | null
           age_tier?: '5-8' | '9-12' | '13-17' | null
+          approved?: boolean
+          approved_at?: string | null
+          approved_by?: string | null
           created_at?: string
         }
         Update: {
@@ -33,6 +39,9 @@ export type Database = {
           avatar_url?: string | null
           date_of_birth?: string | null
           age_tier?: '5-8' | '9-12' | '13-17' | null
+          approved?: boolean
+          approved_at?: string | null
+          approved_by?: string | null
           created_at?: string
         }
       }

@@ -7,15 +7,13 @@ import {
 } from '@/lib/mock-data'
 import { ProgressRing } from '@/components/dashboard/ProgressRing'
 import { XPBar } from '@/components/dashboard/XPBar'
-import { AchievementBadge } from '@/components/dashboard/AchievementBadge'
+import { AchievementsClient } from '@/components/dashboard/AchievementsClient'
 
 export const metadata = { title: 'Achievements' }
 
 export default async function AchievementsPage() {
   const user = await requireAuth()
   const data = mockStudentDashboard
-  const earned = mockAchievements.filter((a) => a.earned)
-  const locked = mockAchievements.filter((a) => !a.earned)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -63,44 +61,8 @@ export default async function AchievementsPage() {
         </div>
       </section>
 
-      {/* ── Badge Collection — Earned ── */}
-      <section>
-        <h2 className="font-heading text-xl font-bold text-[#0c1b33] mb-4">
-          🏆 Earned ({earned.length})
-        </h2>
-        <div className="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
-          {earned.map((a) => (
-            <AchievementBadge
-              key={a.id}
-              name={a.name}
-              description={a.description}
-              icon={a.icon}
-              earned={a.earned}
-              earnedAt={a.earnedAt}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* ── Badge Collection — Locked ── */}
-      <section>
-        <h2 className="font-heading text-xl font-bold text-[#0c1b33] mb-4">
-          🔒 Locked ({locked.length})
-        </h2>
-        <div className="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6">
-          {locked.map((a) => (
-            <AchievementBadge
-              key={a.id}
-              name={a.name}
-              description={a.description}
-              icon={a.icon}
-              earned={a.earned}
-              earnedAt={a.earnedAt}
-              progress={a.progress ?? null}
-            />
-          ))}
-        </div>
-      </section>
+      {/* ── Badge Collection with Filtering + Modals ── */}
+      <AchievementsClient achievements={mockAchievements} />
 
       {/* ── Streak Calendar ── */}
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">

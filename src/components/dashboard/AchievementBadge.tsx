@@ -6,6 +6,7 @@ interface AchievementBadgeProps {
   earnedAt?: string | null;
   progress?: { current: number; total: number } | null;
   className?: string;
+  onClick?: () => void;
 }
 
 function formatDate(iso: string): string {
@@ -25,6 +26,7 @@ export function AchievementBadge({
   earnedAt,
   progress,
   className = '',
+  onClick,
 }: AchievementBadgeProps) {
   const progressPercent =
     progress && progress.total > 0
@@ -35,9 +37,13 @@ export function AchievementBadge({
     <div
       className={`relative rounded-xl p-4 flex flex-col items-center text-center gap-2 transition-all duration-200 ${
         earned
-          ? 'bg-navy-light border-2 border-gold shadow-md hover:shadow-lg hover:shadow-gold/10 hover:scale-[1.03] cursor-default'
+          ? 'bg-navy-light border-2 border-gold shadow-md hover:shadow-lg hover:shadow-gold/10 hover:scale-[1.03]'
           : 'bg-navy-light/60 border-2 border-dashed border-slate/40 hover:border-slate/60'
-      } ${className}`}
+      } ${onClick ? 'cursor-pointer' : 'cursor-default'} ${className}`}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
     >
       {/* Icon */}
       <div

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# squad — keep team state, ignore transient logs
+.squad/orchestration-log/
+.squad/log/
+.squad/sessions/
+.squad/decisions/inbox/

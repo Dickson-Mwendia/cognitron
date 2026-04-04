@@ -53,7 +53,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Protected routes - redirect to login if not authenticated
-  const protectedPaths = ['/dashboard', '/parent', '/coach', '/admin']
+  const protectedPaths = ['/dashboard', '/parent', '/coach', '/admin', '/pending-approval']
   const isProtected = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   )
@@ -66,26 +66,48 @@ export async function updateSession(request: NextRequest) {
   }
 
   // -------------------------------------------------------------------------
-  // Role-based authorization — only runs on gated paths, only when authed.
-  // Queries profiles.role (indexed by user_id, single-row lookup ≈ 2-5 ms).
+  // Approval gate — unapproved users can only see /pending-approval.
+  // Queries profiles.approved (single-row lookup by user_id).
   // -------------------------------------------------------------------------
   if (user && isProtected) {
-    const pathname = request.nextUrl.pathname
+    const isPendingPage = request.nextUrl.pathname.startsWith('/pending-approval')
 
+    // Single query for both approval and role checks
+    const { data: profileData } = await supabase
+      .from('profiles')
+      .select('role, approved')
+      .eq('user_id', user.id)
+      .single()
+
+    const isApproved = profileData?.approved ?? false
+
+    // Unapproved user trying to access anything other than /pending-approval → redirect
+    if (!isApproved && !isPendingPage) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/pending-approval'
+      return NextResponse.redirect(url)
+    }
+
+    // Approved user sitting on /pending-approval → send them to dashboard
+    if (isApproved && isPendingPage) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard'
+      return NextResponse.redirect(url)
+    }
+
+    // -----------------------------------------------------------------------
+    // Role-based authorization — only runs on gated paths, only when authed.
+    // Uses the profile already fetched above (no extra query).
+    // -----------------------------------------------------------------------
+    const pathname = request.nextUrl.pathname
     for (const [pathPrefix, allowedRoles] of Object.entries(ROLE_GATES)) {
       if (pathname.startsWith(pathPrefix)) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('user_id', user.id)
-          .single()
-
-        if (!profile || !allowedRoles.includes(profile.role)) {
+        if (!profileData || !allowedRoles.includes(profileData.role)) {
           const url = request.nextUrl.clone()
           url.pathname = '/dashboard'
           return NextResponse.redirect(url)
         }
-        break // matched a gate — no need to check the rest
+        break
       }
     }
   }

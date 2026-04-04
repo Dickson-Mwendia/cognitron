@@ -16,10 +16,17 @@ const protectLinks = [
   { href: "/protect/executive", label: "Executive Cyber Protection" },
 ];
 
+const aboutLinks = [
+  { href: "/about", label: "About Cognitron" },
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/pricing", label: "Pricing" },
+];
+
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [academyOpen, setAcademyOpen] = useState(false);
   const [protectOpen, setProtectOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   return (
     <nav className="bg-navy text-white sticky top-0 z-50">
@@ -87,28 +94,50 @@ export function Navbar() {
             </div>
 
             <Link
-              href="/how-it-works"
+              href="/blog"
               className="text-sm font-medium hover:text-gold transition-colors"
             >
-              How it works
+              Blog
             </Link>
+
+            {/* About Dropdown */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setAboutOpen(true)}
+              onMouseLeave={() => setAboutOpen(false)}
+            >
+              <Link
+                href="/about"
+                className="flex items-center gap-1 text-sm font-medium hover:text-gold transition-colors py-5"
+              >
+                About <ChevronDown className="w-3 h-3" />
+              </Link>
+              {aboutOpen && (
+                <div className="absolute top-full left-0 bg-white text-navy rounded-lg shadow-xl py-2 min-w-[200px]">
+                  {aboutLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block px-4 py-2.5 text-sm hover:bg-off-white hover:text-gold-dark transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
-              href="/pricing"
+              href="/login"
               className="text-sm font-medium hover:text-gold transition-colors"
             >
-              Pricing
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium hover:text-gold transition-colors"
-            >
-              About
+              Sign in
             </Link>
             <Link
               href="/contact"
               className="bg-gold text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold-light transition-colors"
             >
-              Book a free trial lesson
+              Get Started
             </Link>
           </div>
 
@@ -158,34 +187,44 @@ export function Navbar() {
           </div>
           <div className="py-3 border-t border-white/10 space-y-2">
             <Link
-              href="/how-it-works"
+              href="/blog"
               className="block py-2 text-sm hover:text-gold"
               onClick={() => setMobileOpen(false)}
             >
-              How it works
-            </Link>
-            <Link
-              href="/pricing"
-              className="block py-2 text-sm hover:text-gold"
-              onClick={() => setMobileOpen(false)}
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/about"
-              className="block py-2 text-sm hover:text-gold"
-              onClick={() => setMobileOpen(false)}
-            >
-              About
+              Blog
             </Link>
           </div>
-          <Link
-            href="/contact"
-            className="block mt-3 text-center bg-gold text-navy px-5 py-2.5 rounded-full text-sm font-semibold"
-            onClick={() => setMobileOpen(false)}
-          >
-            Book a free trial lesson
-          </Link>
+          <div className="py-3 border-t border-white/10">
+            <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">
+              About
+            </p>
+            {aboutLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block py-2 pl-3 text-sm text-white/80 hover:text-gold"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <div className="flex gap-3 mt-3">
+            <Link
+              href="/login"
+              className="flex-1 text-center border border-white/30 text-white px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-white/10 transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/contact"
+              className="flex-1 text-center bg-gold text-navy px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-gold-light transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
       )}
     </nav>

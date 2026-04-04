@@ -39,6 +39,7 @@ export async function getCurrentUser(): Promise<DashboardUser | null> {
       lastName: profile.last_name,
       avatarUrl: profile.avatar_url,
       ageTier: profile.age_tier as DashboardUser['ageTier'],
+      approved: profile.approved ?? false,
     }
   } catch {
     return null
@@ -71,6 +72,11 @@ export async function requireAuth(): Promise<DashboardUser> {
     redirect('/login')
   }
 
+  // Unapproved users get sent to the pending page
+  if (!user.approved) {
+    redirect('/pending-approval')
+  }
+
   return user
 }
 
@@ -79,6 +85,11 @@ export async function requireRole(
   allowedRoles: UserRole[],
 ): Promise<DashboardUser> {
   const user = await requireAuth()
+
+  // Approval check (requireAuth already redirects, but belt-and-suspenders)
+  if (!user.approved) {
+    redirect('/pending-approval')
+  }
 
   if (!allowedRoles.includes(user.role)) {
     redirect('/dashboard')

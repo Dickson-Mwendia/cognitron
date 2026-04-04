@@ -9,6 +9,7 @@ export interface DashboardUser {
   lastName: string
   avatarUrl: string | null
   ageTier: AgeTier | null
+  approved: boolean
 }
 
 export interface TrackProgress {
