@@ -14,7 +14,7 @@ const coaches = [
   {
     name: 'Dickson Mwendia',
     initials: 'DM',
-    title: 'Software Engineer & Founder',
+    title: 'Software Engineer',
     company: 'Microsoft',
     linkedin: 'https://www.linkedin.com/in/dickson-mwendia/',
   },
