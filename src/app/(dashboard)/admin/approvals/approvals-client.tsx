@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import { UserCheck, UserX, Clock, Search, CheckCircle2 } from 'lucide-react'
-import { mockPendingUsers } from '@/lib/mock-data'
-import { approveUser, rejectUser } from './actions'
+import { approveUser, rejectUser, type PendingUser } from './actions'
 
-type PendingUser = (typeof mockPendingUsers)[number]
+interface ApprovalsClientProps {
+  initialUsers: PendingUser[]
+}
 
-export default function ApprovalsClient() {
-  const [users, setUsers] = useState<PendingUser[]>(mockPendingUsers)
+export default function ApprovalsClient({ initialUsers }: ApprovalsClientProps) {
+  const [users, setUsers] = useState<PendingUser[]>(initialUsers)
   const [search, setSearch] = useState('')
   const [processing, setProcessing] = useState<string | null>(null)
   const [flash, setFlash] = useState<{ type: 'approve' | 'reject'; name: string } | null>(null)

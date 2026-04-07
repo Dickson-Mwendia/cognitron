@@ -6,6 +6,16 @@ import type { Database } from '@/types/database'
 
 type Profile = Database['public']['Tables']['profiles']['Row']
 
+/** Shape returned to the client for each pending user. */
+export type PendingUser = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  signedUpAt: string
+}
+
 /**
  * Verify the caller is an authenticated admin. Returns the admin's profile
  * or throws/returns null if not authorized.
@@ -41,6 +51,56 @@ function getAdminClient() {
   return createServiceClient(supabaseUrl, serviceRoleKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   })
+}
+
+/**
+ * Fetch all unapproved profiles from Supabase.
+ * Uses the service-role client so RLS doesn't block the query.
+ */
+export async function getPendingUsers(): Promise<PendingUser[]> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return []
+
+  const adminProfile = await getAdminProfile()
+  if (!adminProfile) return []
+
+  const adminClient = getAdminClient()
+  if (!adminClient) return []
+
+  const { data, error } = await adminClient
+    .from('profiles')
+    .select('id, first_name, last_name, role, created_at, user_id')
+    .eq('approved', false)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('getPendingUsers error:', error.message)
+    return []
+  }
+
+  if (!data || data.length === 0) return []
+
+  // Batch-fetch emails from auth.users via the admin API
+  const users: PendingUser[] = []
+  for (const row of data) {
+    let email = ''
+    try {
+      const { data: authUser } = await adminClient.auth.admin.getUserById(row.user_id)
+      email = authUser?.user?.email ?? ''
+    } catch {
+      // If we can't get the email, still show the user
+    }
+
+    users.push({
+      id: row.id,
+      firstName: row.first_name,
+      lastName: row.last_name,
+      email,
+      role: row.role,
+      signedUpAt: new Date(row.created_at).toISOString().split('T')[0],
+    })
+  }
+
+  return users
 }
 
 export async function approveUser(userId: string) {
