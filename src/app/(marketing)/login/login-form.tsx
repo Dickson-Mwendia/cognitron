@@ -41,8 +41,11 @@ export function LoginForm() {
         router.push('/dashboard')
         router.refresh()
       }
-    } catch {
-      setError('An unexpected error occurred')
+    } catch (err) {
+      console.error('[login] Unexpected error:', err)
+      const message =
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      setError(message)
     } finally {
       setLoading(false)
     }

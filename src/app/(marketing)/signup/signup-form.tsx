@@ -33,6 +33,7 @@ function calculateAge(dob: string): number {
 export function SignupForm() {
   const searchParams = useSearchParams()
   const initialRole = searchParams.get('role') === 'parent' ? 'parent' : 'student'
+  const urlError = searchParams.get('error')
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -41,7 +42,7 @@ export function SignupForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [role, setRole] = useState<AccountRole>(initialRole)
   const [dateOfBirth, setDateOfBirth] = useState('')
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(urlError)
   const [loading, setLoading] = useState(false)
   const [ageBlocked, setAgeBlocked] = useState(false)
   const router = useRouter()
@@ -85,10 +86,13 @@ export function SignupForm() {
 
     try {
       const supabase = createClient()
+      const redirectTo = `${window.location.origin}/auth/callback`
+
       const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
+          emailRedirectTo: redirectTo,
           data: {
             first_name: firstName,
             last_name: lastName,
@@ -104,8 +108,11 @@ export function SignupForm() {
         router.push('/pending-approval')
         router.refresh()
       }
-    } catch {
-      setError('An unexpected error occurred')
+    } catch (err) {
+      console.error('[signup] Unexpected error:', err)
+      const message =
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      setError(message)
     } finally {
       setLoading(false)
     }
