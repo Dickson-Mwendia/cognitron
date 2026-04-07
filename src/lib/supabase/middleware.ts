@@ -115,16 +115,25 @@ export async function updateSession(request: NextRequest) {
 
     // Redirect logged-in users away from auth pages
     if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
-      // Check approval status so unapproved users go to /pending-approval
-      // instead of bouncing through /dashboard first.
+      // Check approval status + role so users land on the correct home page.
       const { data: authProfile } = await supabase
         .from('profiles')
-        .select('approved')
+        .select('approved, role')
         .eq('user_id', user.id)
         .single()
 
       const url = request.nextUrl.clone()
-      url.pathname = authProfile?.approved ? '/dashboard' : '/pending-approval'
+      if (!authProfile?.approved) {
+        url.pathname = '/pending-approval'
+      } else {
+        // Send each role to its own home page
+        switch (authProfile.role) {
+          case 'admin':  url.pathname = '/admin';     break
+          case 'coach':  url.pathname = '/coach';     break
+          case 'parent': url.pathname = '/parent';    break
+          default:       url.pathname = '/dashboard'; break
+        }
+      }
       return NextResponse.redirect(url)
     }
   } catch (e) {

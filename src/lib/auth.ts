@@ -4,6 +4,16 @@ import { mockStudent, mockParent, mockCoach, mockAdmin } from '@/lib/mock-data'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 
+/** Map a user role to its home page path. */
+export function roleHomePath(role: UserRole): string {
+  switch (role) {
+    case 'admin':  return '/admin'
+    case 'coach':  return '/coach'
+    case 'parent': return '/parent'
+    default:       return '/dashboard'
+  }
+}
+
 /**
  * Get the current authenticated user with their profile.
  * Falls back to null when Supabase isn't configured.
@@ -132,7 +142,7 @@ export async function requireRole(
   }
 
   if (!allowedRoles.includes(user.role)) {
-    redirect('/dashboard')
+    redirect(roleHomePath(user.role))
   }
 
   return user
