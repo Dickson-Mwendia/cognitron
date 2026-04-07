@@ -153,8 +153,11 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-navy-light border-t border-white/10 px-4 pb-4 max-h-[calc(100dvh-4rem)] overflow-y-auto">
+      <div
+        className={`md:hidden bg-navy-light border-t border-white/10 px-4 overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileOpen ? "max-h-[calc(100dvh-4rem)] pb-4 opacity-100" : "max-h-0 pb-0 opacity-0"
+        }`}
+      >
           <div className="py-3">
             <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">
               Academy
@@ -226,7 +229,6 @@ export function Navbar() {
             </Link>
           </div>
         </div>
-      )}
     </nav>
   );
 }

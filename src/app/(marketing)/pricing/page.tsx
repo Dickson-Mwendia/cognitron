@@ -135,13 +135,15 @@ export default function PricingPage() {
                   price: "From KES 68,000/mo",
                   usd: "Approx. $525/mo",
                   example: "e.g. Coding only, online",
+                  popular: false,
                 },
                 {
                   label: "One child, multiple tracks",
                   sessions: "3+ sessions/week",
-                  price: "From KES 101,400/mo",
-                  usd: "Approx. $780/mo",
+                  price: "From KES 102,000/mo",
+                  usd: "Approx. $785/mo",
                   example: "e.g. Coding + Chess, hybrid",
+                  popular: true,
                 },
                 {
                   label: "Multiple children",
@@ -149,12 +151,22 @@ export default function PricingPage() {
                   price: "From KES 169,000/mo",
                   usd: "Approx. $1,300/mo",
                   example: "e.g. 2–3 kids, all tracks",
+                  popular: false,
                 },
               ].map((tier) => (
                 <div
                   key={tier.label}
-                  className="rounded-xl border border-navy/10 bg-off-white p-6 text-center"
+                  className={`relative rounded-xl border p-6 text-center ${
+                    tier.popular
+                      ? "border-gold bg-gold/5 ring-2 ring-gold shadow-lg"
+                      : "border-navy/10 bg-off-white"
+                  }`}
                 >
+                  {tier.popular && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-navy text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
+                      Most Popular
+                    </span>
+                  )}
                   <p className="font-bold text-navy">{tier.label}</p>
                   <p className="text-xs text-slate mt-1">{tier.sessions}</p>
                   <p className="text-2xl font-bold text-navy mt-4">

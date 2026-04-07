@@ -19,6 +19,7 @@ import {
   Award,
   Quote,
   ChevronRight,
+  ChevronDown,
 } from "lucide-react";
 
 const testimonials = [
@@ -50,7 +51,6 @@ const testimonials = [
     detail: "Parent, Nairobi",
     childContext: "Daughter, age 14 - AI track",
   },
-  // PLACEHOLDER: Replace with real testimonial
   {
     quote:
       "I enrolled Njeri in the coding track because she wanted to make apps — I wasn't thinking about maths at all. Then her Year 7 teacher called to say she'd jumped two sets in maths. When I asked Njeri about it, she shrugged and said 'It's just logic, Mum — same as debugging.' That's when I knew this was worth every shilling.",
@@ -103,6 +103,12 @@ export default function Home() {
             <p className="mt-4 text-white/40 text-sm">
               No commitment required. See if Cognitron is right for your family.
             </p>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
+            <span className="text-white/40 text-xs tracking-wider uppercase">Explore</span>
+            <ChevronDown className="w-5 h-5 text-white/40" />
           </div>
         </div>
       </section>

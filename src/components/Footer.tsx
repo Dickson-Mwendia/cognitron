@@ -147,11 +147,15 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-white/70">
                 <Mail className="w-4 h-4 text-gold shrink-0" />
-                hello@cognitron.tech
+                <a href="mailto:hello@cognitron.tech" className="hover:text-gold transition-colors">
+                  hello@cognitron.tech
+                </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-white/70">
                 <Phone className="w-4 h-4 text-gold shrink-0" />
-                +254 710 643 847
+                <a href="tel:+254710643847" className="hover:text-gold transition-colors">
+                  +254 710 643 847
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-white/70">
                 <MapPin className="w-4 h-4 text-gold mt-0.5 shrink-0" />
