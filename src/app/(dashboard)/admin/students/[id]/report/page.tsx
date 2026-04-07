@@ -1,16 +1,11 @@
 import { requireRole } from '@/lib/auth'
-import { mockAdminStudents, mockProgressReport } from '@/lib/mock-data'
+import { getAdminStudents } from '@/lib/queries'
+import { mockProgressReport } from '@/lib/mock-data'
 import { ProgressReportEditor } from '@/components/dashboard/ProgressReportEditor'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const student = mockAdminStudents.find((s) => s.id === id)
-  return {
-    title: student
-      ? `Report — ${student.firstName} ${student.lastName}`
-      : 'Progress Report',
-  }
+  return { title: 'Progress Report' }
 }
 
 export default async function AdminStudentReportPage({
@@ -21,11 +16,10 @@ export default async function AdminStudentReportPage({
   await requireRole(['admin'])
   const { id } = await params
 
-  const student = mockAdminStudents.find((s) => s.id === id)
+  const students = await getAdminStudents()
+  const student = students.find((s) => s.id === id)
   if (!student) notFound()
 
-  // In production, fetch or create a report for this student.
-  // For now, overlay student info onto the shared mock report.
   const reportData = {
     ...mockProgressReport,
     studentId: student.id,

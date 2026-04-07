@@ -1,12 +1,10 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockStudentDashboard,
-  mockTracks,
-  mockRecentActivity,
-  mockStreakDays,
-  mockStreakCount,
-  mockAchievements,
-} from '@/lib/mock-data'
+  getStudentDashboardData,
+  getStudentAchievements,
+  getStudentRecentActivity,
+  getStudentStreakDays,
+} from '@/lib/queries'
 import { XPBar } from '@/components/dashboard/XPBar'
 import { StreakCounter } from '@/components/dashboard/StreakCounter'
 import { AchievementBadge } from '@/components/dashboard/AchievementBadge'
@@ -18,7 +16,10 @@ export const metadata = { title: 'Dashboard' }
 
 export default async function StudentDashboard() {
   const user = await requireRole(['student'])
-  const data = mockStudentDashboard
+  const data = await getStudentDashboardData(user)
+  const achievements = await getStudentAchievements(user.id)
+  const recentActivity = await getStudentRecentActivity(user.id)
+  const streakDays = await getStudentStreakDays(user.id)
 
   const nextSession = data.nextSession
 
@@ -77,7 +78,7 @@ export default async function StudentDashboard() {
             Book a session with your coach to keep your learning streak going!
           </p>
           <Link
-            href="/contact"
+            href="/dashboard/schedule"
             className="inline-flex items-center gap-2 rounded-full bg-teal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-teal-light"
           >
             📅 Book a Session
@@ -91,7 +92,7 @@ export default async function StudentDashboard() {
           Your Tracks
         </h2>
         <div className="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible snap-x snap-mandatory md:snap-none">
-          {mockTracks.map((track) => (
+          {data.tracks.map((track) => (
             <Link
               key={track.trackId}
               href={`/dashboard/${track.trackName}`}
@@ -113,7 +114,7 @@ export default async function StudentDashboard() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Streak card — dark themed for gamification excitement */}
         <div className="rounded-2xl bg-navy p-5 shadow-md flex items-center justify-center">
-          <StreakCounter streak={mockStreakCount} days={mockStreakDays} />
+          <StreakCounter streak={data.streak} days={streakDays} />
         </div>
 
         {/* XP Bar card — dark themed */}
@@ -149,11 +150,11 @@ export default async function StudentDashboard() {
         <h2 className="font-heading text-xl font-bold text-navy mb-4">
           Recent Activity
         </h2>
-        {mockRecentActivity.length > 0 ? (
+        {recentActivity.length > 0 ? (
           <div className="relative pl-8">
             <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-gold/20 rounded-full" />
             <ul className="space-y-3">
-              {mockRecentActivity.map((activity) => (
+              {recentActivity.map((activity: { id: string; description: string; timestamp: string; xp: number; icon: string }) => (
                 <li key={activity.id} className="relative group">
                   <span className="absolute -left-8 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gold/10 text-sm ring-2 ring-gold/30 transition-all group-hover:ring-gold/60 group-hover:bg-gold/20">
                     {activity.icon}
@@ -198,11 +199,11 @@ export default async function StudentDashboard() {
             View All →
           </Link>
         </div>
-        {mockAchievements.filter((a) => a.earned).length > 0 ? (
+        {achievements.filter((a: { earned: boolean }) => a.earned).length > 0 ? (
           <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
-            {mockAchievements
-              .filter((a) => a.earned)
-              .map((achievement) => (
+            {achievements
+              .filter((a: { earned: boolean }) => a.earned)
+              .map((achievement: { id: string; name: string; description: string; icon: string; earned: boolean; earnedAt: string | null }) => (
                 <div
                   key={achievement.id}
                   className="min-w-[180px] snap-start transition-transform hover:scale-[1.03]"
@@ -242,7 +243,7 @@ export default async function StudentDashboard() {
           📅 My Schedule
         </Link>
         <Link
-          href="/contact"
+          href="/dashboard/schedule"
           className="rounded-full border-2 border-gold px-5 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold/10 hover:shadow-sm active:scale-[0.97]"
         >
           💬 Ask Coach

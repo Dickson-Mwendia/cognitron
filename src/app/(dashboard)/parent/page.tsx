@@ -1,17 +1,14 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockChildren,
-  mockUpcomingSessions,
-  mockCoachNotes,
-} from '@/lib/mock-data'
+  getParentOverviewChildren,
+  getUpcomingSessions,
+  getParentCoachNotes,
+} from '@/lib/queries'
 import { SessionCard } from '@/components/dashboard/SessionCard'
 import { ProgressComparison } from '@/components/dashboard/ProgressComparison'
 import Link from 'next/link'
 
-const paymentStatus: Record<string, 'paid' | 'due' | 'overdue'> = {
-  c1: 'paid',
-  c2: 'overdue',
-}
+const paymentStatus: Record<string, 'paid' | 'due' | 'overdue'> = {}
 
 export const metadata = { title: 'Parent Dashboard' }
 
@@ -23,6 +20,9 @@ const trackIcons: Record<string, string> = {
 
 export default async function ParentDashboard() {
   const user = await requireRole(['parent'])
+  const children = await getParentOverviewChildren(user.id)
+  const upcomingSessions = await getUpcomingSessions(user.id, 'student')
+  const coachNotes = await getParentCoachNotes(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -43,7 +43,7 @@ export default async function ParentDashboard() {
             ➕ Add Child
           </Link>
         </div>
-        {mockChildren.length === 0 ? (
+        {children.length === 0 ? (
           <section className="rounded-2xl border-2 border-dashed border-[#d4a843]/30 bg-white p-8 md:p-12 text-center">
             <span className="text-5xl mb-4 block">👨‍👩‍👧‍👦</span>
             <h2 className="font-heading text-2xl font-bold text-[#0c1b33] mb-3">
@@ -61,7 +61,7 @@ export default async function ParentDashboard() {
           </section>
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {mockChildren.map((child) => (
+            {children.map((child) => (
               <div
                 key={child.id}
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md hover:border-gold/30 md:p-6"
@@ -143,7 +143,7 @@ export default async function ParentDashboard() {
                 })()}
 
                 <Link
-                  href="/dashboard"
+                  href="/parent/children"
                   className="inline-block rounded-full bg-[#0c1b33] px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-navy-light hover:shadow-md active:scale-[0.97]"
                 >
                   View Details →
@@ -155,10 +155,10 @@ export default async function ParentDashboard() {
       </section>
 
       {/* ── Progress Comparison (2+ children) ── */}
-      {mockChildren.length >= 2 && (
+      {children.length >= 2 && (
         <ProgressComparison
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          children={mockChildren.map((c) => ({
+          children={children.map((c) => ({
             id: c.id,
             firstName: c.firstName,
             totalXp: c.totalXp,
@@ -173,7 +173,7 @@ export default async function ParentDashboard() {
         <h2 className="font-heading text-xl font-bold text-[#0c1b33] mb-4">
           Upcoming Sessions
         </h2>
-        {mockUpcomingSessions.length === 0 ? (
+        {upcomingSessions.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-[#2a9d8f]/30 bg-white p-8 text-center">
             <span className="text-4xl mb-3 block">📅</span>
             <h3 className="font-heading text-lg font-bold text-[#0c1b33] mb-2">
@@ -183,15 +183,15 @@ export default async function ParentDashboard() {
               Sessions will appear here once your child is enrolled in a track and a coach is assigned.
             </p>
             <Link
-              href="/contact"
+              href="/parent/schedule"
               className="inline-flex items-center gap-2 rounded-full bg-[#2a9d8f] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#2a9d8f]/90 hover:shadow-md active:scale-[0.98]"
             >
-              📅 Book a Session
+              📅 View Schedule
             </Link>
           </div>
         ) : (
           <div className="space-y-3">
-            {mockUpcomingSessions.map((session) => (
+            {upcomingSessions.map((session: { id: string; trackName: string; lessonName: string; coachName: string; scheduledAt: string; locationType: 'home' | 'online'; durationMinutes: number }) => (
               <SessionCard
                 key={session.id}
                 trackName={session.trackName}
@@ -212,7 +212,7 @@ export default async function ParentDashboard() {
         <h2 className="font-heading text-xl font-bold text-[#0c1b33] mb-4">
           Coach Notes
         </h2>
-        {mockCoachNotes.length === 0 ? (
+        {coachNotes.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-[#0c1b33]/15 bg-white p-8 text-center">
             <span className="text-4xl mb-3 block">📝</span>
             <h3 className="font-heading text-lg font-bold text-[#0c1b33] mb-2">
@@ -224,7 +224,7 @@ export default async function ParentDashboard() {
           </div>
         ) : (
           <div className="space-y-4">
-            {mockCoachNotes.map((note) => (
+            {coachNotes.map((note) => (
               <div
                 key={note.id}
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-gray-300"
@@ -258,19 +258,19 @@ export default async function ParentDashboard() {
       {/* ── Quick Actions ── */}
       <section className="flex flex-wrap gap-3">
         <Link
-          href="/contact"
+          href="/parent/schedule"
           className="rounded-full bg-[#2a9d8f] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#2a9d8f]/90 hover:shadow-md active:scale-[0.97]"
         >
-          📅 Book Extra Session
+          📅 View Schedule
         </Link>
         <Link
-          href="/contact"
+          href="/parent/messages"
           className="rounded-full bg-[#0c1b33] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#0c1b33]/90 hover:shadow-md active:scale-[0.97]"
         >
           💬 Message Coach
         </Link>
         <Link
-          href="/contact"
+          href="/parent/billing"
           className="rounded-full border-2 border-[#d4a843] px-5 py-2.5 text-sm font-semibold text-[#0c1b33] transition-all hover:bg-[#d4a843]/10 hover:shadow-sm active:scale-[0.97]"
         >
           💳 View Billing

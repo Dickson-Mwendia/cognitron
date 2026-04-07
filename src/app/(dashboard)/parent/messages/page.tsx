@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockParentConversations } from '@/lib/mock-data'
+import { getParentConversations } from '@/lib/queries'
 import { ParentMessagesClient } from '@/components/dashboard/ParentMessagesClient'
 
 export const metadata: Metadata = {
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 }
 
 export default async function MessagesPage() {
-  await requireRole(['parent'])
+  const user = await requireRole(['parent'])
+  const conversations = await getParentConversations(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -21,7 +22,7 @@ export default async function MessagesPage() {
         </p>
       </div>
 
-      <ParentMessagesClient conversations={mockParentConversations} />
+      <ParentMessagesClient conversations={conversations} />
     </div>
   )
 }

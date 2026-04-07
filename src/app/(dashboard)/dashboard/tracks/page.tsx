@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockTrackInfo } from '@/lib/mock-data'
+import { getTrackInfo } from '@/lib/queries'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 }
 
 export default async function TracksPage() {
-  await requireRole(['student'])
+  const user = await requireRole(['student'])
+  const trackInfo = await getTrackInfo(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -22,7 +23,7 @@ export default async function TracksPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {mockTrackInfo.map((track) => (
+        {trackInfo.map((track) => (
           <Link
             key={track.id}
             href={`/dashboard/${track.name}`}

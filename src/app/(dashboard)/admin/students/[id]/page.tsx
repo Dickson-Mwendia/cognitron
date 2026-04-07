@@ -1,21 +1,17 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockAdminStudents,
-  mockStudentDashboard,
-  mockTracks,
-  mockRecentActivity,
-  mockStreakDays,
-  mockStreakCount,
-  mockAchievements,
-} from '@/lib/mock-data'
+  getAdminStudents,
+  getStudentDashboardData,
+  getStudentAchievements,
+  getStudentRecentActivity,
+  getStudentStreakDays,
+} from '@/lib/queries'
 import { StudentDashboardView } from '@/components/dashboard/StudentDashboardView'
 import { ViewingAsBanner } from '@/components/dashboard/ViewingAsBanner'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const student = mockAdminStudents.find((s) => s.id === id)
-  return { title: student ? `${student.firstName} ${student.lastName}` : 'Student' }
+  return { title: 'Student Dashboard' }
 }
 
 export default async function AdminStudentDashboardPage({
@@ -26,21 +22,25 @@ export default async function AdminStudentDashboardPage({
   await requireRole(['admin'])
   const { id } = await params
 
-  const student = mockAdminStudents.find((s) => s.id === id)
+  const students = await getAdminStudents()
+  const student = students.find((s) => s.id === id)
   if (!student) notFound()
 
-  // In production, fetch real student data by id. For now, use shared mock data.
-  const data = {
-    ...mockStudentDashboard,
-    user: {
-      ...mockStudentDashboard.user,
-      id: student.id,
-      firstName: student.firstName,
-      lastName: student.lastName,
-      email: student.email,
-      ageTier: student.ageTier,
-    },
+  const studentUser = {
+    id: student.id,
+    email: student.email,
+    role: 'student' as const,
+    firstName: student.firstName,
+    lastName: student.lastName,
+    avatarUrl: null,
+    ageTier: student.ageTier,
+    approved: true,
   }
+
+  const data = await getStudentDashboardData(studentUser)
+  const achievements = await getStudentAchievements(student.id)
+  const recentActivity = await getStudentRecentActivity(student.id)
+  const streakDays = await getStudentStreakDays(student.id)
 
   return (
     <div className="space-y-6">
@@ -52,11 +52,11 @@ export default async function AdminStudentDashboardPage({
       />
       <StudentDashboardView
         data={data}
-        tracks={mockTracks}
-        achievements={mockAchievements}
-        recentActivity={mockRecentActivity}
-        streakDays={mockStreakDays}
-        streakCount={mockStreakCount}
+        tracks={data.tracks}
+        achievements={achievements}
+        recentActivity={recentActivity}
+        streakDays={streakDays}
+        streakCount={data.streak}
         viewOnly
       />
     </div>

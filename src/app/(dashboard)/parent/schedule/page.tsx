@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockCoachSessions } from '@/lib/mock-data'
+import { getParentFamilySessions } from '@/lib/queries'
 import { ParentScheduleClient } from '@/components/dashboard/ParentScheduleClient'
 
 export const metadata: Metadata = {
@@ -8,22 +8,8 @@ export const metadata: Metadata = {
 }
 
 export default async function ParentSchedulePage() {
-  await requireRole(['parent'])
-
-  // Map coach sessions to family sessions — showing sessions for the parent's children
-  const familySessions = mockCoachSessions
-    .filter((s) => s.status !== 'cancelled')
-    .map((s) => ({
-      id: s.id,
-      childName: s.studentName.split(' ')[0], // First name only
-      track: s.track,
-      coachName: `Coach ${s.studentName.includes('Kamau') ? 'David' : 'Sarah'}`,
-      date: s.date,
-      time: s.time,
-      locationType: s.locationType,
-      durationMinutes: s.durationMinutes,
-    }))
-    .filter((s) => ['Amara', 'Jabari'].includes(s.childName))
+  const user = await requireRole(['parent'])
+  const familySessions = await getParentFamilySessions(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">

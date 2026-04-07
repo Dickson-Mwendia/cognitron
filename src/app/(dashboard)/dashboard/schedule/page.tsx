@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockStudentSchedule } from '@/lib/mock-data'
+import { getStudentSchedule } from '@/lib/queries'
 import { StudentScheduleClient } from '@/components/dashboard/StudentScheduleClient'
 
 export const metadata: Metadata = {
@@ -8,10 +8,11 @@ export const metadata: Metadata = {
 }
 
 export default async function SchedulePage() {
-  await requireRole(['student'])
+  const user = await requireRole(['student'])
+  const schedule = await getStudentSchedule(user.id)
 
-  const upcoming = mockStudentSchedule.filter((s) => !s.isPast)
-  const past = mockStudentSchedule.filter((s) => s.isPast)
+  const upcoming = schedule.filter((s) => !s.isPast)
+  const past = schedule.filter((s) => s.isPast)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -35,7 +36,7 @@ export default async function SchedulePage() {
           <p className="mt-1 text-sm text-[#0c1b33]/50">Completed</p>
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm transition-all hover:shadow-md hover:border-gold/30">
-          <p className="text-3xl font-bold text-[#d4a843]">{mockStudentSchedule.length}</p>
+          <p className="text-3xl font-bold text-[#d4a843]">{schedule.length}</p>
           <p className="mt-1 text-sm text-[#0c1b33]/50">Total Sessions</p>
         </div>
       </section>

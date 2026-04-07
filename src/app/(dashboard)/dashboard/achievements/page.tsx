@@ -1,10 +1,9 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockStudentDashboard,
-  mockAchievements,
-  mockStreakDays,
-  mockStreakCount,
-} from '@/lib/mock-data'
+  getStudentDashboardData,
+  getStudentAchievements,
+  getStudentStreakDays,
+} from '@/lib/queries'
 import { ProgressRing } from '@/components/dashboard/ProgressRing'
 import { XPBar } from '@/components/dashboard/XPBar'
 import { AchievementsClient } from '@/components/dashboard/AchievementsClient'
@@ -13,19 +12,25 @@ export const metadata = { title: 'Achievements' }
 
 export default async function AchievementsPage() {
   const user = await requireRole(['student'])
-  const data = mockStudentDashboard
+  const data = await getStudentDashboardData(user)
+  const achievements = await getStudentAchievements(user.id)
+  const streakDays = await getStudentStreakDays(user.id)
+
+  const xpCeiling = data.tracks.length > 0
+    ? Math.max(...data.tracks.map(t => t.xpToNextLevel), data.totalXp + 500)
+    : Math.max(1000, data.totalXp + 500)
 
   return (
     <div className="space-y-6 md:space-y-8">
       {/* ── Profile Header ── */}
       <section className="flex items-center gap-4 md:gap-6">
         <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#0c1b33] text-2xl font-semibold text-white md:h-20 md:w-20 md:text-3xl">
-          {data.user.firstName[0]}
-          {data.user.lastName[0]}
+          {user.firstName[0]}
+          {user.lastName[0]}
         </div>
         <div>
           <h1 className="font-heading text-2xl font-bold text-[#0c1b33] md:text-3xl">
-            {data.user.firstName} {data.user.lastName}
+            {user.firstName} {user.lastName}
           </h1>
           <p className="text-sm text-[#0c1b33]/60">
             Level {data.currentLevel} ·{' '}
@@ -37,7 +42,7 @@ export default async function AchievementsPage() {
       {/* ── XP & Level Progress ── */}
       <section className="flex flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 md:flex-row md:p-8 shadow-sm">
         <ProgressRing
-          progress={Math.round((data.totalXp / 6000) * 100)}
+          progress={Math.round((data.totalXp / xpCeiling) * 100)}
           size={200}
           strokeWidth={12}
           color="#d4a843"
@@ -50,19 +55,19 @@ export default async function AchievementsPage() {
           </h2>
           <XPBar
             current={data.totalXp}
-            max={6000}
+            max={xpCeiling}
             currentLevelName={`Level ${data.currentLevel}`}
             nextLevelName={`Level ${data.currentLevel + 1}`}
             variant="light"
           />
           <p className="mt-2 text-sm text-[#0c1b33]/50">
-            {(6000 - data.totalXp).toLocaleString()} XP to next level
+            {(xpCeiling - data.totalXp).toLocaleString()} XP to next level
           </p>
         </div>
       </section>
 
       {/* ── Badge Collection with Filtering + Modals ── */}
-      <AchievementsClient achievements={mockAchievements} />
+      <AchievementsClient achievements={achievements} />
 
       {/* ── Streak Calendar ── */}
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -70,7 +75,7 @@ export default async function AchievementsPage() {
           🔥 Streak Calendar
         </h2>
         <div className="flex flex-wrap items-center gap-3 mb-4">
-          {mockStreakDays.map((d) => (
+          {streakDays.map((d) => (
             <div key={d.day} className="flex flex-col items-center gap-1">
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-all ${
@@ -87,7 +92,7 @@ export default async function AchievementsPage() {
         </div>
         <p className="text-sm text-[#0c1b33]/60">
           <span className="font-semibold text-[#d4a843]">
-            {mockStreakCount}-day
+            {data.streak}-day
           </span>{' '}
           streak! Keep it going to earn the Month Warrior badge.
         </p>

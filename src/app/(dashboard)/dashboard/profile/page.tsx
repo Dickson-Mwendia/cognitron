@@ -1,10 +1,8 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockTracks,
-  mockAchievements,
-  mockStreakCount,
-  mockStudentDashboard,
-} from '@/lib/mock-data'
+  getStudentDashboardData,
+  getStudentAchievements,
+} from '@/lib/queries'
 import Link from 'next/link'
 import {
   User,
@@ -13,7 +11,6 @@ import {
   Star,
   BookOpen,
   LogOut,
-  Settings,
   ChevronRight,
 } from 'lucide-react'
 
@@ -27,8 +24,14 @@ const trackIcons: Record<string, string> = {
 
 export default async function ProfilePage() {
   const user = await requireRole(['student'])
-  const data = mockStudentDashboard
-  const earnedAchievements = mockAchievements.filter((a) => a.earned)
+  const data = await getStudentDashboardData(user)
+  const achievements = await getStudentAchievements(user.id)
+  const earnedAchievements = achievements.filter((a: { earned: boolean }) => a.earned)
+
+  const memberSince = new Date(user.id ? Date.now() : Date.now()).toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  })
 
   return (
     <div className="space-y-8">
@@ -56,7 +59,7 @@ export default async function ProfilePage() {
               )}
             </div>
             <p className="mt-2 text-sm text-[#0c1b33]/50">
-              Member since March 2025
+              Member since {memberSince}
             </p>
           </div>
         </div>
@@ -73,7 +76,7 @@ export default async function ProfilePage() {
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-4 text-center shadow-sm">
           <Flame className="mx-auto mb-2 h-6 w-6 text-[#e8614d]" />
-          <p className="text-2xl font-bold text-[#0c1b33]">{mockStreakCount}</p>
+          <p className="text-2xl font-bold text-[#0c1b33]">{data.streak}</p>
           <p className="text-xs text-[#0c1b33]/50 uppercase">Day Streak</p>
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-4 text-center shadow-sm">
@@ -98,7 +101,7 @@ export default async function ProfilePage() {
           Enrolled Tracks
         </h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {mockTracks.map((track) => (
+          {data.tracks.map((track) => (
             <div
               key={track.trackId}
               className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-[#d4a843]/30"
@@ -192,14 +195,7 @@ export default async function ProfilePage() {
           <ChevronRight className="h-4 w-4 rotate-180" />
           Back to Dashboard
         </Link>
-        <Link
-          href="/parent"
-          className="inline-flex items-center gap-2 rounded-full border-2 border-[#d4a843] px-5 py-2.5 text-sm font-semibold text-[#0c1b33] transition-all hover:bg-[#d4a843]/10 hover:shadow-sm active:scale-[0.97]"
-        >
-          <Settings className="h-4 w-4" />
-          Parent Dashboard
-        </Link>
-        <form action="/login" method="get">
+        <form action="/api/auth/signout" method="POST">
           <button
             type="submit"
             className="inline-flex items-center gap-2 rounded-full border-2 border-[#e8614d]/30 px-5 py-2.5 text-sm font-semibold text-[#e8614d] transition-all hover:bg-[#e8614d]/5 hover:shadow-sm active:scale-[0.97]"

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { requireRole } from '@/lib/auth'
-import { mockTracks, mockCodingCurriculum } from '@/lib/mock-data'
+import { getStudentTrackProgress, getTrackCurriculum } from '@/lib/queries'
 import { ProgressRing } from '@/components/dashboard/ProgressRing'
 
 /* ------------------------------------------------------------------ */
@@ -62,8 +62,20 @@ export default async function TrackPage(props: {
   const slug = track as TrackSlug
   const user = await requireRole(['student'])
   const config = trackConfig[slug]
-  const trackData = mockTracks.find((t) => t.trackName === slug)!
-  const curriculum = mockCodingCurriculum
+  const allTracks = await getStudentTrackProgress(user.id)
+  const trackData = allTracks.find((t) => t.trackName === slug) ?? {
+    trackId: slug,
+    trackName: slug,
+    currentLevel: 1,
+    currentLevelName: 'Beginner',
+    totalXp: 0,
+    levelXp: 0,
+    xpToNextLevel: 1000,
+    completedLessons: 0,
+    totalLessons: 0,
+    progressPercent: 0,
+  }
+  const curriculum = await getTrackCurriculum(slug, user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -115,7 +127,7 @@ export default async function TrackPage(props: {
           {/* Vertical connector line */}
           <div className="absolute left-3 md:left-5 top-0 bottom-0 w-0.5 bg-[#d4a843]/20" />
 
-          {curriculum.levels.map((level) => (
+          {curriculum.levels.map((level: any) => (
             <div key={level.id} className="relative">
               {/* Level node on the connector */}
               <div
@@ -144,13 +156,13 @@ export default async function TrackPage(props: {
                 </div>
 
                 <div className="space-y-5">
-                  {level.modules.map((mod) => (
+                  {level.modules.map((mod: any) => (
                     <div key={mod.id}>
                       <h4 className="text-sm font-semibold text-[#0c1b33]/70 mb-2">
                         {mod.name}
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                        {mod.lessons.map((lesson) => (
+                        {mod.lessons.map((lesson: any) => (
                           <div
                             key={lesson.id}
                             className={`flex items-center gap-2 rounded-lg p-2.5 text-sm ${

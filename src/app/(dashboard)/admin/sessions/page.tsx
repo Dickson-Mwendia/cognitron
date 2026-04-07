@@ -1,11 +1,12 @@
 import { requireRole } from '@/lib/auth'
-import { mockAdminSessions } from '@/lib/mock-data'
+import { getAdminSessions } from '@/lib/queries'
 import AdminSessionsClient from './AdminSessionsClient'
 
 export const metadata = { title: 'Session Management' }
 
 export default async function AdminSessionsPage() {
   await requireRole(['admin'])
+  const sessions = await getAdminSessions()
 
-  return <AdminSessionsClient sessions={mockAdminSessions} />
+  return <AdminSessionsClient sessions={sessions} />
 }

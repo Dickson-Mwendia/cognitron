@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockBillingData } from '@/lib/mock-data'
+import { getParentBilling } from '@/lib/queries'
 import { BillingClient } from '@/components/dashboard/BillingClient'
 
 export const metadata: Metadata = {
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 }
 
 export default async function BillingPage() {
-  await requireRole(['parent'])
+  const user = await requireRole(['parent'])
+  const billingData = await getParentBilling(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -21,7 +22,7 @@ export default async function BillingPage() {
         </p>
       </div>
 
-      <BillingClient billing={mockBillingData} />
+      <BillingClient billing={billingData} />
     </div>
   )
 }

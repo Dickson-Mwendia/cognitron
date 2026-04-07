@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockCoachSessions } from '@/lib/mock-data'
+import { getCoachSessions } from '@/lib/queries'
 import { CoachScheduleClient } from '@/components/dashboard/CoachScheduleClient'
 
 export const metadata: Metadata = {
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 }
 
 export default async function CoachSchedulePage() {
-  await requireRole(['coach'])
+  const user = await requireRole(['coach'])
+  const sessions = await getCoachSessions(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -21,7 +22,7 @@ export default async function CoachSchedulePage() {
         </p>
       </div>
 
-      <CoachScheduleClient sessions={mockCoachSessions} />
+      <CoachScheduleClient sessions={sessions} />
     </div>
   )
 }

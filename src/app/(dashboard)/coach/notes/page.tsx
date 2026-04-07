@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockCoachNotesLibrary } from '@/lib/mock-data'
+import { getCoachNotesLibrary } from '@/lib/queries'
 import { CoachNotesLibraryClient } from '@/components/dashboard/CoachNotesLibraryClient'
 
 export const metadata: Metadata = {
@@ -8,9 +8,11 @@ export const metadata: Metadata = {
 }
 
 export default async function CoachNotesPage() {
-  await requireRole(['coach'])
+  const user = await requireRole(['coach'])
+  const notesLibrary = await getCoachNotesLibrary(user.id)
 
-  const uniqueStudents = [...new Set(mockCoachNotesLibrary.map((n) => n.studentName))].sort()
+  const uniqueStudents = [...new Set(notesLibrary.map((n) => n.studentName))].sort()
+  const uniqueTracks = [...new Set(notesLibrary.map((n) => n.track))].length
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -26,7 +28,7 @@ export default async function CoachNotesPage() {
       {/* Quick Stats */}
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm transition-all hover:shadow-md">
-          <p className="text-3xl font-bold text-[#0c1b33]">{mockCoachNotesLibrary.length}</p>
+          <p className="text-3xl font-bold text-[#0c1b33]">{notesLibrary.length}</p>
           <p className="mt-1 text-sm text-[#0c1b33]/50">Total Notes</p>
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm transition-all hover:shadow-md">
@@ -34,12 +36,12 @@ export default async function CoachNotesPage() {
           <p className="mt-1 text-sm text-[#0c1b33]/50">Students</p>
         </div>
         <div className="rounded-2xl border border-gray-200 bg-white p-5 text-center shadow-sm transition-all hover:shadow-md">
-          <p className="text-3xl font-bold text-[#d4a843]">3</p>
+          <p className="text-3xl font-bold text-[#d4a843]">{uniqueTracks}</p>
           <p className="mt-1 text-sm text-[#0c1b33]/50">Tracks</p>
         </div>
       </section>
 
-      <CoachNotesLibraryClient notes={mockCoachNotesLibrary} studentNames={uniqueStudents} />
+      <CoachNotesLibraryClient notes={notesLibrary} studentNames={uniqueStudents} />
     </div>
   )
 }

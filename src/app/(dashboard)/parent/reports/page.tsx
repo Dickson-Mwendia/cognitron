@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockParentReports } from '@/lib/mock-data'
+import { getParentReports } from '@/lib/queries'
 
 export const metadata: Metadata = {
   title: 'Progress Reports | Cognitron',
@@ -13,10 +13,11 @@ const ratingStars = (rating: number) => {
 }
 
 export default async function ReportsPage() {
-  await requireRole(['parent'])
+  const user = await requireRole(['parent'])
+  const reports = await getParentReports(user.id)
 
   // Group reports by child
-  const childGroups = mockParentReports.reduce<Record<string, typeof mockParentReports>>((acc, report) => {
+  const childGroups = reports.reduce<Record<string, typeof reports>>((acc, report) => {
     if (!acc[report.childName]) acc[report.childName] = []
     acc[report.childName].push(report)
     return acc
@@ -33,7 +34,7 @@ export default async function ReportsPage() {
         </p>
       </div>
 
-      {mockParentReports.length === 0 ? (
+      {reports.length === 0 ? (
         <div className="rounded-2xl border-2 border-dashed border-[#0c1b33]/15 bg-white p-8 md:p-12 text-center">
           <span className="text-5xl mb-4 block">📊</span>
           <h2 className="font-heading text-2xl font-bold text-[#0c1b33] mb-3">

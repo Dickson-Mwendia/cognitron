@@ -1,21 +1,19 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockStudentRoster,
-  mockStudentDashboard,
-  mockTracks,
-  mockRecentActivity,
-  mockStreakDays,
-  mockStreakCount,
-  mockAchievements,
-} from '@/lib/mock-data'
+  getCoachStudentRoster,
+  getStudentDashboardData,
+  getStudentAchievements,
+  getStudentRecentActivity,
+  getStudentStreakDays,
+} from '@/lib/queries'
 import { StudentDashboardView } from '@/components/dashboard/StudentDashboardView'
 import { ViewingAsBanner } from '@/components/dashboard/ViewingAsBanner'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const student = mockStudentRoster.find((s) => s.id === id)
-  return { title: student ? `${student.firstName} ${student.lastName}` : 'Student' }
+  // Use a simple title since we can't easily pre-fetch
+  return { title: 'Student Dashboard' }
 }
 
 export default async function CoachStudentDashboardPage({
@@ -23,23 +21,29 @@ export default async function CoachStudentDashboardPage({
 }: {
   params: Promise<{ id: string }>
 }) {
-  await requireRole(['coach'])
+  const user = await requireRole(['coach'])
   const { id } = await params
 
-  const student = mockStudentRoster.find((s) => s.id === id)
+  const roster = await getCoachStudentRoster(user.id)
+  const student = roster.find((s) => s.id === id)
   if (!student) notFound()
 
-  // In production, fetch real student data by id. For now, use shared mock data.
-  const data = {
-    ...mockStudentDashboard,
-    user: {
-      ...mockStudentDashboard.user,
-      id: student.id,
-      firstName: student.firstName,
-      lastName: student.lastName,
-      ageTier: student.ageTier,
-    },
+  // Build a DashboardUser-like object from the roster entry
+  const studentUser = {
+    id: student.id,
+    email: '',
+    role: 'student' as const,
+    firstName: student.firstName,
+    lastName: student.lastName,
+    avatarUrl: student.avatarUrl,
+    ageTier: student.ageTier as import('@/types').AgeTier | null,
+    approved: true,
   }
+
+  const data = await getStudentDashboardData(studentUser)
+  const achievements = await getStudentAchievements(student.id)
+  const recentActivity = await getStudentRecentActivity(student.id)
+  const streakDays = await getStudentStreakDays(student.id)
 
   return (
     <div className="space-y-6">
@@ -51,11 +55,11 @@ export default async function CoachStudentDashboardPage({
       />
       <StudentDashboardView
         data={data}
-        tracks={mockTracks}
-        achievements={mockAchievements}
-        recentActivity={mockRecentActivity}
-        streakDays={mockStreakDays}
-        streakCount={mockStreakCount}
+        tracks={data.tracks}
+        achievements={achievements}
+        recentActivity={recentActivity}
+        streakDays={streakDays}
+        streakCount={data.streak}
         viewOnly
       />
     </div>

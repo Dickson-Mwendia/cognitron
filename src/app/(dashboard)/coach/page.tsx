@@ -1,9 +1,9 @@
 import { requireRole } from '@/lib/auth'
 import {
-  mockStudentRoster,
-  mockUpcomingSessions,
-  mockCoachEditableNotes,
-} from '@/lib/mock-data'
+  getCoachStudentRoster,
+  getUpcomingSessions,
+  getCoachEditableNotes,
+} from '@/lib/queries'
 import { SessionCard } from '@/components/dashboard/SessionCard'
 import { CoachNoteEditor } from '@/components/dashboard/CoachNoteEditor'
 import StudentRosterClient from './StudentRosterClient'
@@ -12,12 +12,15 @@ export const metadata = { title: 'Coach Dashboard' }
 
 export default async function CoachDashboard() {
   const user = await requireRole(['coach'])
+  const studentRoster = await getCoachStudentRoster(user.id)
+  const upcomingSessions = await getUpcomingSessions(user.id, 'coach')
+  const editableNotes = await getCoachEditableNotes(user.id)
 
-  const totalStudents = mockStudentRoster.length
-  const sessionsThisWeek = mockUpcomingSessions.length
-  const avgXp = Math.round(
-    mockStudentRoster.reduce((sum, s) => sum + s.totalXp, 0) / totalStudents,
-  )
+  const totalStudents = studentRoster.length
+  const sessionsThisWeek = upcomingSessions.length
+  const avgXp = totalStudents > 0
+    ? Math.round(studentRoster.reduce((sum, s) => sum + s.totalXp, 0) / totalStudents)
+    : 0
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -46,7 +49,7 @@ export default async function CoachDashboard() {
       </section>
 
       {/* ── Student Roster (client component with search/filter) ── */}
-      <StudentRosterClient students={mockStudentRoster} />
+      <StudentRosterClient students={studentRoster} />
 
       {/* ── Upcoming Sessions ── */}
       <section>
@@ -54,7 +57,7 @@ export default async function CoachDashboard() {
           Upcoming Sessions
         </h2>
         <div className="space-y-3">
-          {mockUpcomingSessions.map((session) => (
+          {upcomingSessions.map((session: { id: string; trackName: string; lessonName: string; coachName: string; scheduledAt: string; locationType: 'home' | 'online'; durationMinutes: number }) => (
             <SessionCard
               key={session.id}
               trackName={session.trackName}
@@ -69,7 +72,7 @@ export default async function CoachDashboard() {
         </div>
       </section>
       {/* ── Session Notes (inline editing) ── */}
-      <CoachNoteEditor notes={mockCoachEditableNotes} />
+      <CoachNoteEditor notes={editableNotes} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { requireRole } from '@/lib/auth'
-import { mockParentChildren } from '@/lib/mock-data'
+import { getParentChildren } from '@/lib/queries'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -14,7 +14,8 @@ const trackConfig: Record<string, { icon: string; label: string; color: string }
 }
 
 export default async function ChildrenPage() {
-  await requireRole(['parent'])
+  const user = await requireRole(['parent'])
+  const children = await getParentChildren(user.id)
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -35,7 +36,7 @@ export default async function ChildrenPage() {
         </Link>
       </div>
 
-      {mockParentChildren.length === 0 ? (
+      {children.length === 0 ? (
         <section className="rounded-2xl border-2 border-dashed border-[#d4a843]/30 bg-white p-8 md:p-12 text-center">
           <span className="text-5xl mb-4 block">👨‍👩‍👧‍👦</span>
           <h2 className="font-heading text-2xl font-bold text-[#0c1b33] mb-3">
@@ -53,7 +54,7 @@ export default async function ChildrenPage() {
         </section>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {mockParentChildren.map((child) => (
+          {children.map((child) => (
             <div
               key={child.id}
               className="rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md hover:border-gold/30 overflow-hidden"
@@ -110,7 +111,7 @@ export default async function ChildrenPage() {
                 {/* Actions */}
                 <div className="flex gap-2 pt-2">
                   <Link
-                    href="/dashboard"
+                    href="/parent/children"
                     className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#0c1b33] px-4 py-2.5 text-xs font-semibold text-white transition-all hover:bg-navy-light hover:shadow-md active:scale-[0.97]"
                   >
                     View Dashboard →
