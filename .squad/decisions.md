@@ -374,6 +374,49 @@
 
 ---
 
+### DEC-025: PR review checklist for dashboard PRs (2026-04-07)
+
+**Author:** Frank (QA Engineer)  
+**Status:** ✅ Delivered
+
+**Decision:** Implement mandatory QA gate for all dashboard PRs. Created comprehensive checklist preventing recurrence of founder's usability audit findings.
+
+**Audit findings (prevention target):**
+- 23 of 25+ dashboard pages use hardcoded mock data
+- 16 dead buttons (disabled with no onClick handlers)
+- 4 fake save/send operations (setTimeout with success toasts, no DB writes)
+- Broken sign-out (navigates without clearing Supabase session)
+- Marketing links embedded in dashboard CTAs
+
+**Checklist structure:**
+- **12 Automated Grep Checks** — Catch common issues at PR submission:
+  - Mock data imports remaining in page files
+  - Disabled buttons without onClick handlers
+  - setTimeout patterns used for fake async
+  - Stale mock dates (2025-07-*)
+  - Broken sign-out form pattern
+
+- **31 Manual Review Items** across 6 categories:
+  - Data Integration (real Supabase queries, empty state handling)
+  - Interactive Elements (buttons wired, links correct, navigation working)
+  - User Identity (auth checks, role guards active, logged-in user shown)
+  - Backend Operations (server actions functional, DB writes verified)
+  - Auth & Navigation (sign-out works via API, protected routes enforced)
+  - Cross-Cutting (no dead buttons, no fake saves, no marketing leaks)
+
+- **Merge Rules:**
+  - P0 (critical): Automated checks pass + 5 manual items before merge allowed
+  - P1 (high): 15 manual items required, can waive with QA sign-off
+  - P2 (medium): 11 items tracked as post-merge issues for backlog
+
+- **PR Summary Template** — Standardized description format for dashboard PRs
+
+**Deliverable:** `.squad/checklists/pr-review-checklist.md`
+
+**Source files:** `usability-audit-results.md` (audit foundation)
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus

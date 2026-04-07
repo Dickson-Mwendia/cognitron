@@ -40,3 +40,12 @@
 - RLS pattern matters: `auth.uid()` gives the Supabase auth user ID, but our `profiles.id` is a separate column with `user_id` referencing auth. Every RLS policy must do the subquery. This is the #1 security test for chess.
 - Security headers are configured in `next.config.ts` but CSP includes `unsafe-inline` and `unsafe-eval` — acceptable for now (Next.js dev requirement) but should be tightened with nonce-based CSP before production.
 - Test data setup is the prerequisite for all dashboard testing — need seeded accounts for each role. Without this, 40+ tests are blocked.
+
+### 2026-04-07: PR Review Checklist — Post-Audit Quality Gate
+- Created `.squad/checklists/pr-review-checklist.md` — comprehensive checklist derived from the founder's usability audit that found 23/25+ dashboard pages with hardcoded mock data, 16 dead buttons, 4 fake backend operations, and broken sign-out.
+- **Quick Scan section** with 12 automated grep commands (5 Critical, 4 High, 4 Medium) that can be run against changed files to catch the most common issues instantly.
+- **Manual Review section** with 31 yes/no checks across 6 categories: Data Integration (6), Interactive Elements (6), User Identity (6), Backend Operations (7), Auth & Navigation (6), Cross-Cutting (6).
+- **Severity system:** Critical (blocks merge, zero exceptions), High (should fix, waivable by QA lead), Medium (can ship with tracked issue).
+- **PR Summary Template** for consistent review comments.
+- Banned patterns include: `mock*` imports, `setTimeout` in handlers, `action="/login"` for sign-out, hardcoded names ("Amara Kamau", "David Mutua"), dashboard links to `/contact`, magic numbers like `max={6000}`, stale 2025 date strings.
+- Deliverable: `.squad/checklists/pr-review-checklist.md`
