@@ -417,6 +417,108 @@
 
 ---
 
+### DEC-026: Chess Puzzles Phase 1 — Architecture Choices (2026-04-07)
+
+**Author:** Rusty (Full-stack Developer)  
+**Status:** ✅ IMPLEMENTED
+
+**Decision:** Delivered production-ready Phase 1 chess puzzle system. ~200 curated puzzles bundled locally (not fetched from API), server-side Elo-only rating calculation, Supabase-optional pattern for persistence, react-chessboard v5 (React 19 compatible).
+
+**Key architecture decisions:**
+1. **Bundled Puzzle Data** — 200+ puzzles in `src/lib/chess/puzzles.ts` instead of Lichess API. Reason: zero external dependency, instant loading, works offline in dev. Phase 2 can add API layer.
+2. **Server-Side Elo Only** — All rating calc in `submitPuzzleAttempt` server action. Client never computes rating (prevents cheating, follows quality gate §1.3).
+3. **Supabase-Optional** — Without Supabase: defaults work (1200 rating, 0 solved), puzzles load. With Supabase: full persistence to `chess_puzzle_attempts` + `xp_events`.
+4. **react-chessboard v5** — Uses `options` prop (React 19 compatible), not flat props like v4.
+5. **Puzzle Solution Flow** — First move is opponent setup (auto-played), remaining moves alternate player/opponent.
+
+**Files created (8):**
+- `src/lib/chess/puzzles.ts` (1477 lines, ~200 puzzles)
+- `src/lib/chess/queries.ts`
+- `src/components/chess/PuzzleBoard.tsx`
+- `src/components/chess/PuzzleControls.tsx`
+- `src/components/chess/PuzzleStats.tsx`
+- `src/components/chess/PuzzleGame.tsx`
+- `src/app/(dashboard)/dashboard/practice/chess-puzzles/page.tsx`
+- `src/app/(dashboard)/dashboard/practice/chess-puzzles/actions.ts`
+
+**Files modified (5):**
+- `src/app/(dashboard)/dashboard/practice/page.tsx`
+- `src/app/(dashboard)/dashboard/[track]/page.tsx`
+- `src/types/index.ts`
+- `src/types/database.ts`
+- `package.json`
+
+**Build result:** ✅ 56/56 pages, 0 errors.
+
+**Phase 2 opportunities:** Lichess API integration, puzzle history, daily puzzle, leaderboard, multiplayer.
+
+**Source file:** `rusty-chess-puzzles-phase1.md`
+
+---
+
+### DEC-027: Technical Review of Chess Playground Specification (2026-04-04)
+
+**Author:** Rusty (Full-stack Developer)  
+**Reviewing:** `livingston-chess-playground.md` (Livingston's 47KB spec)  
+**Status:** ✅ Approved with 3 critical fixes required
+
+**Summary:** Spec is thorough, library choices are sound, phased approach is correct. Found **3 blockers**, **8 items needing changes**, **14 approved items**. Biggest risks: (1) RLS references non-existent `student_coaches` table, (2) Glicko-2 must be server-side (not client), (3) CSP headers need `wasm-unsafe-eval` for WASM.
+
+**Key findings:**
+
+**✅ Approved (14 items):**
+- chess.js v1.4.0 — fully compatible, pure JS
+- react-chessboard v5.10.0 — React 19 compatible (spec said v4, v5 is right)
+- TypeScript 5 — all libs have TS declarations
+- Lazy loading strategy — correct route-based code splitting
+- Glicko-2 npm package (v1.2.1) — 5KB, server-side only
+- 10K Lichess puzzles (CC0) — feasible with streaming import
+- Puzzle categorization (15 themes) — good selection
+- XP reward integration — uses existing `xp_events` table
+- Achievement badges — uses existing `achievements` table
+- UI layout (3 modes) — well-specified wireframes
+- Mobile responsive (tap-tap default) — correct approach
+- Puzzle deferral to Phase 2 — correct prioritization
+- Eval bar + critical moment detection — standard chess UI
+- Database naming — no conflicts with existing 23 tables
+
+**🔴 Blockers (3 — must fix before Phase 1 implementation):**
+1. **RLS policies reference non-existent `student_coaches` table** — doesn't exist; we use `coach_assignments`. Also wrong column: `student_id = auth.uid()` is incorrect (auth.uid() is auth UUID, not profile UUID). Fix: use `student_id IN (SELECT id FROM profiles WHERE user_id = auth.uid())` pattern. Add parent + admin policies too.
+2. **Glicko-2 rating on client-side is a security hole** — if client computes rating, students can cheat via DevTools. Fix: Server Actions with `requireRole()` + `glicko2` imported server-side only. Client can never propose rating, only receives result.
+3. **CSP headers block WASM execution** — current CSP has `script-src 'self' 'unsafe-inline' 'unsafe-eval'` but not `'wasm-unsafe-eval'`. Stockfish WASM will fail in production. Fix: add `'wasm-unsafe-eval'` to script-src in Phase 2 (when engine is added).
+
+**⚠️ Changes needed (8 items):**
+- react-chessboard: use v5.10.0 (not v4.x per spec)
+- stockfish version: use v18.0.7 (not v16); use `/public/stockfish/` static approach (not bundler imports) to avoid Turbopack WASM issues
+- Age tier mapping: map 4 chess tiers to 3 DB tiers via student rating (Compete/Excel both 13-17)
+- PostgreSQL INDEX syntax: use `CREATE INDEX` statements (not inline `INDEX` like MySQL)
+- `game_moves` table: defer to Phase 2 (optional for MVP)
+- RLS parent/admin policies: add `is_parent_of(student_id)` + `is_admin()` to all policies
+- Ratings table write access: INSERT/UPDATE via service role only (`WITH CHECK (false)` on RLS)
+- Puzzle import: use streaming CSV parser for 1.5GB Lichess file (not `fs.readFileSync`)
+
+**📋 Bundle size impact (zero concerns):**
+- chess.js: ~21KB (bundled with chess page)
+- react-chessboard: ~50KB (lazy loaded, ssr:false)
+- stockfish.wasm: ~1.2MB (static file, never in bundle)
+- stockfish.js: ~150KB (static file)
+- glicko2: ~5KB (server-side only, not in client bundle)
+
+**📊 Estimated effort:**
+| Phase | Scope | Sessions | Dependencies |
+|-------|-------|----------|------------|
+| **1** | Puzzles only (MVP) | 3–4 | chess.js, react-chessboard, glicko2 |
+| **2** | Engine play | 3–4 | Stockfish WASM (static) |
+| **3** | Game review | 2–3 | None |
+| **4** | Polish + coach/parent | 2–3 | None |
+| **Total** | Full MVP | **10–14** | 3 npm + 1 WASM |
+
+**Recommendation:** ✅ **Approve with changes.** Fix the 3 blockers in spec, update library versions, and Phase 1 is ready to build.
+
+**Source file:** `rusty-chess-review.md`
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
