@@ -38,6 +38,7 @@ export default async function CoachStudentDashboardPage({
     avatarUrl: student.avatarUrl,
     ageTier: student.ageTier as import('@/types').AgeTier | null,
     approved: true,
+    createdAt: new Date().toISOString(),
   }
 
   const data = await getStudentDashboardData(studentUser)

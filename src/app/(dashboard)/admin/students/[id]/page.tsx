@@ -35,6 +35,7 @@ export default async function AdminStudentDashboardPage({
     avatarUrl: null,
     ageTier: student.ageTier,
     approved: true,
+    createdAt: student.enrollmentDate,
   }
 
   const data = await getStudentDashboardData(studentUser)

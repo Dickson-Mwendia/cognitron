@@ -28,7 +28,7 @@ export default async function ProfilePage() {
   const achievements = await getStudentAchievements(user.id)
   const earnedAchievements = achievements.filter((a: { earned: boolean }) => a.earned)
 
-  const memberSince = new Date(user.id ? Date.now() : Date.now()).toLocaleDateString('en-US', {
+  const memberSince = new Date(user.createdAt).toLocaleDateString('en-GB', {
     month: 'long',
     year: 'numeric',
   })

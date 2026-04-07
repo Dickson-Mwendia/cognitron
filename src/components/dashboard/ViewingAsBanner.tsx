@@ -15,7 +15,7 @@ export function ViewingAsBanner({
   reportHref,
 }: ViewingAsBannerProps) {
   return (
-    <div className="rounded-2xl border border-[#d4a843]/30 bg-gradient-to-r from-[#d4a843]/10 to-[#d4a843]/5 px-5 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="rounded-2xl border border-[#e8614d]/30 bg-gradient-to-r from-[#e8614d]/10 to-[#e8614d]/5 px-5 py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-3">
         <Link
           href={backHref}
@@ -26,7 +26,7 @@ export function ViewingAsBanner({
         </Link>
         <span className="text-[#0c1b33]/30">|</span>
         <p className="text-sm font-semibold text-[#0c1b33]">
-          Viewing as <span className="text-[#d4a843]">{studentName}</span>
+          Viewing as <span className="text-[#e8614d]">{studentName}</span>
         </p>
       </div>
       <Link

@@ -48,13 +48,13 @@ export default async function StudentDashboard() {
               with {nextSession.coachName}
             </p>
             <p className="text-white/50 text-sm mb-6">
-              {new Date(nextSession.scheduledAt).toLocaleDateString('en-US', {
+              {new Date(nextSession.scheduledAt).toLocaleDateString('en-GB', {
                 weekday: 'long',
                 month: 'long',
                 day: 'numeric',
               })}{' '}
               ·{' '}
-              {new Date(nextSession.scheduledAt).toLocaleTimeString('en-US', {
+              {new Date(nextSession.scheduledAt).toLocaleTimeString('en-GB', {
                 hour: 'numeric',
                 minute: '2-digit',
               })}{' '}
@@ -121,7 +121,7 @@ export default async function StudentDashboard() {
         <div className="rounded-2xl bg-navy p-5 shadow-md flex flex-col justify-center">
           <XPBar
             current={data.totalXp}
-            max={6000}
+            max={data.totalXp + 1000}
             currentLevelName={`Level ${data.currentLevel}`}
             nextLevelName={`Level ${data.currentLevel + 1}`}
           />
@@ -134,7 +134,9 @@ export default async function StudentDashboard() {
             Daily Challenge
           </p>
           <p className="text-sm text-navy/60 mb-3">
-            Solve a Python puzzle
+            {data.tracks.length > 0
+              ? `Try a ${data.tracks[0].trackName} challenge`
+              : 'Start a new challenge'}
           </p>
           <Link
             href="/dashboard/practice"

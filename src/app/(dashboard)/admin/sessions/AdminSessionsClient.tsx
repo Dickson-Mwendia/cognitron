@@ -50,7 +50,7 @@ export default function AdminSessionsClient({ sessions }: Props) {
               {d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
             </p>
             <p className="text-xs text-[#0c1b33]/40">
-              {d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} · {row.durationMinutes}min
+              {d.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit' })} · {row.durationMinutes}min
             </p>
           </div>
         )

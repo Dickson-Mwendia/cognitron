@@ -451,7 +451,7 @@ export async function getStudentRecentActivity(profileId: string) {
     type: e.event_type,
     description: e.description ?? e.event_type.replace(/_/g, ' '),
     xp: e.xp_amount,
-    timestamp: new Date(e.created_at).toLocaleDateString('en-US', {
+    timestamp: new Date(e.created_at).toLocaleDateString('en-GB', {
       month: 'short',
       day: 'numeric',
     }),
@@ -512,12 +512,12 @@ export async function getStudentSchedule(
     const dt = new Date(s.scheduled_at)
     return {
       id: s.id,
-      date: dt.toLocaleDateString('en-US', {
+      date: dt.toLocaleDateString('en-GB', {
         weekday: 'short',
         month: 'short',
         day: 'numeric',
       }),
-      time: dt.toLocaleTimeString('en-US', {
+      time: dt.toLocaleTimeString('en-GB', {
         hour: 'numeric',
         minute: '2-digit',
       }),
@@ -862,8 +862,8 @@ export async function getParentFamilySessions(profileId: string) {
       childName: childNameMap.get(childId) ?? 'Child',
       track: (trackMap.get(s.track_id) ?? 'coding') as TrackName,
       coachName: coachMap.get(s.coach_id) ?? 'Coach',
-      date: dt.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
-      time: dt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+      date: dt.toLocaleDateString('en-GB', { weekday: 'short', month: 'short', day: 'numeric' }),
+      time: dt.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit' }),
       locationType: s.location_type as 'home' | 'online',
       durationMinutes: s.duration_minutes,
     }
@@ -923,7 +923,7 @@ export async function getParentCoachNotes(profileId: string) {
   return notes.map((n) => ({
     id: n.id,
     coachName: coachMap.get(n.coach_id) ?? 'Coach',
-    date: new Date(n.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    date: new Date(n.created_at).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }),
     text: n.content,
     childName: childMap.get(n.student_id) ?? 'Student',
     track: n.track_id ? (trackMap.get(n.track_id) ?? 'coding') : 'coding',
@@ -978,7 +978,7 @@ export async function getParentBilling(profileId: string): Promise<BillingData> 
     },
     payments: (payments ?? []).map((p) => ({
       id: p.id,
-      date: new Date(p.created_at).toLocaleDateString('en-US', {
+      date: new Date(p.created_at).toLocaleDateString('en-GB', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -1228,8 +1228,8 @@ export async function getCoachSessions(profileId: string): Promise<CoachSession[
     const studentName = studentIds.map((id) => profileMap.get(id) ?? 'Student').join(', ') || 'TBD'
     return {
       id: s.id,
-      date: dt.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
-      time: dt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
+      date: dt.toLocaleDateString('en-GB', { weekday: 'short', month: 'short', day: 'numeric' }),
+      time: dt.toLocaleTimeString('en-GB', { hour: 'numeric', minute: '2-digit' }),
       studentName,
       studentId: studentIds[0] ?? '',
       track: (trackMap.get(s.track_id) ?? 'coding') as TrackName,
@@ -1274,7 +1274,7 @@ export async function getCoachEditableNotes(profileId: string) {
     id: n.id,
     studentName: nameMap.get(n.student_id) ?? 'Student',
     content: n.content,
-    updatedAt: new Date(n.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    updatedAt: new Date(n.updated_at).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }),
   }))
 }
 
@@ -1318,7 +1318,7 @@ export async function getCoachNotesLibrary(profileId: string): Promise<CoachNote
     id: n.id,
     studentName: nameMap.get(n.student_id) ?? 'Student',
     studentId: n.student_id,
-    date: new Date(n.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    date: new Date(n.created_at).toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' }),
     track: (n.track_id ? trackMap.get(n.track_id) ?? 'coding' : 'coding') as TrackName,
     content: n.content,
   }))

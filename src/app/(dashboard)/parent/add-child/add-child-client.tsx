@@ -70,7 +70,7 @@ export default function AddChildClient() {
         {!result?.success && (
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name fields */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label
                   htmlFor="firstName"
@@ -97,14 +97,17 @@ export default function AddChildClient() {
                 >
                   Last name <span className="text-red-400">*</span>
                 </label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  required
-                  placeholder="Kamau"
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-[#0c1b33] placeholder:text-[#0c1b33]/30 focus:outline-none focus:ring-2 focus:ring-[#d4a843] focus:border-transparent transition-shadow"
-                />
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#0c1b33]/40" />
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    required
+                    placeholder="Kamau"
+                    className="w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-lg text-[#0c1b33] placeholder:text-[#0c1b33]/30 focus:outline-none focus:ring-2 focus:ring-[#d4a843] focus:border-transparent transition-shadow"
+                  />
+                </div>
               </div>
             </div>
 

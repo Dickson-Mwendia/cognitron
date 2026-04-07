@@ -65,13 +65,13 @@ export function StudentDashboardView({
               with {nextSession.coachName}
             </p>
             <p className="text-white/50 text-sm">
-              {new Date(nextSession.scheduledAt).toLocaleDateString('en-US', {
+              {new Date(nextSession.scheduledAt).toLocaleDateString('en-GB', {
                 weekday: 'long',
                 month: 'long',
                 day: 'numeric',
               })}{' '}
               ·{' '}
-              {new Date(nextSession.scheduledAt).toLocaleTimeString('en-US', {
+              {new Date(nextSession.scheduledAt).toLocaleTimeString('en-GB', {
                 hour: 'numeric',
                 minute: '2-digit',
               })}{' '}
@@ -122,7 +122,7 @@ export function StudentDashboardView({
         <div className="rounded-2xl bg-navy p-5 shadow-md flex flex-col justify-center">
           <XPBar
             current={data.totalXp}
-            max={6000}
+            max={data.totalXp + 1000}
             currentLevelName={`Level ${data.currentLevel}`}
             nextLevelName={`Level ${data.currentLevel + 1}`}
           />

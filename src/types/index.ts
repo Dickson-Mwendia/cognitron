@@ -10,6 +10,7 @@ export interface DashboardUser {
   avatarUrl: string | null
   ageTier: AgeTier | null
   approved: boolean
+  createdAt: string
 }
 
 export interface TrackProgress {

@@ -53,6 +53,7 @@ export async function getCurrentUser(): Promise<DashboardUser | null> {
       avatarUrl: profile.avatar_url,
       ageTier: profile.age_tier as DashboardUser['ageTier'],
       approved: profile.approved ?? false,
+      createdAt: profile.created_at,
     }
   } catch {
     return null

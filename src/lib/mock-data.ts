@@ -34,6 +34,7 @@ export const mockStudent: DashboardUser = {
   avatarUrl: null,
   ageTier: '9-12',
   approved: true,
+  createdAt: '2025-06-01T10:00:00Z',
 }
 
 export const mockParent: DashboardUser = {
@@ -45,6 +46,7 @@ export const mockParent: DashboardUser = {
   avatarUrl: null,
   ageTier: null,
   approved: true,
+  createdAt: '2025-06-01T10:00:00Z',
 }
 
 export const mockCoach: DashboardUser = {
@@ -56,6 +58,7 @@ export const mockCoach: DashboardUser = {
   avatarUrl: null,
   ageTier: null,
   approved: true,
+  createdAt: '2025-05-15T08:00:00Z',
 }
 
 export const mockAdmin: DashboardUser = {
@@ -67,6 +70,7 @@ export const mockAdmin: DashboardUser = {
   avatarUrl: null,
   ageTier: null,
   approved: true,
+  createdAt: '2025-04-01T08:00:00Z',
 }
 
 // ---------------------------------------------------------------------------
