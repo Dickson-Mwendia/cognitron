@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   title: "Blog | Cognitron | Kids Coding, AI & Chess Nairobi",
   description:
     "Insights on coding education, AI literacy, chess strategy, and digital safety for kids in Nairobi. Tips for parents navigating technology with their children.",
+  openGraph: {
+    title: "Blog | Cognitron | Kids Coding, AI & Chess Nairobi",
+    description:
+      "Insights on coding education, AI literacy, chess strategy, and digital safety for kids in Nairobi. Tips for parents navigating technology with their children.",
+    url: "/blog",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron Blog — Insights on Kids' Tech Education in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Cognitron | Kids Coding, AI & Chess Nairobi",
+    description:
+      "Insights on coding education, AI literacy, chess strategy, and digital safety for kids in Nairobi. Tips for parents navigating technology with their children.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const categoryColors: Record<string, string> = {

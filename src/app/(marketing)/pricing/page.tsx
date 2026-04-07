@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "Pricing | Cognitron | Kids Coding, AI & Chess Nairobi",
   description:
     "Transparent pricing for Cognitron Academy. From KES 8,500 per session. Groups of 4. Home coaching or online. Book a free trial lesson.",
+  openGraph: {
+    title: "Pricing | Cognitron | Kids Coding, AI & Chess Nairobi",
+    description:
+      "Transparent pricing for Cognitron Academy. From KES 8,500 per session. Groups of 4. Home coaching or online. Book a free trial lesson.",
+    url: "/pricing",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — Transparent Pricing for Kids' Tech Coaching" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing | Cognitron | Kids Coding, AI & Chess Nairobi",
+    description:
+      "Transparent pricing for Cognitron Academy. From KES 8,500 per session. Groups of 4. Home coaching or online. Book a free trial lesson.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function PricingPage() {

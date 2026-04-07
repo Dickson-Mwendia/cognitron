@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "About Cognitron | Nairobi's Tech Academy for Kids & Teens",
   description:
     "Founded by Dickson Mwendia in Nairobi. Tech skills for kids, taught by someone who knows your child. Coding, AI, Chess - at your home.",
+  openGraph: {
+    title: "About Cognitron | Nairobi's Tech Academy for Kids & Teens",
+    description:
+      "Founded by Dickson Mwendia in Nairobi. Tech skills for kids, taught by someone who knows your child. Coding, AI, Chess - at your home.",
+    url: "/about",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — About Nairobi's Tech Academy for Kids" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Cognitron | Nairobi's Tech Academy for Kids & Teens",
+    description:
+      "Founded by Dickson Mwendia in Nairobi. Tech skills for kids, taught by someone who knows your child. Coding, AI, Chess - at your home.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const coaches = [

@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "Family Digital Safety Nairobi | Cognitron Protect",
   description:
     "Protect your children online and secure your home network in Nairobi. Device security, parental controls, Wi-Fi audits, and ongoing monitoring.",
+  openGraph: {
+    title: "Family Digital Safety Nairobi | Cognitron Protect",
+    description:
+      "Protect your children online and secure your home network in Nairobi. Device security, parental controls, Wi-Fi audits, and ongoing monitoring.",
+    url: "/protect/family",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron Protect — Family Digital Safety in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Family Digital Safety Nairobi | Cognitron Protect",
+    description:
+      "Protect your children online and secure your home network in Nairobi. Device security, parental controls, Wi-Fi audits, and ongoing monitoring.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function FamilyProtectPage() {

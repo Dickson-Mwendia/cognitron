@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   title: "Coding for Kids Nairobi | Cognitron Academy | Python, JavaScript, Apps",
   description:
     "Your child builds real apps with Python & JavaScript from session one. Professional tools, groups of 4, expert coaches at your home or online. Ages 8–17. Nairobi.",
+  openGraph: {
+    title: "Coding for Kids Nairobi | Cognitron Academy | Python, JavaScript, Apps",
+    description:
+      "Your child builds real apps with Python & JavaScript from session one. Professional tools, groups of 4, expert coaches at your home or online. Ages 8–17. Nairobi.",
+    url: "/academy/coding",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — Coding & App Development for Kids in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Coding for Kids Nairobi | Cognitron Academy | Python, JavaScript, Apps",
+    description:
+      "Your child builds real apps with Python & JavaScript from session one. Professional tools, groups of 4, expert coaches at your home or online. Ages 8–17. Nairobi.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const codingLevels = [

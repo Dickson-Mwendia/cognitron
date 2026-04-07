@@ -1,9 +1,7 @@
-// TODO: Replace placeholder IDs with real tracking IDs before launch
-// Google Analytics 4: G-XXXXXXXXXX
-// Meta Pixel: XXXXXXXXXX
-
-export const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // TODO: Replace with real GA4 ID
-export const META_PIXEL_ID = "XXXXXXXXXX"; // TODO: Replace with real Meta Pixel ID
+export const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XXXXXXXXXX";
+export const META_PIXEL_ID =
+  process.env.NEXT_PUBLIC_META_PIXEL_ID || "XXXXXXXXXX";
 
 /* ---------- Type declarations ---------- */
 

@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   title: "Chess Lessons for Kids Nairobi | Cognitron Academy | Tournament Prep",
   description:
     "Personal chess coaching from rated players. Classical training, Stockfish analysis, tournament preparation. Ages 6–17. At your home in Nairobi or online.",
+  openGraph: {
+    title: "Chess Lessons for Kids Nairobi | Cognitron Academy | Tournament Prep",
+    description:
+      "Personal chess coaching from rated players. Classical training, Stockfish analysis, tournament preparation. Ages 6–17. At your home in Nairobi or online.",
+    url: "/academy/chess",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — Chess Coaching & Tournament Prep for Kids in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chess Lessons for Kids Nairobi | Cognitron Academy | Tournament Prep",
+    description:
+      "Personal chess coaching from rated players. Classical training, Stockfish analysis, tournament preparation. Ages 6–17. At your home in Nairobi or online.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const chessLevels = [

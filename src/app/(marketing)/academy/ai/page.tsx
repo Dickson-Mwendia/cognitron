@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   title: "AI for Kids Nairobi | Cognitron Academy | Machine Learning, Chatbots",
   description:
     "Your child learns how AI works and builds real AI-powered apps. Image classifiers, chatbots, prompt engineering. Ages 10–17. Nairobi home coaching or online.",
+  openGraph: {
+    title: "AI for Kids Nairobi | Cognitron Academy | Machine Learning, Chatbots",
+    description:
+      "Your child learns how AI works and builds real AI-powered apps. Image classifiers, chatbots, prompt engineering. Ages 10–17. Nairobi home coaching or online.",
+    url: "/academy/ai",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — AI & Machine Learning for Kids in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI for Kids Nairobi | Cognitron Academy | Machine Learning, Chatbots",
+    description:
+      "Your child learns how AI works and builds real AI-powered apps. Image classifiers, chatbots, prompt engineering. Ages 10–17. Nairobi home coaching or online.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const aiLevels = [

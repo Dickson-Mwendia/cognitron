@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "Executive Cyber Protection Nairobi | Cognitron Protect",
   description:
     "Personal cybersecurity for Nairobi business owners, executives, and high-profile individuals. Dark web monitoring, device hardening, incident response.",
+  openGraph: {
+    title: "Executive Cyber Protection Nairobi | Cognitron Protect",
+    description:
+      "Personal cybersecurity for Nairobi business owners, executives, and high-profile individuals. Dark web monitoring, device hardening, incident response.",
+    url: "/protect/executive",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron Protect — Executive Cyber Protection in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Executive Cyber Protection Nairobi | Cognitron Protect",
+    description:
+      "Personal cybersecurity for Nairobi business owners, executives, and high-profile individuals. Dark web monitoring, device hardening, incident response.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function ExecutiveProtectPage() {

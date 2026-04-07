@@ -16,6 +16,20 @@ export const metadata: Metadata = {
   title: "How It Works | Cognitron | Free Trial Lesson in Nairobi",
   description:
     "Book a free trial lesson, get a personalised learning plan, and watch your child build real projects from week one. Nairobi home coaching or online.",
+  openGraph: {
+    title: "How It Works | Cognitron | Free Trial Lesson in Nairobi",
+    description:
+      "Book a free trial lesson, get a personalised learning plan, and watch your child build real projects from week one. Nairobi home coaching or online.",
+    url: "/how-it-works",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — How It Works: From Free Trial to Real Projects" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How It Works | Cognitron | Free Trial Lesson in Nairobi",
+    description:
+      "Book a free trial lesson, get a personalised learning plan, and watch your child build real projects from week one. Nairobi home coaching or online.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function HowItWorksPage() {

@@ -6,6 +6,20 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Cognitron",
   description:
     "Cognitron's privacy policy. How we collect, use, and protect your data. Compliant with the Kenya Data Protection Act 2019.",
+  openGraph: {
+    title: "Privacy Policy | Cognitron",
+    description:
+      "Cognitron's privacy policy. How we collect, use, and protect your data. Compliant with the Kenya Data Protection Act 2019.",
+    url: "/privacy",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron — Privacy Policy" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Cognitron",
+    description:
+      "Cognitron's privacy policy. How we collect, use, and protect your data. Compliant with the Kenya Data Protection Act 2019.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function PrivacyPolicyPage() {
