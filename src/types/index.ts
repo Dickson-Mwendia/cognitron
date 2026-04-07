@@ -317,3 +317,30 @@ export interface ChessPlayerStats {
   bestStreak: number
   totalXpEarned: number
 }
+
+// ---------------------------------------------------------------------------
+// Chess game types (Play vs Computer)
+// ---------------------------------------------------------------------------
+
+export interface ChessGame {
+  id: string
+  studentId: string
+  opponentId: string
+  pgn: string
+  result: 'win' | 'loss' | 'draw'
+  moves: number
+  ratingBefore: number
+  ratingAfter: number
+  xpEarned: number
+  createdAt: string
+}
+
+export interface ChessGameStats {
+  rating: number
+  gamesPlayed: number
+  wins: number
+  losses: number
+  draws: number
+  totalXpEarned: number
+  currentWinStreak: number
+}

@@ -48,6 +48,23 @@ export default async function PracticePage() {
           </span>
         </Link>
 
+        {/* Play vs Computer — Active */}
+        <Link
+          href="/dashboard/practice/play-computer"
+          className="group rounded-2xl border border-[#d4a843]/30 bg-white p-6 transition-all duration-200 hover:shadow-lg hover:border-[#d4a843] text-left"
+        >
+          <span className="text-4xl block group-hover:scale-110 transition-transform origin-left">♔</span>
+          <h2 className="mt-3 font-heading text-lg font-bold text-[#0c1b33] group-hover:text-[#d4a843] transition-colors">
+            Play vs Computer
+          </h2>
+          <p className="mt-1 text-sm text-[#0c1b33]/60">
+            Challenge fun opponents from Peanut to The Grandmaster!
+          </p>
+          <span className="mt-3 inline-block rounded-full bg-[#d4a843] px-4 py-1.5 text-xs font-semibold text-[#0c1b33] group-hover:bg-[#d4a843]/90 transition-colors">
+            Play Now →
+          </span>
+        </Link>
+
         {/* Coding Challenges — Coming Soon */}
         <div className="rounded-2xl border border-gray-200 bg-white p-6 opacity-60 cursor-default">
           <span className="text-4xl block">💻</span>
