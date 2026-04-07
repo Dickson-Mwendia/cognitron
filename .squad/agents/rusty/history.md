@@ -10,6 +10,14 @@
 
 <!-- Append learnings below -->
 
+### 2026-07-22: Phase 1 Chess Puzzle System (Production-Ready)
+- Built full chess puzzle system: ~200 curated puzzles across beginner/intermediate/advanced tiers, interactive board with react-chessboard v5 + chess.js, server-side Elo rating, XP awards, Zod-validated server action.
+- **react-chessboard v5 API change:** All props now go through an `options` object (`<Chessboard options={{...}} />`). `onPieceDrop` receives `{ piece, sourceSquare, targetSquare }` object, not positional params. `allowDragging` replaces `arePiecesDraggable`. `animationDurationInMs` replaces `animationDuration`. `squareStyles`/`boardStyle`/`darkSquareStyle`/`lightSquareStyle` replace the `custom*` prefixed versions.
+- **Supabase fallback pattern:** When Supabase isn't configured, queries return sensible defaults (rating 1200, 0 solved). When configured, reads/writes `chess_puzzle_attempts` and `xp_events` tables. Dynamic imports of Supabase client avoid build errors.
+- **Server-side rating:** All Elo calculation happens in the server action. K-factor: 32 for beginners (<1400), 16 for experienced. XP: 10-50 based on puzzle difficulty vs player rating.
+- **Next.js 16 proxy.ts:** Removed stale `middleware.ts` — Next.js 16 requires only `proxy.ts` (not both). Also wrapped login form in Suspense for `useSearchParams()` requirement.
+- **Quality gates satisfied:** No mock imports, no setTimeout faking, every button has a real handler, all links point to real routes, empty state for new users, server-side mutations only.
+
 ### 2026-07-21: Deployment Blocker Fixes (11 items)
 - **Middleware naming (BLOCKER #1):** Next.js 16.2.1 uses `proxy.ts`/`proxy()` convention, NOT `middleware.ts`. The file was already correctly named. Renaming to middleware.ts triggers a deprecation warning. Left as `proxy.ts` with `proxy()` export — auth is active.
 - **FAQ age contradiction (BLOCKER #2):** Fixed homepage FAQ to distinguish ages per track: Chess from 6, Coding from 8, AI from 10. Aligns with academy/ai page.

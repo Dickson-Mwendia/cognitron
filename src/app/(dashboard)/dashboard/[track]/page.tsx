@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { requireRole } from '@/lib/auth'
 import { getStudentTrackProgress, getTrackCurriculum } from '@/lib/queries'
 import { ProgressRing } from '@/components/dashboard/ProgressRing'
@@ -204,41 +205,79 @@ export default async function TrackPage(props: {
           Practice Challenges
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            {
-              title: 'Quick Quiz',
-              desc: 'Test your knowledge with 10 questions',
-              icon: '❓',
-            },
-            {
-              title: 'Code Challenge',
-              desc: 'Solve a hands-on puzzle',
-              icon: '🧩',
-            },
-            {
-              title: 'Project Lab',
-              desc: 'Build a mini-project from scratch',
-              icon: '🔬',
-            },
-          ].map((challenge) => (
-            <button
-              key={challenge.title}
-              disabled
-              title="Coming soon"
-              className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all duration-200 hover:shadow-lg hover:border-gray-300 text-left cursor-default"
-            >
-              <span className="text-3xl block group-hover:scale-110 transition-transform origin-left">{challenge.icon}</span>
-              <h3 className="mt-3 font-heading font-bold text-[#0c1b33] transition-colors group-hover:text-[#2a9d8f]">
-                {challenge.title}
-              </h3>
-              <p className="mt-1 text-sm text-[#0c1b33]/60">
-                {challenge.desc}
-              </p>
-              <span className="mt-2 inline-block text-[10px] font-semibold uppercase tracking-wider text-[#0c1b33]/30">
-                Coming Soon
-              </span>
-            </button>
-          ))}
+          {slug === 'chess' ? (
+            <>
+              <Link
+                href="/dashboard/practice/chess-puzzles"
+                className="group rounded-2xl border border-[#d4a843]/30 bg-white p-5 transition-all duration-200 hover:shadow-lg hover:border-[#d4a843] text-left"
+              >
+                <span className="text-3xl block group-hover:scale-110 transition-transform origin-left">♟️</span>
+                <h3 className="mt-3 font-heading font-bold text-[#0c1b33] transition-colors group-hover:text-[#d4a843]">
+                  Chess Puzzles
+                </h3>
+                <p className="mt-1 text-sm text-[#0c1b33]/60">
+                  Solve tactical puzzles to sharpen your skills
+                </p>
+                <span className="mt-2 inline-block rounded-full bg-[#d4a843] px-3 py-1 text-[10px] font-semibold text-[#0c1b33]">
+                  Solve Puzzles →
+                </span>
+              </Link>
+              {[
+                { title: 'Code Challenge', desc: 'Solve a hands-on puzzle', icon: '🧩' },
+                { title: 'Project Lab', desc: 'Build a mini-project from scratch', icon: '🔬' },
+              ].map((challenge) => (
+                <div
+                  key={challenge.title}
+                  className="rounded-2xl border border-gray-200 bg-white p-5 cursor-default opacity-60"
+                >
+                  <span className="text-3xl block">{challenge.icon}</span>
+                  <h3 className="mt-3 font-heading font-bold text-[#0c1b33]">
+                    {challenge.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-[#0c1b33]/60">
+                    {challenge.desc}
+                  </p>
+                  <span className="mt-2 inline-block text-[10px] font-semibold uppercase tracking-wider text-[#0c1b33]/30">
+                    Coming Soon
+                  </span>
+                </div>
+              ))}
+            </>
+          ) : (
+            [
+              {
+                title: 'Quick Quiz',
+                desc: 'Test your knowledge with 10 questions',
+                icon: '❓',
+              },
+              {
+                title: 'Code Challenge',
+                desc: 'Solve a hands-on puzzle',
+                icon: '🧩',
+              },
+              {
+                title: 'Project Lab',
+                desc: 'Build a mini-project from scratch',
+                icon: '🔬',
+              },
+            ].map((challenge) => (
+              <div
+                key={challenge.title}
+                className="rounded-2xl border border-gray-200 bg-white p-5 cursor-default opacity-60"
+              >
+                <span className="text-3xl block">{challenge.icon}</span>
+                <h3 className="mt-3 font-heading font-bold text-[#0c1b33]">
+                  {challenge.title}
+                </h3>
+                <p className="mt-1 text-sm text-[#0c1b33]/60">
+                  {challenge.desc}
+                </p>
+                <span className="mt-2 inline-block text-[10px] font-semibold uppercase tracking-wider text-[#0c1b33]/30">
+                  Coming Soon
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </section>
     </div>

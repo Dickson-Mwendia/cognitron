@@ -287,3 +287,33 @@ export interface TrackInfo {
   enrolled: boolean
   accentColor: string
 }
+
+// ---------------------------------------------------------------------------
+// Chess puzzle types
+// ---------------------------------------------------------------------------
+
+export interface ChessPuzzle {
+  id: string
+  fen: string
+  moves: string[]  // UCI format, first move is setup, rest are solution
+  rating: number
+  themes: string[]
+  popularity: number
+}
+
+export interface PuzzleAttempt {
+  puzzleId: string
+  solved: boolean
+  timeMs: number
+  ratingBefore: number
+  ratingAfter: number
+}
+
+export interface ChessPlayerStats {
+  rating: number
+  puzzlesSolved: number
+  puzzlesAttempted: number
+  currentStreak: number
+  bestStreak: number
+  totalXpEarned: number
+}

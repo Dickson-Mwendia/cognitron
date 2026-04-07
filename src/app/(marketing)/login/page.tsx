@@ -1,5 +1,8 @@
+import { Suspense } from 'react'
 import { LoginForm } from './login-form'
 import { Logo } from '@/components/Logo'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Sign In',
@@ -21,7 +24,13 @@ export default function LoginPage() {
           <p className="text-slate-light mt-3 text-sm">Welcome back to Cognitron</p>
         </div>
 
-        <LoginForm />
+        <Suspense fallback={
+          <div className="bg-white rounded-2xl shadow-2xl p-8 text-center">
+            <div className="h-5 w-5 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin mx-auto" />
+          </div>
+        }>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   )
