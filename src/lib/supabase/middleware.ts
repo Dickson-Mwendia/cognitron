@@ -115,8 +115,16 @@ export async function updateSession(request: NextRequest) {
 
     // Redirect logged-in users away from auth pages
     if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
+      // Check approval status so unapproved users go to /pending-approval
+      // instead of bouncing through /dashboard first.
+      const { data: authProfile } = await supabase
+        .from('profiles')
+        .select('approved')
+        .eq('user_id', user.id)
+        .single()
+
       const url = request.nextUrl.clone()
-      url.pathname = '/dashboard'
+      url.pathname = authProfile?.approved ? '/dashboard' : '/pending-approval'
       return NextResponse.redirect(url)
     }
   } catch (e) {
