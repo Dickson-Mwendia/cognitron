@@ -1,18 +1,57 @@
 'use client'
 
 import { useState } from 'react'
-import type { Conversation } from '@/types'
+import type { Conversation, Message } from '@/types'
 import { Send, MessageSquare } from 'lucide-react'
+import { sendMessage } from '@/lib/actions'
 
 interface Props {
   conversations: Conversation[]
+  currentUserId?: string
+  currentUserName?: string
 }
 
-export function ParentMessagesClient({ conversations }: Props) {
-  const [selectedId, setSelectedId] = useState<string>(conversations[0]?.id || '')
+export function ParentMessagesClient({ conversations: initialConversations, currentUserId, currentUserName }: Props) {
+  const [conversations, setConversations] = useState<Conversation[]>(initialConversations)
+  const [selectedId, setSelectedId] = useState<string>(initialConversations[0]?.id || '')
   const [newMessage, setNewMessage] = useState('')
+  const [sending, setSending] = useState(false)
 
   const selectedConversation = conversations.find((c) => c.id === selectedId)
+
+  async function handleSend() {
+    if (!newMessage.trim() || !selectedConversation || sending) return
+
+    setSending(true)
+    const result = await sendMessage(selectedConversation.coachId, newMessage.trim())
+
+    if (result.success) {
+      // Optimistically add message to local state
+      const newMsg: Message = {
+        id: result.messageId ?? crypto.randomUUID(),
+        senderId: currentUserId ?? 'self',
+        senderName: currentUserName ?? 'You',
+        senderRole: 'parent',
+        text: newMessage.trim(),
+        timestamp: new Date().toISOString(),
+      }
+
+      setConversations((prev) =>
+        prev.map((c) =>
+          c.id === selectedConversation.id
+            ? {
+                ...c,
+                messages: [...c.messages, newMsg],
+                lastMessage: newMsg.text,
+                lastMessageAt: newMsg.timestamp,
+              }
+            : c,
+        ),
+      )
+      setNewMessage('')
+    }
+    setSending(false)
+  }
 
   const formatTime = (iso: string) => {
     const d = new Date(iso)
@@ -126,17 +165,17 @@ export function ParentMessagesClient({ conversations }: Props) {
                   placeholder="Type a message..."
                   className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 px-4 text-sm text-[#0c1b33] placeholder:text-[#0c1b33]/40 outline-none focus:border-[#2a9d8f] focus:ring-2 focus:ring-[#2a9d8f]/20 transition-colors"
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && newMessage.trim()) {
-                      setNewMessage('')
+                    if (e.key === 'Enter' && !e.shiftKey && newMessage.trim()) {
+                      e.preventDefault()
+                      handleSend()
                     }
                   }}
                 />
                 <button
                   type="button"
-                  onClick={() => {
-                    if (newMessage.trim()) setNewMessage('')
-                  }}
-                  className="rounded-xl bg-[#2a9d8f] p-2.5 text-white transition-all hover:bg-[#2a9d8f]/90 active:scale-[0.97]"
+                  onClick={handleSend}
+                  disabled={sending || !newMessage.trim()}
+                  className="rounded-xl bg-[#2a9d8f] p-2.5 text-white transition-all hover:bg-[#2a9d8f]/90 active:scale-[0.97] disabled:opacity-50"
                 >
                   <Send className="w-4 h-4" />
                 </button>

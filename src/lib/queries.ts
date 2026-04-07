@@ -14,6 +14,7 @@
  */
 
 import { createClient as createTypedClient } from '@/lib/supabase/server'
+import { createClient as createServiceRoleClient } from '@supabase/supabase-js'
 import type {
   DashboardUser,
   TrackProgress,
@@ -53,6 +54,31 @@ function supabaseConfigured(): boolean {
  */
 async function db() {
   return (await createTypedClient()) as any
+}
+
+/** Service-role client for admin queries (auth.users access). Returns null if not configured. */
+function serviceDb() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) return null
+  return createServiceRoleClient(url, key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  })
+}
+
+/** Batch-fetch emails from auth.users via the service-role admin API. */
+async function fetchUserEmails(userIds: string[]): Promise<Map<string, string>> {
+  const map = new Map<string, string>()
+  const admin = serviceDb()
+  if (!admin || userIds.length === 0) return map
+
+  for (const uid of userIds) {
+    try {
+      const { data } = await admin.auth.admin.getUserById(uid)
+      if (data?.user?.email) map.set(uid, data.user.email)
+    } catch { /* skip */ }
+  }
+  return map
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -844,13 +870,64 @@ export async function getParentFamilySessions(profileId: string) {
   })
 }
 
-/** Coach notes visible to parent. (No dedicated table yet — returns empty.) */
-export async function getParentCoachNotes(_profileId: string) {
+/** Coach notes visible to parent — fetches from coach_notes for linked children. */
+export async function getParentCoachNotes(profileId: string) {
   if (!supabaseConfigured()) {
     const { mockCoachNotes } = await import('@/lib/mock-data')
     return mockCoachNotes
   }
-  return []
+
+  const sb = await db()
+
+  // Get children
+  const { data: links } = await sb
+    .from('parent_student_links')
+    .select('student_id')
+    .eq('parent_id', profileId)
+  if (!links || links.length === 0) return []
+
+  const childIds = links.map((l) => l.student_id)
+
+  // Fetch notes for those children
+  const { data: notes } = await sb
+    .from('coach_notes')
+    .select('id, coach_id, student_id, track_id, content, created_at')
+    .in('student_id', childIds)
+    .order('created_at', { ascending: false })
+    .limit(20)
+
+  if (!notes || notes.length === 0) return []
+
+  // Get coach names, student names, track names
+  const coachIds = [...new Set(notes.map((n) => n.coach_id))]
+  const trackIds = [...new Set(notes.map((n) => n.track_id).filter(Boolean))]
+
+  const { data: coachProfiles } = await sb
+    .from('profiles')
+    .select('id, first_name, last_name')
+    .in('id', coachIds)
+  const coachMap = new Map((coachProfiles ?? []).map((c) => [c.id, `${c.first_name} ${c.last_name}`]))
+
+  const { data: childProfiles } = await sb
+    .from('profiles')
+    .select('id, first_name')
+    .in('id', childIds)
+  const childMap = new Map((childProfiles ?? []).map((c) => [c.id, c.first_name]))
+
+  let trackMap = new Map()
+  if (trackIds.length > 0) {
+    const { data: tracks } = await sb.from('tracks').select('id, name').in('id', trackIds)
+    trackMap = new Map((tracks ?? []).map((t) => [t.id, t.name]))
+  }
+
+  return notes.map((n) => ({
+    id: n.id,
+    coachName: coachMap.get(n.coach_id) ?? 'Coach',
+    date: new Date(n.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    text: n.content,
+    childName: childMap.get(n.student_id) ?? 'Student',
+    track: n.track_id ? (trackMap.get(n.track_id) ?? 'coding') : 'coding',
+  }))
 }
 
 /** Parent billing data. */
@@ -917,22 +994,122 @@ export async function getParentBilling(profileId: string): Promise<BillingData> 
   }
 }
 
-/** Parent reports. (No reports table — uses mock in dev, empty in prod.) */
-export async function getParentReports(_profileId: string): Promise<ParentReport[]> {
+/** Parent reports — fetches sent progress reports for linked children. */
+export async function getParentReports(profileId: string): Promise<ParentReport[]> {
   if (!supabaseConfigured()) {
     const { mockParentReports } = await import('@/lib/mock-data')
     return mockParentReports
   }
-  return []
+
+  const sb = await db()
+
+  // Get children
+  const { data: links } = await sb
+    .from('parent_student_links')
+    .select('student_id')
+    .eq('parent_id', profileId)
+  if (!links || links.length === 0) return []
+
+  const childIds = links.map((l) => l.student_id)
+
+  // Fetch sent reports for those children
+  const { data: reports } = await sb
+    .from('progress_reports')
+    .select('id, student_id, period, report_data, sent_at, created_at')
+    .in('student_id', childIds)
+    .eq('status', 'sent')
+    .order('sent_at', { ascending: false })
+    .limit(20)
+
+  if (!reports || reports.length === 0) return []
+
+  // Get child names
+  const { data: childProfiles } = await sb
+    .from('profiles')
+    .select('id, first_name, last_name')
+    .in('id', childIds)
+  const childMap = new Map(
+    (childProfiles ?? []).map((c) => [c.id, `${c.first_name} ${c.last_name}`]),
+  )
+
+  return reports.map((r) => ({
+    id: r.id,
+    childName: childMap.get(r.student_id) ?? 'Student',
+    childId: r.student_id,
+    period: r.period,
+    overallRating: (r.report_data as any)?.overallRating ?? 3,
+    dateGenerated: r.sent_at ?? r.created_at,
+    summary: (r.report_data as any)?.overallAssessment ?? 'Progress report available.',
+  }))
 }
 
-/** Parent conversations. (No messaging table — returns empty.) */
-export async function getParentConversations(_profileId: string): Promise<Conversation[]> {
+/** Parent conversations — built from messages grouped by coach. */
+export async function getParentConversations(profileId: string): Promise<Conversation[]> {
   if (!supabaseConfigured()) {
     const { mockParentConversations } = await import('@/lib/mock-data')
     return mockParentConversations
   }
-  return []
+
+  const sb = await db()
+
+  // Get all messages sent or received by this parent
+  const { data: messages } = await sb
+    .from('messages')
+    .select('id, sender_id, receiver_id, content, is_read, created_at')
+    .or(`sender_id.eq.${profileId},receiver_id.eq.${profileId}`)
+    .order('created_at', { ascending: true })
+    .limit(200)
+
+  if (!messages || messages.length === 0) return []
+
+  // Group by the other party (the coach)
+  const conversationMap = new Map<string, typeof messages>()
+  for (const msg of messages) {
+    const otherId = msg.sender_id === profileId ? msg.receiver_id : msg.sender_id
+    if (!conversationMap.has(otherId)) conversationMap.set(otherId, [])
+    conversationMap.get(otherId)!.push(msg)
+  }
+
+  // Get coach profiles + sender profiles
+  const otherIds = [...conversationMap.keys()]
+  const { data: profiles } = await sb
+    .from('profiles')
+    .select('id, first_name, last_name, role')
+    .in('id', otherIds)
+  const profileMap = new Map(
+    (profiles ?? []).map((p) => [p.id, p]),
+  )
+
+  const result: Conversation[] = []
+  for (const [coachId, msgs] of conversationMap) {
+    const coach = profileMap.get(coachId)
+    const lastMsg = msgs[msgs.length - 1]
+    const unread = msgs.filter((m) => m.receiver_id === profileId && !m.is_read).length
+
+    result.push({
+      id: coachId,
+      coachName: coach ? `Coach ${coach.first_name} ${coach.last_name}` : 'Coach',
+      coachId,
+      lastMessage: lastMsg?.content ?? '',
+      lastMessageAt: lastMsg?.created_at ?? '',
+      unreadCount: unread,
+      messages: msgs.map((m) => {
+        const sender = m.sender_id === profileId ? null : profileMap.get(m.sender_id)
+        return {
+          id: m.id,
+          senderId: m.sender_id,
+          senderName: m.sender_id === profileId ? 'You' : sender ? `${sender.first_name} ${sender.last_name}` : 'Coach',
+          senderRole: m.sender_id === profileId ? 'parent' as const : 'coach' as const,
+          text: m.content,
+          timestamp: m.created_at,
+        }
+      }),
+    })
+  }
+
+  // Sort by most recent message
+  result.sort((a, b) => (a.lastMessageAt < b.lastMessageAt ? 1 : -1))
+  return result
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1065,22 +1242,86 @@ export async function getCoachSessions(profileId: string): Promise<CoachSession[
   })
 }
 
-/** Coach editable notes. (No dedicated table — returns empty.) */
-export async function getCoachEditableNotes(_profileId: string) {
+/** Coach editable notes — recent notes by this coach. */
+export async function getCoachEditableNotes(profileId: string) {
   if (!supabaseConfigured()) {
     const { mockCoachEditableNotes } = await import('@/lib/mock-data')
     return mockCoachEditableNotes
   }
-  return []
+
+  const sb = await db()
+
+  const { data: notes } = await sb
+    .from('coach_notes')
+    .select('id, student_id, content, updated_at')
+    .eq('coach_id', profileId)
+    .order('updated_at', { ascending: false })
+    .limit(10)
+
+  if (!notes || notes.length === 0) return []
+
+  // Get student names
+  const studentIds = [...new Set(notes.map((n) => n.student_id))]
+  const { data: profiles } = await sb
+    .from('profiles')
+    .select('id, first_name, last_name')
+    .in('id', studentIds)
+  const nameMap = new Map(
+    (profiles ?? []).map((p) => [p.id, `${p.first_name} ${p.last_name}`]),
+  )
+
+  return notes.map((n) => ({
+    id: n.id,
+    studentName: nameMap.get(n.student_id) ?? 'Student',
+    content: n.content,
+    updatedAt: new Date(n.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+  }))
 }
 
-/** Coach notes library. (No dedicated table — returns empty.) */
-export async function getCoachNotesLibrary(_profileId: string): Promise<CoachNoteEntry[]> {
+/** Coach notes library — all notes by this coach, grouped for filtering. */
+export async function getCoachNotesLibrary(profileId: string): Promise<CoachNoteEntry[]> {
   if (!supabaseConfigured()) {
     const { mockCoachNotesLibrary } = await import('@/lib/mock-data')
     return mockCoachNotesLibrary
   }
-  return []
+
+  const sb = await db()
+
+  const { data: notes } = await sb
+    .from('coach_notes')
+    .select('id, student_id, track_id, content, created_at')
+    .eq('coach_id', profileId)
+    .order('created_at', { ascending: false })
+    .limit(100)
+
+  if (!notes || notes.length === 0) return []
+
+  // Get student names + tracks
+  const studentIds = [...new Set(notes.map((n) => n.student_id))]
+  const trackIds = [...new Set(notes.map((n) => n.track_id).filter(Boolean))]
+
+  const { data: profiles } = await sb
+    .from('profiles')
+    .select('id, first_name, last_name')
+    .in('id', studentIds)
+  const nameMap = new Map(
+    (profiles ?? []).map((p) => [p.id, `${p.first_name} ${p.last_name}`]),
+  )
+
+  let trackMap = new Map()
+  if (trackIds.length > 0) {
+    const { data: tracks } = await sb.from('tracks').select('id, name').in('id', trackIds)
+    trackMap = new Map((tracks ?? []).map((t) => [t.id, t.name]))
+  }
+
+  return notes.map((n) => ({
+    id: n.id,
+    studentName: nameMap.get(n.student_id) ?? 'Student',
+    studentId: n.student_id,
+    date: new Date(n.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    track: (n.track_id ? trackMap.get(n.track_id) ?? 'coding' : 'coding') as TrackName,
+    content: n.content,
+  }))
 }
 
 /** Upcoming sessions in the card format used by coach/parent home pages. */
@@ -1270,14 +1511,13 @@ export async function getAdminStudents(): Promise<AdminStudentRow[]> {
 
   if (!students) return []
 
+  // Batch-fetch emails from auth.users
+  const userIds = students.map((s) => s.user_id)
+  const emailMap = await fetchUserEmails(userIds)
+
   const results: AdminStudentRow[] = []
   for (const s of students) {
-    // Get email via auth (won't work without service role — fallback)
-    let email = ''
-    try {
-      // Use user_id to look up — but we can't access auth.users from client
-      // Instead just leave email empty for now
-    } catch { /* */ }
+    const email = emailMap.get(s.user_id) ?? ''
 
     // Track assignments
     const { data: assignments } = await sb
@@ -1333,11 +1573,14 @@ export async function getAdminCoaches(): Promise<AdminCoachRow[]> {
   const sb = await db()
   const { data: coaches } = await sb
     .from('profiles')
-    .select('id, first_name, last_name, avatar_url, approved')
+    .select('id, user_id, first_name, last_name, avatar_url, approved')
     .eq('role', 'coach')
     .order('created_at', { ascending: false })
 
   if (!coaches) return []
+
+  // Batch-fetch emails
+  const coachEmailMap = await fetchUserEmails(coaches.map((c) => c.user_id))
 
   const results: AdminCoachRow[] = []
   for (const c of coaches) {
@@ -1358,7 +1601,7 @@ export async function getAdminCoaches(): Promise<AdminCoachRow[]> {
       id: c.id,
       firstName: c.first_name,
       lastName: c.last_name,
-      email: '',
+      email: coachEmailMap.get(c.user_id) ?? '',
       avatarUrl: c.avatar_url,
       studentCount: studentCount ?? 0,
       sessionsThisWeek: 0,
@@ -1488,6 +1731,31 @@ export async function getAdminRevenue() {
       trend: 'flat' as const,
       trendIsPositive: true,
     },
+  }
+}
+
+/** Fetch the latest progress report draft/sent for a student, or return null. */
+export async function getProgressReportForStudent(studentId: string, coachId: string) {
+  if (!supabaseConfigured()) return null
+
+  const sb = await db()
+
+  const { data } = await sb
+    .from('progress_reports')
+    .select('id, period, status, report_data, created_at')
+    .eq('student_id', studentId)
+    .eq('coach_id', coachId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single()
+
+  if (!data) return null
+
+  return {
+    id: data.id as string,
+    reportData: data.report_data as Record<string, unknown>,
+    period: data.period as string,
+    status: data.status as string,
   }
 }
 

@@ -1,0 +1,22 @@
+Add PR review checklist from usability audit
+
+Created comprehensive QA gate for dashboard PRs based on founder's usability audit findings:
+- 23 of 25 pages with mock data
+- 16 dead buttons
+- 4 fake save/send operations
+- Broken sign-out
+- Marketing link leaks
+
+Deliverables:
+- 12 automated grep checks to catch common issues
+- 31 manual review items across 6 categories
+- P0/P1/P2 merge rules (critical/high/medium)
+- PR summary template
+
+Files:
+- .squad/checklists/pr-review-checklist.md
+- .squad/orchestration-log/2026-04-07T15-43-frank.md
+- .squad/log/2026-04-07T15-43-pr-checklist.md
+- .squad/decisions.md (merged DEC-025)
+
+Prevents recurrence by enforcing QA checks at PR merge time.

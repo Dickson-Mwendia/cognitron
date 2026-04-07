@@ -224,7 +224,7 @@ export default async function ParentDashboard() {
           </div>
         ) : (
           <div className="space-y-4">
-            {coachNotes.map((note) => (
+            {coachNotes.map((note: { id: string; coachName: string; date: string; text: string; childName: string; track: string }) => (
               <div
                 key={note.id}
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-gray-300"

@@ -1,19 +1,29 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react'
+
+/** Map role → home path (mirrors server-side roleHomePath in auth.ts). */
+function roleHome(role: string): string {
+  switch (role) {
+    case 'admin':  return '/admin'
+    case 'coach':  return '/coach'
+    case 'parent': return '/parent'
+    default:       return '/dashboard'
+  }
+}
 
 export function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [rememberMe, setRememberMe] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const supabaseConfigured =
     !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -31,14 +41,36 @@ export function LoginForm() {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
-      if (error) {
-        setError(error.message)
+      if (signInError) {
+        setError(signInError.message)
       } else {
-        router.push('/dashboard')
+        // Determine where to send the user based on their role
+        const redirectTo = searchParams.get('redirectTo')
+        if (redirectTo && redirectTo.startsWith('/')) {
+          router.push(redirectTo)
+        } else {
+          // Fetch role from profile to redirect to the correct dashboard
+          const userId = data.user?.id
+          if (userId) {
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('role, approved')
+              .eq('user_id', userId)
+              .single() as { data: { role: string; approved: boolean } | null }
+
+            if (profile && !profile.approved) {
+              router.push('/pending-approval')
+            } else {
+              router.push(roleHome(profile?.role ?? 'student'))
+            }
+          } else {
+            router.push('/dashboard')
+          }
+        }
         router.refresh()
       }
     } catch (err) {
@@ -131,20 +163,8 @@ export function LoginForm() {
           </div>
         </div>
 
-        {/* Remember me + Forgot password */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="remember"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              className="w-4 h-4 rounded border-gray-300 bg-white text-gold focus:ring-gold/50 focus:ring-offset-0"
-            />
-            <label htmlFor="remember" className="text-sm text-slate select-none cursor-pointer">
-              Remember me
-            </label>
-          </div>
+        {/* Help link */}
+        <div className="flex items-center justify-end">
           <Link
             href="/contact"
             className="text-sm text-gold hover:text-gold-dark transition-colors"

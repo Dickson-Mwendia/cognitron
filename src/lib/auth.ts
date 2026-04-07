@@ -4,6 +4,8 @@ import { mockStudent, mockParent, mockCoach, mockAdmin } from '@/lib/mock-data'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 /** Map a user role to its home page path. */
 export function roleHomePath(role: UserRole): string {
   switch (role) {
@@ -104,8 +106,14 @@ export async function requireAuth(): Promise<DashboardUser> {
   const user = await getCurrentUser()
 
   if (!user) {
-    // In dev without Supabase, return a route-appropriate mock user
+    // In dev without Supabase, return a route-appropriate mock user.
+    // NEVER allow mock users in production — misconfigured env = hard fail.
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      if (isProduction) {
+        throw new Error(
+          'NEXT_PUBLIC_SUPABASE_URL is not configured. Cannot serve dashboard in production without Supabase.',
+        )
+      }
       const role = await getMockRoleFromPath()
       return getMockUser(role)
     }

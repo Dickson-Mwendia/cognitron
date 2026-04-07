@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import type { TrackName } from '@/types'
+import { createCoachAccount } from '@/lib/actions'
 
 interface CreateCoachModalProps {
   open: boolean
@@ -21,22 +22,34 @@ export function CreateCoachModal({ open, onClose }: CreateCoachModalProps) {
   const [email, setEmail] = useState('')
   const [tracks, setTracks] = useState<TrackName[]>([])
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   function toggleTrack(t: TrackName) {
     setTracks((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFirstName('')
-      setLastName('')
-      setEmail('')
-      setTracks([])
-      onClose()
-    }, 1500)
+    setLoading(true)
+    setError(null)
+
+    const result = await createCoachAccount(firstName.trim(), lastName.trim(), email.trim(), tracks)
+
+    if (result.success) {
+      setSubmitted(true)
+      setTimeout(() => {
+        setSubmitted(false)
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+        setTracks([])
+        onClose()
+      }, 1500)
+    } else {
+      setError(result.error)
+    }
+    setLoading(false)
   }
 
   if (!open) return null
@@ -56,6 +69,11 @@ export function CreateCoachModal({ open, onClose }: CreateCoachModalProps) {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-medium text-[#0c1b33]/60 mb-1">First Name</label>

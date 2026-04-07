@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { saveCoachNote } from '@/lib/actions'
 
 export interface CoachNote {
   id: string
@@ -18,30 +19,38 @@ export function CoachNoteEditor({ notes: initialNotes }: CoachNoteEditorProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editContent, setEditContent] = useState('')
   const [savingId, setSavingId] = useState<string | null>(null)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const handleEdit = (note: CoachNote) => {
     setEditingId(note.id)
     setEditContent(note.content)
+    setSaveError(null)
   }
 
   const handleCancel = () => {
     setEditingId(null)
     setEditContent('')
+    setSaveError(null)
   }
 
   const handleSave = async (noteId: string) => {
     setSavingId(noteId)
-    // Optimistic update
-    setNotes((prev) =>
-      prev.map((n) =>
-        n.id === noteId
-          ? { ...n, content: editContent, updatedAt: 'Just now' }
-          : n,
-      ),
-    )
-    setEditingId(null)
-    // Simulate save delay
-    await new Promise((r) => setTimeout(r, 800))
+    setSaveError(null)
+
+    const result = await saveCoachNote(noteId, editContent)
+
+    if (result.success) {
+      setNotes((prev) =>
+        prev.map((n) =>
+          n.id === noteId
+            ? { ...n, content: editContent, updatedAt: 'Just now' }
+            : n,
+        ),
+      )
+      setEditingId(null)
+    } else {
+      setSaveError(result.error)
+    }
     setSavingId(null)
   }
 

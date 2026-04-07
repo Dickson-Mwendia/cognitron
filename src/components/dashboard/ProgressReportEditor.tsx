@@ -13,25 +13,53 @@ import {
   X,
 } from 'lucide-react'
 import type { ProgressReportData } from '@/lib/mock-data'
+import { saveProgressReport, sendProgressReport } from '@/lib/actions'
 
 interface ProgressReportEditorProps {
   initialData: ProgressReportData
   backHref: string
   backLabel: string
+  reportId?: string | null
 }
 
 export function ProgressReportEditor({
   initialData,
   backHref,
   backLabel,
+  reportId = null,
 }: ProgressReportEditorProps) {
   const [report, setReport] = useState<ProgressReportData>(initialData)
   const [toast, setToast] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
   const [newAchievement, setNewAchievement] = useState('')
 
   function showToast(msg: string) {
     setToast(msg)
     setTimeout(() => setToast(null), 3000)
+  }
+
+  async function handleSaveDraft() {
+    setSaving(true)
+    const result = await saveProgressReport(
+      reportId,
+      report.studentId,
+      report as unknown as Record<string, unknown>,
+      report.period,
+    )
+    setSaving(false)
+    showToast(result.success ? 'Draft saved successfully' : result.error)
+  }
+
+  async function handleSendToParent() {
+    setSaving(true)
+    const result = await sendProgressReport(
+      reportId,
+      report.studentId,
+      report as unknown as Record<string, unknown>,
+      report.period,
+    )
+    setSaving(false)
+    showToast(result.success ? 'Report sent to parent' : result.error)
   }
 
   function updateField<K extends keyof ProgressReportData>(
@@ -137,8 +165,9 @@ export function ProgressReportEditor({
           <div className="flex gap-2 flex-wrap">
             <button
               type="button"
-              onClick={() => showToast('Draft saved successfully')}
-              className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-[#0c1b33] transition-colors hover:bg-gray-50"
+              onClick={handleSaveDraft}
+              disabled={saving}
+              className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-[#0c1b33] transition-colors hover:bg-gray-50 disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
               Save Draft
@@ -153,8 +182,9 @@ export function ProgressReportEditor({
             </button>
             <button
               type="button"
-              onClick={() => showToast('Report sent to parent')}
-              className="inline-flex items-center gap-2 rounded-full bg-[#0c1b33] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#162d50]"
+              onClick={handleSendToParent}
+              disabled={saving}
+              className="inline-flex items-center gap-2 rounded-full bg-[#0c1b33] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#162d50] disabled:opacity-50"
             >
               <Send className="w-4 h-4" />
               Send to Parent
@@ -558,16 +588,18 @@ export function ProgressReportEditor({
         <div className="flex gap-3 justify-end pb-8 print:hidden">
           <button
             type="button"
-            onClick={() => showToast('Draft saved successfully')}
-            className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-[#0c1b33] transition-colors hover:bg-gray-50"
+            onClick={handleSaveDraft}
+            disabled={saving}
+            className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-[#0c1b33] transition-colors hover:bg-gray-50 disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             Save Draft
           </button>
           <button
             type="button"
-            onClick={() => showToast('Report sent to parent')}
-            className="inline-flex items-center gap-2 rounded-full bg-[#0c1b33] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#162d50]"
+            onClick={handleSendToParent}
+            disabled={saving}
+            className="inline-flex items-center gap-2 rounded-full bg-[#0c1b33] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#162d50] disabled:opacity-50"
           >
             <Send className="w-4 h-4" />
             Send to Parent

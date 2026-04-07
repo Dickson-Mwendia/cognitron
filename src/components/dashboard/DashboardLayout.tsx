@@ -119,10 +119,15 @@ export function DashboardLayout({
   const router = useRouter();
 
   async function handleSignOut() {
+    // Client-side sign out first (clears local auth state)
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    // Then hit the server route to clear server-side cookies
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/api/auth/signout';
+    document.body.appendChild(form);
+    form.submit();
   }
 
   const navItems = navByRole[role] ?? navByRole.student;

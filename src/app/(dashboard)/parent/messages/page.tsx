@@ -22,7 +22,11 @@ export default async function MessagesPage() {
         </p>
       </div>
 
-      <ParentMessagesClient conversations={conversations} />
+      <ParentMessagesClient
+        conversations={conversations}
+        currentUserId={user.id}
+        currentUserName={`${user.firstName} ${user.lastName}`}
+      />
     </div>
   )
 }

@@ -740,6 +740,105 @@ export type Database = {
           resolved_at?: string | null
         }
       }
+      coach_notes: {
+        Row: {
+          id: string
+          coach_id: string
+          student_id: string
+          track_id: string | null
+          content: string
+          session_id: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          student_id: string
+          track_id?: string | null
+          content: string
+          session_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          coach_id?: string
+          student_id?: string
+          track_id?: string | null
+          content?: string
+          session_id?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      progress_reports: {
+        Row: {
+          id: string
+          coach_id: string
+          student_id: string
+          period: string
+          period_start: string | null
+          period_end: string | null
+          status: 'draft' | 'sent'
+          report_data: Record<string, unknown>
+          sent_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          coach_id: string
+          student_id: string
+          period: string
+          period_start?: string | null
+          period_end?: string | null
+          status?: 'draft' | 'sent'
+          report_data?: Record<string, unknown>
+          sent_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          coach_id?: string
+          student_id?: string
+          period?: string
+          period_start?: string | null
+          period_end?: string | null
+          status?: 'draft' | 'sent'
+          report_data?: Record<string, unknown>
+          sent_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      messages: {
+        Row: {
+          id: string
+          sender_id: string
+          receiver_id: string
+          content: string
+          is_read: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          sender_id: string
+          receiver_id: string
+          content: string
+          is_read?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          sender_id?: string
+          receiver_id?: string
+          content?: string
+          is_read?: boolean
+          created_at?: string
+        }
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
