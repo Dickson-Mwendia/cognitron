@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "Academy | Cognitron | Kids Coding, AI & Chess in Nairobi",
   description:
     "Three tracks: Coding & Apps, AI & Machine Learning, Chess & Strategy. Ages 6–17. Expert coaches at your home or online. Groups of 4. Nairobi.",
+  openGraph: {
+    title: "Academy | Cognitron | Kids Coding, AI & Chess in Nairobi",
+    description:
+      "Three tracks: Coding & Apps, AI & Machine Learning, Chess & Strategy. Ages 6–17. Expert coaches at your home or online. Groups of 4. Nairobi.",
+    url: "/academy",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Cognitron Academy — Coding, AI & Chess for Kids in Nairobi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Academy | Cognitron | Kids Coding, AI & Chess in Nairobi",
+    description:
+      "Three tracks: Coding & Apps, AI & Machine Learning, Chess & Strategy. Ages 6–17. Expert coaches at your home or online. Groups of 4. Nairobi.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 const tracks = [
@@ -17,7 +31,7 @@ const tracks = [
     title: "Coding & app development",
     ages: "Ages 8–17",
     description:
-      "Younger students start with Scratch - building games and animations through visual, drag-and-drop coding. Older students progress to Python and web development. Every child works at their own pace and finishes each term with something they built themselves.",
+      "Younger students start with Scratch - building games and animations through visual, drag-and-drop coding. Older students progress to Python and web development. Every child works at their own pace and finishes each term with something they built themselves. Every program your child writes is applied mathematics — sequencing, logic, variables, and conditional reasoning — put to work building something real.",
     outcomes: [
       "Build interactive games, animations, and creative projects",
       "Create a personal website with HTML & CSS",
@@ -32,7 +46,7 @@ const tracks = [
     title: "AI & machine learning for kids",
     ages: "Ages 10–17",
     description:
-      "Your child already uses AI every day (YouTube, Siri, photo filters). We help them understand how it works, use AI tools creatively, and think critically about a technology that will shape their future. Starts with hands-on experiments - no prior coding needed.",
+      "Your child already uses AI every day (YouTube, Siri, photo filters). We help them understand how it works, use AI tools creatively, and think critically about a technology that will shape their future. Starts with hands-on experiments - no prior coding needed. Behind every AI experiment is real mathematics — spotting patterns in data, understanding probability, and learning how numbers become predictions.",
     outcomes: [
       "Train an image recogniser using visual tools (no coding needed)",
       "Build a custom AI chatbot with its own personality and purpose",
@@ -47,7 +61,7 @@ const tracks = [
     title: "Chess & strategic thinking",
     ages: "Ages 6–17",
     description:
-      "Chess builds focus, patience, and structured thinking - skills that transfer to every subject in school. Our coaches are rated players who teach one-on-one or in small groups, adapting to your child's level and gradually building toward competitive play.",
+      "Chess builds focus, patience, and structured thinking - skills that transfer to every subject in school. Our coaches are rated players who teach one-on-one or in small groups, adapting to your child's level and gradually building toward competitive play. Every move is a maths problem: calculation, spatial reasoning, probability, and the discipline of thinking several steps ahead before acting.",
     outcomes: [
       "Learn opening principles, tactical patterns, and endgame basics",
       "Develop concentration and the ability to think several moves ahead",
@@ -149,14 +163,15 @@ export default function AcademyPage() {
               Built on computational thinking
             </h2>
             <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
-              Every track at Cognitron Academy is grounded in computational
-              thinking: the ability to break complex problems into manageable
-              parts, spot patterns, focus on what matters, and design clear,
-              step-by-step solutions. It is not a separate subject. It is the
-              thinking framework that makes everything else click.
+              Maths, logic, and problem-solving are the backbone of every track
+              we teach. Computational thinking is the formal name for it —
+              breaking problems into parts, spotting patterns, filtering out
+              noise, and designing step-by-step solutions. Your child won&apos;t
+              sit through maths drills. They&apos;ll use mathematical thinking to
+              build things that work.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {[
               {
                 icon: Puzzle,
@@ -177,6 +192,11 @@ export default function AcademyPage() {
                 icon: ListChecks,
                 title: "Algorithmic design",
                 desc: "Creating clear, ordered steps to reach a solution. The discipline behind clean code, sound strategy, and systematic thinking in every domain.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Mathematical thinking",
+                desc: "The quantitative reasoning that runs through everything we teach. Coding uses logic and algorithms, chess demands calculation and probability, and AI relies on data patterns and statistics — your child builds genuine mathematical fluency without ever feeling like they're doing homework.",
               },
             ].map((pillar) => (
               <div

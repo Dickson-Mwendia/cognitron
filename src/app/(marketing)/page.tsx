@@ -50,6 +50,14 @@ const testimonials = [
     detail: "Parent, Nairobi",
     childContext: "Daughter, age 14 - AI track",
   },
+  // PLACEHOLDER: Replace with real testimonial
+  {
+    quote:
+      "I enrolled Njeri in the coding track because she wanted to make apps — I wasn't thinking about maths at all. Then her Year 7 teacher called to say she'd jumped two sets in maths. When I asked Njeri about it, she shrugged and said 'It's just logic, Mum — same as debugging.' That's when I knew this was worth every shilling.",
+    name: "Florence W.",
+    detail: "Mother, Karen",
+    childContext: "Daughter, age 12 - Coding track",
+  },
 ];
 
 export const dynamic = 'force-static'
@@ -618,6 +626,10 @@ export default function Home() {
               {
                 q: "My child already learns coding at school. Is Cognitron worth it?",
                 a: "School ICT covers basics - Scratch, introductory HTML - in a class of 30+. Cognitron teaches real Python, JavaScript, and AI tools, with a dedicated coach for groups of 4 or fewer. We build on what school teaches. We never repeat it.",
+              },
+              {
+                q: "Does Cognitron help with school maths?",
+                a: "Every track builds mathematical thinking — but we're not a maths tutor. Coding teaches logic, sequencing, and algorithms. Chess develops calculation, spatial reasoning, and probability. AI introduces data patterns, statistics, and estimation. We teach the thinking behind the maths, and parents consistently tell us their children's confidence and performance in school maths improves as a result. We complement school — we don't replace it.",
               },
               {
                 q: "How do I know my child is progressing?",
