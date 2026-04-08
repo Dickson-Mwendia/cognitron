@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   title: {
     default: "Cognitron | Coding, AI & Chess Coaching for Kids in Nairobi",
-    template: "%s | Cognitron",
+    template: "%s",
   },
   description:
     "Coding, AI, and Chess coaching for kids aged 6–17 in Nairobi, Kenya. Expert coaches come to your home or teach live online. Groups of 4 or fewer. Book a free trial lesson.",

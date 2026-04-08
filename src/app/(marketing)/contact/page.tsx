@@ -80,7 +80,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-navy">Call us</p>
-                    <p className="text-sm text-slate">+254 710 643 847</p>
+                    <a href="tel:+254710643847" className="text-sm text-slate hover:text-gold transition-colors">+254 710 643 847</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -89,7 +89,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-navy">Email</p>
-                    <p className="text-sm text-slate">hello@cognitron.tech</p>
+                    <a href="mailto:hello@cognitron.tech" className="text-sm text-slate hover:text-gold transition-colors">hello@cognitron.tech</a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

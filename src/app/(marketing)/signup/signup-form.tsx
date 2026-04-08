@@ -45,6 +45,7 @@ export function SignupForm() {
   const [error, setError] = useState<string | null>(urlError)
   const [loading, setLoading] = useState(false)
   const [ageBlocked, setAgeBlocked] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
   const router = useRouter()
 
   const supabaseConfigured =
@@ -105,8 +106,8 @@ export function SignupForm() {
       if (signUpError) {
         setError(signUpError.message)
       } else {
-        router.push('/pending-approval')
-        router.refresh()
+        // Show email confirmation screen instead of immediately redirecting
+        setEmailSent(true)
       }
     } catch (err) {
       console.error('[signup] Unexpected error:', err)
@@ -158,6 +159,45 @@ export function SignupForm() {
             className="text-sm text-slate hover:text-navy transition-colors mt-2"
           >
             ← Go back
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Email sent — confirmation screen ──
+  if (emailSent) {
+    return (
+      <div className="bg-white rounded-2xl shadow-2xl p-8 text-center">
+        <div className="w-16 h-16 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-6">
+          <Mail className="h-8 w-8 text-teal" />
+        </div>
+        <h2 className="font-heading text-2xl text-navy font-bold mb-3">
+          Check your email
+        </h2>
+        <p className="text-slate text-sm mb-2">
+          We&apos;ve sent a confirmation link to <strong className="text-navy">{email}</strong>.
+        </p>
+        <p className="text-slate text-sm mb-6">
+          Click the link in the email to activate your account. Once confirmed, our team
+          will review your account — this usually takes less than 24 hours.
+        </p>
+        <p className="text-xs text-slate/60 mb-6">
+          Didn&apos;t receive it? Check your spam folder, or try again in a few minutes.
+        </p>
+        <div className="flex flex-col gap-3">
+          <Link
+            href="/login"
+            className="w-full flex items-center justify-center gap-2 bg-gold hover:bg-gold-dark text-navy font-semibold py-2.5 rounded-full transition-colors"
+          >
+            Go to Sign In →
+          </Link>
+          <button
+            type="button"
+            onClick={() => setEmailSent(false)}
+            className="text-sm text-slate hover:text-navy transition-colors mt-2"
+          >
+            ← Go back to sign up
           </button>
         </div>
       </div>

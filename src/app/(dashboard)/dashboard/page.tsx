@@ -91,6 +91,24 @@ export default async function StudentDashboard() {
         <h2 className="font-heading text-xl font-bold text-navy mb-4">
           Your Tracks
         </h2>
+        {data.tracks.length === 0 ? (
+          <div className="rounded-2xl border-2 border-dashed border-gold/30 bg-white p-8 text-center">
+            <span className="text-4xl mb-3 block">🎯</span>
+            <h3 className="font-heading text-lg font-bold text-navy mb-2">
+              No tracks yet
+            </h3>
+            <p className="text-sm text-navy/60 mb-4 max-w-sm mx-auto">
+              Your coach will assign you to a learning track after your first session.
+              Explore what&apos;s available!
+            </p>
+            <Link
+              href="/dashboard/tracks"
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold-light hover:shadow-md active:scale-[0.98]"
+            >
+              Browse Tracks →
+            </Link>
+          </div>
+        ) : (
         <div className="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible snap-x snap-mandatory md:snap-none">
           {data.tracks.map((track) => (
             <Link
@@ -108,6 +126,7 @@ export default async function StudentDashboard() {
             </Link>
           ))}
         </div>
+        )}
       </section>
 
       {/* Section C: Streak, XP & Daily Challenge — gamification strip */}
@@ -245,10 +264,10 @@ export default async function StudentDashboard() {
           📅 My Schedule
         </Link>
         <Link
-          href="/dashboard/schedule"
+          href="/contact"
           className="rounded-full border-2 border-gold px-5 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold/10 hover:shadow-sm active:scale-[0.97]"
         >
-          💬 Ask Coach
+          💬 Contact Coach
         </Link>
       </section>
     </div>

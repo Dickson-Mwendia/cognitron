@@ -5,6 +5,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: [
+        "/dashboard",
+        "/admin",
+        "/coach",
+        "/parent",
+        "/pending-approval",
+        "/api/",
+        "/auth/",
+      ],
     },
     sitemap: "https://cognitron.tech/sitemap.xml",
   };

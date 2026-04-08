@@ -50,26 +50,25 @@ export function LoginForm() {
       } else {
         // Determine where to send the user based on their role
         const redirectTo = searchParams.get('redirectTo')
-        if (redirectTo && redirectTo.startsWith('/')) {
-          router.push(redirectTo)
-        } else {
-          // Fetch role from profile to redirect to the correct dashboard
-          const userId = data.user?.id
-          if (userId) {
-            const { data: profile } = await supabase
-              .from('profiles')
-              .select('role, approved')
-              .eq('user_id', userId)
-              .single() as { data: { role: string; approved: boolean } | null }
 
-            if (profile && !profile.approved) {
-              router.push('/pending-approval')
-            } else {
-              router.push(roleHome(profile?.role ?? 'student'))
-            }
+        // Fetch role + approval from profile to redirect correctly
+        const userId = data.user?.id
+        if (userId) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role, approved')
+            .eq('user_id', userId)
+            .single() as { data: { role: string; approved: boolean } | null }
+
+          if (profile && !profile.approved) {
+            router.push('/pending-approval')
+          } else if (redirectTo && redirectTo.startsWith('/')) {
+            router.push(redirectTo)
           } else {
-            router.push('/dashboard')
+            router.push(roleHome(profile?.role ?? 'student'))
           }
+        } else {
+          router.push('/dashboard')
         }
         router.refresh()
       }
@@ -166,10 +165,10 @@ export function LoginForm() {
         {/* Help link */}
         <div className="flex items-center justify-end">
           <Link
-            href="/contact"
+            href="/forgot-password"
             className="text-sm text-gold hover:text-gold-dark transition-colors"
           >
-            Need help signing in? Contact us
+            Forgot your password?
           </Link>
         </div>
 

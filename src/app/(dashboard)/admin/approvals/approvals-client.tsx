@@ -12,7 +12,7 @@ export default function ApprovalsClient({ initialUsers }: ApprovalsClientProps) 
   const [users, setUsers] = useState<PendingUser[]>(initialUsers)
   const [search, setSearch] = useState('')
   const [processing, setProcessing] = useState<string | null>(null)
-  const [flash, setFlash] = useState<{ type: 'approve' | 'reject'; name: string } | null>(null)
+  const [flash, setFlash] = useState<{ type: 'approve' | 'reject' | 'error'; name: string } | null>(null)
   const [rejectTarget, setRejectTarget] = useState<PendingUser | null>(null)
 
   const filtered = users.filter((u) => {
@@ -31,6 +31,9 @@ export default function ApprovalsClient({ initialUsers }: ApprovalsClientProps) 
       setUsers((prev) => prev.filter((u) => u.id !== user.id))
       setFlash({ type: 'approve', name: `${user.firstName} ${user.lastName}` })
       setTimeout(() => setFlash(null), 3000)
+    } else {
+      setFlash({ type: 'error', name: result.error ?? 'Failed to approve user' })
+      setTimeout(() => setFlash(null), 4000)
     }
     setProcessing(null)
   }
@@ -48,6 +51,9 @@ export default function ApprovalsClient({ initialUsers }: ApprovalsClientProps) 
       setUsers((prev) => prev.filter((u) => u.id !== rejectTarget.id))
       setFlash({ type: 'reject', name: `${rejectTarget.firstName} ${rejectTarget.lastName}` })
       setTimeout(() => setFlash(null), 3000)
+    } else {
+      setFlash({ type: 'error', name: result.error ?? 'Failed to reject user' })
+      setTimeout(() => setFlash(null), 4000)
     }
     setProcessing(null)
   }
@@ -106,7 +112,9 @@ export default function ApprovalsClient({ initialUsers }: ApprovalsClientProps) 
           className={`mb-4 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 ${
             flash.type === 'approve'
               ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-              : 'bg-red-50 text-red-700 border border-red-200'
+              : flash.type === 'error'
+                ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                : 'bg-red-50 text-red-700 border border-red-200'
           }`}
         >
           {flash.type === 'approve' ? (
